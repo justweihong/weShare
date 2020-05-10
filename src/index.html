@@ -8,6 +8,29 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-analytics.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCRmyGZno8HZi7mLkLxpYeHNaK3aILW7cA",
+            authDomain: "splashbros-126a0.firebaseapp.com",
+            databaseURL: "https://splashbros-126a0.firebaseio.com",
+            projectId: "splashbros-126a0",
+            storageBucket: "splashbros-126a0.appspot.com",
+            messagingSenderId: "382839271682",
+            appId: "1:382839271682:web:10b7b924e3a6b1854b521b",
+            measurementId: "G-33FQ17N2YX"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
   <app-root></app-root>
 </body>
 </html>

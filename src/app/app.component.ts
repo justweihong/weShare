@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import {Router, ActivatedRoute,  NavigationEnd} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'SplashBros';
+  path:any;
+  //isLoggedin: Boolean = false;
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+  ){}
+
+  ngOnInit(){
+  }
 }
