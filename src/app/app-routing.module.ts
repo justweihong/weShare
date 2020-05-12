@@ -11,6 +11,7 @@ const routes: Routes = [
 
     { path: 'login', component: LoginComponent },
     { path: 'explore', component: ExploreComponent},
+    {path: '**', redirectTo: 'login'}
     //{ path: 'explore', redirectTo: '/explore'},
 ];
 
