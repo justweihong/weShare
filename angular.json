@@ -24,7 +24,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           },
@@ -88,7 +89,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           }
@@ -119,6 +121,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "SplashBros"
+    }
+  },
+  "defaultProject": "SplashBros",
+  "cli": {
+    "analytics": "0e490e90-5cc3-4044-94b0-67c16ab01c3c"
+  }
 }

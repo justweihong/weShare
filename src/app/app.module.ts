@@ -4,9 +4,20 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import * as firebase from "firebase/app";
+import { LoginComponent } from './login/login.component';
+import { ExploreComponent } from './explore/explore.component';
+import { RequestComponent } from './request/request.component';
+import { NavbarComponent } from './navbar/navbar.component';
+
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    ExploreComponent,
+    RequestComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
