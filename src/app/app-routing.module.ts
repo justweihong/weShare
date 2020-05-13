@@ -12,7 +12,6 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'explore', component: ExploreComponent},
     //{ path: 'explore', redirectTo: '/explore'},
-    //testing
 ];
 
 @NgModule({
