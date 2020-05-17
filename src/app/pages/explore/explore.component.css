@@ -1,0 +1,27 @@
+section {
+  position:absolute;
+  top:200px;
+    text-align: left;
+}
+
+
+div {
+    width: fit-content;
+    margin-left: 200px;
+    margin-top: -120px;
+}
+
+.nav-link.active {
+  width: fit-content;
+  text-decoration: underline;
+  
+}
+
+h1 {
+  padding-left: 30px ;
+  padding-top: 25px;
+  width: fit-content;
+  font-family: serif;
+  font-style: italic;
+  text-shadow: 2px 2px 5px rgb(45, 135, 253);
+}

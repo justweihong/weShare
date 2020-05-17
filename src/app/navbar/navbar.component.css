@@ -1,3 +1,8 @@
 .bg {
     background-color: #5d97b9!important;
 }
+
+.nav-link.active  {
+    text-decoration: underline;
+    text-decoration-color: black;
+}

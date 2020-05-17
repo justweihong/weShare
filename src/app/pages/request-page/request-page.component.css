@@ -1,0 +1,20 @@
+section {
+    margin-top: -170px;
+}
+
+
+::ng-deep .mat-tab-body-wrapper {
+    height: 75vh; 
+    width: 185vh;
+    /* border: solid lightcyan; */
+}
+
+/* div#button {
+    position: relative;
+    margin-left: 880px;
+    margin-top: -470px;
+} */
+
+form {
+    width: fit-content;
+}
