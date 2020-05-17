@@ -20,6 +20,8 @@
     "@angular/platform-browser": "~9.1.6",
     "@angular/platform-browser-dynamic": "~9.1.6",
     "@angular/router": "~9.1.6",
+    "@okta/okta-angular": "^2.0.0",
+    "@oktadev/schematics": "^2.0.2",
     "bootstrap": "^4.4.1",
     "firebase": "^7.14.3",
     "rxjs": "~6.5.4",
