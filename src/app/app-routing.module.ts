@@ -14,7 +14,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'home', component: HomeComponent},
     { path: 'explore', component: ExploreComponent,
-        children: [{path: 'request-page', component: RequestPageComponent}]}
+        children: [{path: 'request-page', component: RequestPageComponent}]},
     
     {path: '**', redirectTo: 'home'}
     //{ path: 'explore', redirectTo: '/explore'},
