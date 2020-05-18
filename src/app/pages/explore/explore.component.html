@@ -1,23 +1,7 @@
 
-    
-    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link active" id="available-req-tab" data-toggle="tab" href="#available-req" role="tab" aria-controls="available-req" aria-selected="true">Available Requests</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="your-req-tab" data-toggle="tab" href="#your-req" role="tab" aria-controls="your-req" aria-selected="false">Your Requests</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="completed-req-tab" data-toggle="tab" href="#completed-req" role="tab" aria-controls="completed-req" aria-selected="false">Completed Requests</a>
-      </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="available-req" role="tabpanel" aria-labelledby="available-req-tab">Content 1sssssssssssssssssssssss</div>
-      <div class="tab-pane fade" id="your-req" role="tabpanel" aria-labelledby="your-req-tab">content 2</div>
-      <div class="tab-pane fade" id="completed-req" role="tabpanel" aria-labelledby="completed-req-tab">content 3</div>
-    </div>
-  
-  
+    <header><h1><span>Welcome {{this.displayName}}, here are some of the requests</span></h1>
+
+
   
   <!-- Button trigger modal -->
   <button type="button" id = "modal-button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -122,8 +106,30 @@
 
   <!-- search bar -->
   <form id = "search-bar" class="form-inline my-2 my-lg-0">
+      <span>
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</span>
 </form>
+</header>
+
+
+
+<ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="available-req-tab" data-toggle="tab" href="#available-req" role="tab" aria-controls="available-req" aria-selected="true">Available Requests</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="your-req-tab" data-toggle="tab" href="#your-req" role="tab" aria-controls="your-req" aria-selected="false">Your Requests</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="completed-req-tab" data-toggle="tab" href="#completed-req" role="tab" aria-controls="completed-req" aria-selected="false">Completed Requests</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="available-req" role="tabpanel" aria-labelledby="available-req-tab">Content 1sssssssssssssssssssssss</div>
+    <div class="tab-pane fade" id="your-req" role="tabpanel" aria-labelledby="your-req-tab">content 2</div>
+    <div class="tab-pane fade" id="completed-req" role="tabpanel" aria-labelledby="completed-req-tab">content 3</div>
+  </div>
   
   

@@ -1,10 +1,10 @@
-#modal-button {
-  margin-top: -100px;
-  margin-left: 30px;
+ #modal-button {
+  margin-top: -73px;
+  margin-left: 780px;
 }
 
 #search-bar  {
-  width: fit-content;
+  /* width: fit-content; */
   margin-left: 950px;
-  margin-top: -78px !important;
-}
+  margin-top: -65px !important;
+} 
