@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RequestService } from "../../../services/request/request.service";
 
 @Component({
   selector: 'app-request-listing-card',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestListingCardComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+      private request: RequestService,
+  ) { }
 
   ngOnInit(): void {
+      this.display();
+  }
+  display() {
+      this.request.getValue().pipe().subscribe(requests => {
+          console.log(requests);
+      })
   }
 
 }

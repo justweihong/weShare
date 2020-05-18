@@ -8,14 +8,18 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RequestSectionComponent } from './pages/explore/request-section/request-section.component';
 
+// Authentication
+import { AuthGuard } from './services/auth/auth.guard';
+
+
+
+
 
 const routes: Routes = [
 
+    { path: 'home', component: HomeComponent}, // Landing Page
     { path: 'login', component: LoginComponent },
-    { path: 'home', component: HomeComponent},
-    { path: 'explore', component: ExploreComponent,
-        children: [{path: 'request-section', component: RequestSectionComponent}]},
-    
+    { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard]}, // Only registered users.
     {path: '**', redirectTo: 'home'}
     //{ path: 'explore', redirectTo: '/explore'},
 ];
