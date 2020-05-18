@@ -11,7 +11,7 @@ import { ExploreComponent } from './pages/explore/explore.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RequestListingCardComponent } from './components/request/request-listing-card/request-listing-card.component';
 import { HomeComponent } from './pages/home/home.component';
-import { RequestPageComponent } from './pages/request-page/request-page.component';
+import { RequestSectionComponent } from './pages/explore/request-section/request-section.component';
 import { from } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -24,7 +24,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     NavbarComponent,
     RequestListingCardComponent,
     HomeComponent,
-    RequestPageComponent,
+    RequestSectionComponent,
   ],
   imports: [
     BrowserModule,
