@@ -21,22 +21,6 @@
     background-color: #fff;
 }
 
-.app-logo {
-    width: 3.5em;
-    height: 3.5em;
-    margin-top: 1.5em;
-    margin-left: 14em;
-    float: left;
-}
-.home-header {
-    margin-left: 4em;
-    font-size: 4em;
-    color: #11264b;
-    letter-spacing: 2px;
-    padding: 0em 0.4em 0 0.4em;
-    font-family: 'Open Sans Semibold';
-}
-
 .home-sub-header {
     text-align: center;
     font-size: 2em;
