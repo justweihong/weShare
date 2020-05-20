@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { RequestService } from "../../../services/request/request.service";
 
 @Component({
@@ -7,6 +7,7 @@ import { RequestService } from "../../../services/request/request.service";
   styleUrls: ['./request-listing-card.component.css']
 })
 export class RequestListingCardComponent implements OnInit {
+    @Input() requestID: any;
 
   constructor(
       private request: RequestService,
@@ -16,7 +17,7 @@ export class RequestListingCardComponent implements OnInit {
       this.display();
   }
   display() {
-      this.request.getValue().pipe().subscribe(requests => {
+      this.request.getRequests().pipe().subscribe(requests => {
           console.log(requests);
       })
   }

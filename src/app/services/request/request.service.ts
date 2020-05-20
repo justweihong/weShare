@@ -11,7 +11,18 @@ export class RequestService {
       private afs: AngularFirestore,
   ) {}
 
-  getValue() {
+  getRequests() {
       return this.afs.collection(`requests`).valueChanges();
+  }
+
+  addRequest(requestData) {
+      const collection = this.afs.collection(`requests`);
+      if (navigator.onLine) {
+          return collection.add(requestData).then(
+              key=> {
+                  collection.doc(`${key.id}`).set({ID: key.id}, {merge: true});
+              }
+          );
+      }   
   }
 }

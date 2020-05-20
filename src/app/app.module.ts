@@ -8,12 +8,16 @@ import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
+// Forms
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { LoginComponent } from './pages/login/login.component';
 import { ExploreComponent } from './pages/explore/explore.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RequestListingCardComponent } from './components/request/request-listing-card/request-listing-card.component';
 import { HomeComponent } from './pages/home/home.component'
-import { RequestSectionComponent } from './pages/explore/request-section/request-section.component'
+import { RequestSectionComponent } from './pages/explore/request-section/request-section.component';
+import { NewRequestComponent } from './pages/explore/new-request/new-request.component'
 
 // My web app's Firebase configuration
 const firebaseConfig = {
@@ -36,10 +40,13 @@ const firebaseConfig = {
     RequestListingCardComponent,
     HomeComponent,
     RequestSectionComponent,
+    NewRequestComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
   ],
