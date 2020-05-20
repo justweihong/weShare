@@ -13,6 +13,7 @@ import { ExploreComponent } from './pages/explore/explore.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RequestListingCardComponent } from './components/request/request-listing-card/request-listing-card.component';
 import { HomeComponent } from './pages/home/home.component'
+import { RequestSectionComponent } from './pages/explore/request-section/request-section.component'
 
 // My web app's Firebase configuration
 const firebaseConfig = {
@@ -34,6 +35,7 @@ const firebaseConfig = {
     NavbarComponent,
     RequestListingCardComponent,
     HomeComponent,
+    RequestSectionComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
