@@ -54,8 +54,10 @@ export class AuthService {
     }
 
     async signOut() {
-        await this.afAuth.signOut();
-        return this.router.navigate(['/login']);
+        if (confirm(`Are you sure you want to log out?`)) {
+            await this.afAuth.signOut();
+            return window.location.href = '/login';
+        }
     }
 
     private updateUserData(user) {

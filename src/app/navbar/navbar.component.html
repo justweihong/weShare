@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg">
-    <a class="navbar-brand" style="color:rgb(204, 232, 245); font-family: 'Open Sans Semibold';font-size: 1.3em;" href="home">
-        <img src="../../assets/splash-bros.png" width="30" height="30" class="d-inline-block align-top" alt="">
+<nav class="navbar navbar-expand-lg bg">
+    <a class="navbar-brand brand-title"  href="home">
+        <img src="../../assets/splash-bros.png" width="30" height="30" class="d-inline-block" alt="">
         weShare
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -19,34 +19,34 @@
     </div>
 
     <!-- logged in navbar -->
-    <div id="registered-navbar" class="collapse navbar-collapse" *ngIf="isLogin">
-        <ul class="navbar-nav mr-auto">
+    <div id="registered-navbar" class="collapse navbar-collapse " style="margin-left: 5em;" *ngIf="isLogin">
+        <ul class="navbar-nav mr-auto" >
 
             <!-- explore tab -->
             <li class="nav-item">
-                <a class="nav-link" style="color:#fff" routerLinkActive="active" routerLink="explore">Explore</a>
+                <a class="nav-link nav-text"  routerLinkActive="active" routerLink="explore">Explore</a>
             </li>
 
             <!-- marketplace tab -->
             <li class="nav-item">
-                <a class="nav-link" style="color:#fff" routerLinkActive="active" >Marketplace</a>
+                <a class="nav-link nav-text" routerLinkActive="active" routerLink="explore">Marketplace</a>
             </li>
             
             <!-- logout tab -->
-            <li class="nav-item" style="margin-left: 5em;">
-                <a class="nav-link" style="color:#fff" routerLinkActive="active" href="login" (click)="auth.signOut()">Logout <span
+            <li class="nav-item">
+                <a class="nav-link nav-text" routerLinkActive="active" href="javascript:void(0);" (click)="auth.signOut()">Logout <span
                         class="sr-only">(current)</span></a>
             </li>
             
             <!-- profile image -->
             <li>
-                <div class="image-holder" style="margin-left: 1em;">
+                <div class="image-holder" style="margin-left: 0.5em; margin-top: 0.3em;">
                     <img src="{{this.userImg}}" class="image-holder">
                 </div>
             </li>
         </ul>
+    </div>
 
         
 
-    </div>
 </nav>

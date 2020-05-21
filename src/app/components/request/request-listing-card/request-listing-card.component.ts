@@ -8,6 +8,9 @@ import { RequestService } from "../../../services/request/request.service";
 })
 export class RequestListingCardComponent implements OnInit {
     @Input() requestID: any;
+    @Input() title: any;
+    @Input() description: any;
+    
 
   constructor(
       private request: RequestService,

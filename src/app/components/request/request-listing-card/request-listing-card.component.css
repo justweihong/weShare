@@ -1,4 +1,31 @@
-:hover {
+/* :hover {
     background: #acceeb;
     text-decoration: none;
+} */
+
+.req-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.req-title {
+    padding:1em;
+    font-size: 1.5em;
+}
+
+.req-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+}
+
+.req-desc {
+    font-size: 1em;
 }
