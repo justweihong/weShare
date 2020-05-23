@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, merge } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument , AngularFirestoreCollection} from '@angular/fire/firestore';
 
 @Injectable({
@@ -24,5 +24,9 @@ export class RequestService {
               }
           );
       }   
+  }
+
+  updateRequestStatus(requestID, statusType) {
+    return this.afs.doc(`requests/${requestID}`).set({status: statusType}, {merge:true});
   }
 }

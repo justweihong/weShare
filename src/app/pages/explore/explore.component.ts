@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RequestListingCardComponent } from '../../components/request/request-listing-card/request-listing-card.component';
+import { RequestListingCardComponent } from '../../components/request-listing-card/request-listing-card.component';
 import { RequestService } from '../../services/request/request.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { take } from 'rxjs/operators';
 // import { request } from 'http';
 
 @Component({
@@ -20,6 +21,8 @@ export class ExploreComponent implements OnInit {
     activeRequests:any = [];
     ongoingRequests:any = [];
     completedRequests:any = [];
+
+    p: number = 1;
     
 
     constructor(
@@ -38,7 +41,7 @@ export class ExploreComponent implements OnInit {
             this.displayName = user.displayName;
 
             // Get requests.
-            this.requestService.getRequests().pipe().subscribe(requests =>{
+            this.requestService.getRequests().pipe(take(1)).subscribe(requests =>{
                 this.allRequests = requests;
                 requests.forEach(request => {
                     if (request['userID'] == this.userID) {

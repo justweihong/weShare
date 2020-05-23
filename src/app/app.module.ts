@@ -14,10 +14,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login/login.component';
 import { ExploreComponent } from './pages/explore/explore.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { RequestListingCardComponent } from './components/request/request-listing-card/request-listing-card.component';
+import { RequestListingCardComponent } from './components/request-listing-card/request-listing-card.component';
 import { HomeComponent } from './pages/home/home.component'
 import { RequestSectionComponent } from './pages/explore/request-section/request-section.component';
 import { NewRequestComponent } from './pages/explore/new-request/new-request.component'
+import {NgxPaginationModule} from 'ngx-pagination';
+import { RequestDetailsComponent } from './components/request-details/request-details.component';
 
 // My web app's Firebase configuration
 const firebaseConfig = {
@@ -41,6 +43,7 @@ const firebaseConfig = {
     HomeComponent,
     RequestSectionComponent,
     NewRequestComponent,
+    RequestDetailsComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
@@ -49,6 +52,7 @@ const firebaseConfig = {
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
