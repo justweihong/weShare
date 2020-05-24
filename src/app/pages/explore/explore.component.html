@@ -17,58 +17,86 @@
         </form>
     </header>
 
+    <!-- request details modal -->
+    <app-request-details id="request-details" class="modal fade" tabindex="-1" role="dialog"  aria-hidden="true" ></app-request-details>
 
-    <!-- requests tab -->
-    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="my-req-tab" data-toggle="tab" href="#my-req" role="tab"
-                aria-controls="available-req" aria-selected="true">My Requests</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="all-req-tab" data-toggle="tab" href="#all-req" role="tab"
-                aria-controls="all-req" aria-selected="false">All</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="active-req-tab" data-toggle="tab" href="#active-req" role="tab"
-                aria-controls="available-req" aria-selected="false">Active</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="ongoing-req-tab" data-toggle="tab" href="#ongoing-req" role="tab" aria-controls="your-req"
-                aria-selected="false">Ongoing</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="completed-req-tab" data-toggle="tab" href="#completed-req" role="tab"
-                aria-controls="completed-req" aria-selected="false">Completed</a>
-        </li>
-    </ul>
-
-    <!-- request tab content -->
-    <div class="tab-content" id="request-tab-content">
-
-        <!-- my requests -->
-        <div class="tab-pane fade" id="my-req" role="tabpanel" aria-labelledby="your-req-tab">my requests</div>
-
-        <!-- all requests -->
-        <div class="tab-pane fade" id="all-req" role="tabpanel" aria-labelledby="all-req-tab">alllllll</div>
-
-        <!-- avtive requests -->
-        <div class="tab-pane fade show active" id="active-req" role="tabpanel" aria-labelledby="available-req-tab">
-            Here are the available requests
-            <li id="active-req-list" *ngIf="this.allRequests" >
-                <div id="request-listings" *ngFor="let request of activeRequests.slice() | slice:0:5;">
-                    <app-request-listing-card [requestID]="request['ID']" [title]="request['title']" [description]="request['description']" ></app-request-listing-card>
-                </div>
-
+    <!-- request section -->
+    <div id="request-section" style="padding:3em;" >
+        <!-- requests tab -->
+        <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="my-req-tab" data-toggle="tab" href="#my-req" role="tab"
+                    aria-controls="available-req" aria-selected="true">My Requests</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="all-req-tab" data-toggle="tab" href="#all-req" role="tab"
+                    aria-controls="all-req" aria-selected="false">All</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="active-req-tab" data-toggle="tab" href="#active-req" role="tab"
+                    aria-controls="available-req" aria-selected="false">Active</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="ongoing-req-tab" data-toggle="tab" href="#ongoing-req" role="tab" aria-controls="your-req"
+                    aria-selected="false">Ongoing</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="completed-req-tab" data-toggle="tab" href="#completed-req" role="tab"
+                    aria-controls="completed-req" aria-selected="false">Completed</a>
+            </li>
+        </ul>
+
+        <!-- request tab content -->
+        <div class="tab-content" id="request-tab-content">
+
+            <!-- my requests -->
+            <div class="tab-pane fade" id="my-req" role="tabpanel" aria-labelledby="your-req-tab">
+                <div class="request-list" *ngIf="this.myRequests">
+                    <div *ngFor="let request of this.myRequests " class="request-area">
+                        <app-request-listing-card [requestID]="request['ID']" [title]="request['title']" [description]="request['description']" ></app-request-listing-card>
+                    </div>
+                </div>
+            </div>
+
+            <!-- all requests -->
+            <div class="tab-pane fade" id="all-req" role="tabpanel" aria-labelledby="all-req-tab">
+                <div class="request-list" *ngIf="this.allRequests">
+                    <div *ngFor="let request of this.allRequests " class="request-area">
+                        <app-request-listing-card [requestID]="request['ID']" [title]="request['title']" [description]="request['description']"  ></app-request-listing-card>
+                    </div>
+                </div>
+            </div>
+
+            <!-- avtive requests -->
+            <div class="tab-pane fade show active" id="active-req" role="tabpanel" aria-labelledby="available-req-tab">
+                <div class="request-list" *ngIf="this.activeRequests">
+                    <div *ngFor="let request of this.activeRequests " class="request-area">
+                        <app-request-listing-card [requestID]="request['ID']" [title]="request['title']" [description]="request['description']"  ></app-request-listing-card>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ongoing requests -->
+            <div class="tab-pane fade" id="ongoing-req" role="tabpanel" aria-labelledby="your-req-tab">
+                <div class="request-list" *ngIf="this.ongoingRequests">
+                    <div *ngFor="let request of this.ongoingRequests " class="request-area">
+                        <app-request-listing-card [requestID]="request['ID']" [title]="request['title']" [description]="request['description']"  ></app-request-listing-card>
+                    </div>
+                </div>
+            </div>
+
+            <!-- completed requests -->
+            <div class="tab-pane fade" id="completed-req" role="tabpanel" aria-labelledby="completed-req-tab"> 
+                <div class="request-list" *ngIf="this.completedRequests">
+                    <div *ngFor="let request of this.completedRequests" class="request-area">
+                        <app-request-listing-card [requestID]="request['ID']" [title]="request['title']" [description]="request['description']"  ></app-request-listing-card>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <!-- ongoing requests -->
-        <div class="tab-pane fade" id="ongoing-req" role="tabpanel" aria-labelledby="your-req-tab">Ongoing</div>
-
-        <!-- completed requests -->
-        <div class="tab-pane fade" id="completed-req" role="tabpanel" aria-labelledby="completed-req-tab"> completed</div>
-
+        
     </div>
-
 
 </div>

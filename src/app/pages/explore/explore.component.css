@@ -8,3 +8,16 @@
   margin-left: 950px;
   margin-top: -65px !important;
 } 
+
+.request-list {
+    display: flex;
+    flex-wrap: wrap;
+    /* max-width: 112em; */
+}
+
+
+@media(max-width:687px) {
+    .request-area {
+        width: 100%;
+    }
+}

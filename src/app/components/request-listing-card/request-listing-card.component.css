@@ -13,6 +13,11 @@
     background-clip: border-box;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: .25rem;
+    cursor: pointer;
+}
+
+.req-card:hover {
+    background-color: aliceblue;
 }
 
 .req-title {

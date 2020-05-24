@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RequestService } from "../../../services/request/request.service";
+import { RequestService } from "../../services/request/request.service";
+declare var $ : any;
 
 @Component({
   selector: 'app-request-listing-card',
@@ -23,6 +24,11 @@ export class RequestListingCardComponent implements OnInit {
       this.request.getRequests().pipe().subscribe(requests => {
           console.log(requests);
       })
+  }
+
+  seeRequestDetails() {
+      console.log("hello");
+      $('#request-details').modal('show');
   }
 
 }
