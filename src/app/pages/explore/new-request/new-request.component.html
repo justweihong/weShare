@@ -22,6 +22,15 @@
           
           <form [formGroup]="requestForm" >
             <div class="form-group row">
+              <label  class="col-sm-2 col-form-label">Title</label>
+              <div class="col-sm-8">
+              <textarea rows = "2" cols = "40"  formControlName="title" placeholder="input title" >
+              </textarea>
+            </div>
+            
+            </div>
+
+            <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
               <div class="col-sm-8">
               <textarea rows = "4" cols = "40" formControlName="description" placeholder="describe your request bro." >
@@ -34,16 +43,16 @@
               <div class="row">
                 <legend class="col-form-label col-sm-2 pt-0">Urgency</legend>
                 <div class="col-sm-8">
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+                  <div class="custom-control custom-radio custom-control-inline" >
+                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" formControlName="urgency" value = "High">
                     <label class="custom-control-label" for="customRadioInline1">High</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" formControlName="urgency" value = "Medium">
                     <label class="custom-control-label" for="customRadioInline2">Medium</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline3" name="customRadioInline1" class="custom-control-input">
+                    <input type="radio" id="customRadioInline3" name="customRadioInline1" class="custom-control-input" formControlName="urgency" value = "Low">
                     <label class="custom-control-label" for="customRadioInline3">Low</label>
                   </div>
                 </div>
@@ -55,14 +64,17 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Duration</label>
                 <div class="col-sm-4">
-                    <select class="custom-select">
-                        <option selected>3 Hours</option>
-                        <option value="1">3 Hours</option>
-                        <option value="2">6 Hours</option>
-                        <option value="3">9 Hours</option>
-                        <option value="4">12 Hours</option>
-                        <option value="5">18 Hours</option>
-                        <option value="6">24 Hours</option>
+                    <select class="custom-select" formControlName="duration">
+                        <option selected>1 Hours</option>
+                        <option value="1">1 Hours</option>
+                        <option value="2">2 Hours</option>
+                        <option value="3">3 Hours</option>
+                        <option value="5">5 Hours</option>
+                        <option value="10">10 Hours</option>
+                        <option value="15">15 Hours</option>
+                        <option value="24">1 day</option>
+                        <option value="72">3 days</option>
+                        <option value="168">1 week</option>
                       </select>
                     </div>
               </div>
@@ -70,7 +82,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Incentive</label>
                 <div class="col-sm-4">
-                    <textarea rows = "2" cols = "40" >
+                    <textarea rows = "2" cols = "40" formControlName="incentive" >
                     </textarea>
                   </div>
               </div>
@@ -79,7 +91,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Contact Details</label>
                     <div class="col-sm-8">
-                        <textarea rows = "2" cols = "40" >
+                        <textarea rows = "2" cols = "40" formControlName="contact">
                         </textarea>
                     </div>
                   </div>

@@ -1,0 +1,16 @@
+#container {
+    font-family: cursive;
+    height: 700px;
+    background-image: url('../../../assets/scroll.jpg');
+    background-repeat: no-repeat;
+    text-align: center;
+    background-position: 50%;
+    background-size: 40% 100%;
+    margin: 0 auto;
+    background-color: rgb(37, 99, 150);
+    
+}
+
+h2 {
+    font-family: cursive;
+}

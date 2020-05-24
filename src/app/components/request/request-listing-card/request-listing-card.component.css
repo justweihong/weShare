@@ -29,3 +29,21 @@
 .req-desc {
     font-size: 1em;
 }
+
+div.card-text {
+    width: 12rem;
+    height: 8rem;
+    overflow: hidden;
+    white-space: pre-wrap;
+    -webkit-mask-image: linear-gradient(
+      to bottom, 
+      black 70%, 
+      transparent 93.33333%
+    );
+    mask-image: linear-gradient(
+      to bottom, 
+      black 70%, 
+      transparent 93.33333%
+    );
+    
+}
