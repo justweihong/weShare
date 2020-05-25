@@ -1,44 +1,84 @@
 import { Injectable } from '@angular/core';
 import { Subscription, merge, Subject, Observable } from 'rxjs';
-import { AngularFirestore, AngularFirestoreDocument , AngularFirestoreCollection} from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class RequestService {
     subject = new Subject<any>();
-    
+    subject2 = new Subject<any>();
 
-  constructor(
-      private afs: AngularFirestore,
-  ) {}
 
-  getRequests() {
-      return this.afs.collection(`requests`, ref => ref.orderBy('timeStamp', 'desc')).valueChanges();
-  }
+    constructor(
+        private afs: AngularFirestore,
+    ) { }
 
-  addRequest(requestData) {
-      const collection = this.afs.collection(`requests`);
-      if (navigator.onLine) {
-          return collection.add(requestData).then(
-              key=> {
-                  collection.doc(`${key.id}`).set({ID: key.id}, {merge: true});
-              }
-          );
-      }   
-  }
+    getRequests() {
+        return this.afs.collection(`requests`, ref => ref.orderBy('timeStamp', 'desc')).valueChanges();
+    }
+    getRequest(requestID) {
+        return this.afs.doc(`requests/${requestID}`).valueChanges();
+    }
 
-  updateRequestStatus(requestID, statusType) {
-    return this.afs.doc(`requests/${requestID}`).set({status: statusType}, {merge:true});
-  }
+    addRequest(requestData) {
+        const collection = this.afs.collection(`requests`);
+        if (navigator.onLine) {
+            return collection.add(requestData).then(
+                key => {
+                    collection.doc(`${key.id}`).set({ ID: key.id }, { merge: true });
+                }
+            );
+        }
+    }
 
-  // When listing card is clicked, this method sends the card details through this service.
-  sendRequestDetails(details) {
-      this.subject.next(details);
-  }
+    // Update status on Firebase then allow subject2 to detect change for subscription in explore & request-detail.
+    acceptRequest(requestID, helperID) {
+        var dataToChange = {
+            helper: helperID,
+            helpTimeStamp: Date.now(),
+            status: "ongoing",
+        }
+        return this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
+            this.subject2.next();
+        })
+    }
 
-  // Request details constructor will subscribe to get the updated request details to display on modal.
-  getRequestDetails(): Observable<any> {
-      return this.subject.asObservable();
-  }
+    // Update status on Firebase then allow subject2 to detect change for subscription in explore & request-detail.
+    unacceptRequest(requestID) {
+        var dataToChange = {
+            helper: "nil",
+            helpTimeStamp: "nil",
+            status: "active",
+        }
+        return this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
+            this.subject2.next();
+        });
+    }
+
+    // Update status on Firebase then allow subject2 to detect change for subscription in explore & request-detail.
+    completeRequest(requestID) {
+        var dataToChange = {
+            completeTimeStamp: Date.now(),
+            status: "completed",
+        }
+        return this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
+            this.subject2.next();
+        });
+    }
+
+    // When listing card is clicked, this method sends the card details through this service.
+    sendRequestDetails(details) {
+        this.subject.next(details);
+    }
+
+    // Request details constructor will subscribe to get the updated request details to display on modal.
+    getRequestDetails(): Observable<any> {
+        return this.subject.asObservable();
+    }
+
+    // Explore constructor take changes in request details.
+    getDetailUpdates(): Observable<any> {
+        return this.subject2.asObservable();
+    }
 }

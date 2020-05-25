@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 // import { request } from 'http';
 
 @Component({
@@ -13,14 +14,15 @@ import { take } from 'rxjs/operators';
     styleUrls: ['./explore.component.css']
 })
 export class ExploreComponent implements OnInit {
+    detailUpdateSubscription: Subscription;
     displayName: any;
     userID: any;
 
     allRequests: any;
-    myRequests:any = [];
-    activeRequests:any = [];
-    ongoingRequests:any = [];
-    completedRequests:any = [];
+    myRequests:any;
+    activeRequests:any;
+    ongoingRequests:any;
+    completedRequests:any;
 
     p: number = 1;
     
@@ -31,6 +33,11 @@ export class ExploreComponent implements OnInit {
         private requestService: RequestService,
         private afs: AngularFirestore,
     ) {
+
+        // Reload all requests cards upon detecting any changes in status.
+        this.requestService.getDetailUpdates().subscribe( () => {
+            this.reloadRequests();
+        })
      }
 
     ngOnInit(): void {
@@ -40,23 +47,33 @@ export class ExploreComponent implements OnInit {
             this.userID = user.uid;
             this.displayName = user.displayName;
 
-            // Get requests.
-            this.requestService.getRequests().pipe(take(1)).subscribe(requests =>{
-                this.allRequests = requests;
-                requests.forEach(request => {
-                    if (request['createdBy'] == this.userID) {
-                        this.myRequests.push(request);
-                    }
-                    if (request['status'] == "active") {
-                        this.activeRequests.push(request);
-                    } else if (request['status'] == "ongoing") {
-                        this.ongoingRequests.push(request);
-                    } else if (request['status'] == "completed") {
-                        this.completedRequests.push(request);
-                    } else {
-                        console.error("request ID (" + request['ID'] + ") has invalid status.");
-                    }
-                })
+            this.reloadRequests();
+        })
+    }
+
+    reloadRequests() {
+        this.myRequests = [];
+        this.activeRequests = [];
+        this.ongoingRequests = [];
+        this.completedRequests = [];
+
+        // Get requests.
+        this.requestService.getRequests().pipe(take(1)).subscribe(requests =>{
+            this.allRequests = requests;
+            requests.forEach(request => {
+                if (request['createdBy'] == this.userID) {
+                    this.myRequests.push(request);
+                    console.log("push");
+                }
+                if (request['status'] == "active") {
+                    this.activeRequests.push(request);
+                } else if (request['status'] == "ongoing") {
+                    this.ongoingRequests.push(request);
+                } else if (request['status'] == "completed") {
+                    this.completedRequests.push(request);
+                } else {
+                    console.error("request ID (" + request['ID'] + ") has invalid status.");
+                }
             })
         })
     }
