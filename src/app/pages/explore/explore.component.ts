@@ -44,7 +44,7 @@ export class ExploreComponent implements OnInit {
             this.requestService.getRequests().pipe(take(1)).subscribe(requests =>{
                 this.allRequests = requests;
                 requests.forEach(request => {
-                    if (request['userID'] == this.userID) {
+                    if (request['createdBy'] == this.userID) {
                         this.myRequests.push(request);
                     }
                     if (request['status'] == "active") {

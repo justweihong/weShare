@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, fromEventPattern } from 'rxjs';
 import { RequestService } from '../../services/request/request.service';
+import { UserService } from '../../services/user/user.service';
+import { take } from 'rxjs/operators';
+declare var $: any;
+
 @Component({
   selector: 'app-request-details',
   templateUrl: './request-details.component.html',
@@ -8,17 +12,19 @@ import { RequestService } from '../../services/request/request.service';
 })
 export class RequestDetailsComponent implements OnInit {
     requestDetailSubscripton: Subscription;
-    requestID: any;
-    title:any;
-    description:any;
+    requestDetails:any;
+    displayName: any;
+
 
   constructor(
       private requestService: RequestService,
+      private userService: UserService,
   ) { 
       this.requestService.getRequestDetails().subscribe(details => {
-          this.requestID = details['requestID'];
-          this.title = details['title'];
-          this.description = details['description'];
+          this.requestDetails = details;
+          this.userService.getUser(this.requestDetails['createdBy']).pipe(take(1)).subscribe(user => {
+            this.displayName = user['displayName'];
+        })
       })
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../../services/request/request.service'; 
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-new-request',
@@ -8,10 +9,13 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
   styleUrls: ['./new-request.component.css']
 })
 export class NewRequestComponent implements OnInit {
+    displayName: any;
+    userID: any;
     items:any;
     requestForm : FormGroup;
 
   constructor(
+      public auth: AuthService,
       private requestService: RequestService,
       public fb: FormBuilder,
   ) { 
@@ -26,7 +30,12 @@ export class NewRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.items
+    this.auth.getUser().pipe().subscribe(user => {
+
+        // Get user details.
+        this.userID = user.uid;
+        this.displayName = user.displayName;
+    })
   }
 
   get title() { return this.requestForm.get('title') }
@@ -38,12 +47,19 @@ export class NewRequestComponent implements OnInit {
 
   submitRequest() {
       var formDetails = {
+
+          // Input details
           title: this.title.value,
           description: this.description.value,
           incentive: this.incentive.value,
           contact: this.contact.value,
           duration : Number(this.duration.value),
-          urgency: this.urgency.value
+          urgency: this.urgency.value,
+
+          // Other details
+          createdBy: this.userID,
+          timeStamp: Date.now(),
+          status: "active",
       }
 
       this.requestService.addRequest(formDetails);

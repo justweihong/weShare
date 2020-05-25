@@ -14,7 +14,7 @@ export class RequestService {
   ) {}
 
   getRequests() {
-      return this.afs.collection(`requests`).valueChanges();
+      return this.afs.collection(`requests`, ref => ref.orderBy('timeStamp', 'desc')).valueChanges();
   }
 
   addRequest(requestData) {
