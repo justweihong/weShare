@@ -14,6 +14,7 @@
     border: 1px solid rgba(0,0,0,.125);
     border-radius: .25rem;
     cursor: pointer;
+    padding: 1em;
 }
 
 .req-card:hover {
@@ -21,19 +22,24 @@
 }
 
 .req-title {
-    padding:1em;
     font-size: 1.5em;
-}
-
-.req-body {
-    flex: 1 1 auto;
-    min-height: 1px;
-    padding: 1.25rem;
+    margin-top:1em;
+    margin-bottom: 0.5em;
 }
 
 .req-desc {
     font-size: 1em;
+    flex: 1 1 auto;
+    min-height: 1px;
+    margin-bottom: 0.5em;
 }
+
+.time-ago {
+    font-size: 0.7em;
+    text-align: right;
+}
+
+
 
 div.card-text {
     width: 12rem;

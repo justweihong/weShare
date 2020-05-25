@@ -1,4 +1,4 @@
-<div> 
+<div id="new-request" > 
     <!-- Button trigger modal -->
     <button type="button" id = "modal-button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
     + Submit Request
@@ -9,7 +9,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h3 class="modal-title" id="exampleModalLabel">New Request</h3>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -24,7 +24,7 @@
             <div class="form-group row">
               <label  class="col-sm-2 col-form-label">Title</label>
               <div class="col-sm-8">
-              <textarea rows = "2" cols = "40"  formControlName="title" placeholder="input title" >
+              <textarea id="title" rows = "2" cols = "40"  formControlName="title" placeholder="input title" >
               </textarea>
             </div>
             
@@ -33,7 +33,7 @@
             <div class="form-group row">
               <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
               <div class="col-sm-8">
-              <textarea rows = "4" cols = "40" formControlName="description" placeholder="describe your request bro." >
+              <textarea id="description" rows = "4" cols = "40" formControlName="description" placeholder="describe your request bro." >
               </textarea>
             </div>
             
@@ -95,20 +95,11 @@
                         </textarea>
                     </div>
                   </div>
-  
-  
-  
-            <div class="form-group row">
-              <div class="col-sm-4">
-                <button type="submit" class="btn btn-primary">Post Request</button>
-              </div>
-            </div>
           </form>
   
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" (click)="submitRequest()" >submit bro</button>
+          <button type="button" class="btn btn-primary" (click)="submitRequest()" data-dismiss="modal"> Submit Request </button>
         </div>
       </div>
     </div>
