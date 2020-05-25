@@ -16,7 +16,6 @@ import { ExploreComponent } from './pages/explore/explore.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RequestListingCardComponent } from './components/request-listing-card/request-listing-card.component';
 import { HomeComponent } from './pages/home/home.component'
-import { RequestSectionComponent } from './pages/explore/request-section/request-section.component';
 import { NewRequestComponent } from './pages/explore/new-request/new-request.component'
 import {NgxPaginationModule} from 'ngx-pagination';
 import { RequestDetailsComponent } from './components/request-details/request-details.component';
@@ -41,7 +40,6 @@ const firebaseConfig = {
     NavbarComponent,
     RequestListingCardComponent,
     HomeComponent,
-    RequestSectionComponent,
     NewRequestComponent,
     RequestDetailsComponent,
   ],
