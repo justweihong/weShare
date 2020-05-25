@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Subscription, merge } from 'rxjs';
+import { Subscription, merge, Subject, Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument , AngularFirestoreCollection} from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
+    subject = new Subject<any>();
+    
 
   constructor(
       private afs: AngularFirestore,
@@ -28,5 +30,15 @@ export class RequestService {
 
   updateRequestStatus(requestID, statusType) {
     return this.afs.doc(`requests/${requestID}`).set({status: statusType}, {merge:true});
+  }
+
+  // When listing card is clicked, this method sends the card details through this service.
+  sendRequestDetails(details) {
+      this.subject.next(details);
+  }
+
+  // Request details constructor will subscribe to get the updated request details to display on modal.
+  getRequestDetails(): Observable<any> {
+      return this.subject.asObservable();
   }
 }
