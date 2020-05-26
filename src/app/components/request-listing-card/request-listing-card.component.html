@@ -1,12 +1,14 @@
 
 <!-- card listing -->
-<div class="req-card" style="width: 15em; padding:1em; margin:1em;"  (click)="seeRequestDetails()" >
-    <div class = "card-text">
-    <div class="req-title"> {{this.title}}</div>
+<div class="req-card" style="width: 15em; margin:1em;"  (click)="seeRequestDetails()" >
+    <div class="req-title"> {{this.requestDetails['title']}}</div>
 
-    <div class="req-body">
-        <h5>Description:</h5>
-        <p class="req-desc"> {{this.description}} </p>
+    <div class="req-desc"> 
+        {{this.requestDetails['description']}} 
     </div>
-</div>
+
+    <div class="time-ago">
+        {{this.displayName}} / {{this.timeAgo()}} 
+    </div>
+
 </div>

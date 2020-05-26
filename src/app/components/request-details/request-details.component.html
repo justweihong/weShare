@@ -1,18 +1,57 @@
-<div>
+<div >
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
+      <div class="modal-content" *ngIf="this.requestDetails">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle"> Request Details</h5>
+            <h1>{{this.requestDetails['title']}}</h1>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          ...
+        <div class="modal-body" >
+            <div id="id">
+                ID: {{this.requestDetails['ID']}}
+            </div>
+            <div id="description">
+                Description: {{this.requestDetails['description']}}
+            </div>
+            <div id="urgency">
+                Urgency: {{this.requestDetails['urgency']}}
+            </div>
+            <div id="duration">
+                Duration: {{this.requestDetails['duration']}}
+            </div>
+            <div id="incentive">
+                Incentive: {{this.requestDetails['incentive']}}
+            </div>
+            <div id="contact">
+                Contact: {{this.requestDetails['contact']}}
+            </div>
+            <div id="status">
+                Status: {{this.requestDetails['status']}}
+            </div>
+            <div id="creator">
+                Created By: {{this.creatorDisplayName}}
+            </div>
+
+            <!-- helper details -->
+            <div *ngIf="this.requestDetails['helper'] && this.requestDetails['helper'] != 'nil'">
+                Helper : {{this.requestDetails['helper']}}
+            </div>
+            
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Accept this request</button>
+        <div id="possible-actions" class="modal-footer">
+            <div *ngIf="this.userID == this.creatorID">
+                <button  type="button" class="btn btn-primary" >Edit</button>
+                <button  type="button" class="btn btn-primary" >Delete</button>
+            </div>
+            <div *ngIf="this.userID != this.creatorID">
+                <button *ngIf="this.requestDetails['status'] == 'active'" type="button" class="btn btn-primary" (click)="acceptRequest()" >Help {{this.creatorDisplayName}}!</button>
+                <button *ngIf="this.requestDetails['status'] == 'ongoing' && this.requestDetails['helper'] == this.userID " type="button" class="btn btn-primary" (click)="unacceptRequest()" >Give up</button>
+                <button *ngIf="this.requestDetails['status'] == 'ongoing' && this.requestDetails['helper'] == this.userID " type="button" class="btn btn-primary" (click)="completeRequest()" >I've finished!</button>
+            </div>
+            
+            
+          
         </div>
       </div>
     </div>
