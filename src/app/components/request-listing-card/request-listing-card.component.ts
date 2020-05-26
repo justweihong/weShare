@@ -27,8 +27,10 @@ export class RequestListingCardComponent implements OnInit {
   }
 
   seeRequestDetails() {
-      console.log("hello");
+      console.log('hello');
       $('#request-details').modal('show');
-  }
+      
+      
+}
 
 }

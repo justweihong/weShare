@@ -19,6 +19,7 @@ import { HomeComponent } from './pages/home/home.component'
 import { NewRequestComponent } from './pages/explore/new-request/new-request.component'
 import {NgxPaginationModule} from 'ngx-pagination';
 import { RequestDetailsComponent } from './components/request-details/request-details.component';
+import { MarketplaceComponent } from './pages/marketplace/marketplace.component';
 
 // My web app's Firebase configuration
 const firebaseConfig = {
@@ -42,6 +43,7 @@ const firebaseConfig = {
     HomeComponent,
     NewRequestComponent,
     RequestDetailsComponent,
+    MarketplaceComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),

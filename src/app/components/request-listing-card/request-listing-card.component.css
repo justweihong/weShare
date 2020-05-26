@@ -21,14 +21,14 @@
 }
 
 .req-title {
-    padding:1em;
+    /* padding:1em; */
     font-size: 1.5em;
 }
 
 .req-body {
     flex: 1 1 auto;
     min-height: 1px;
-    padding: 1.25rem;
+    padding-right: 2mm;
 }
 
 .req-desc {
@@ -50,5 +50,12 @@ div.card-text {
       black 70%, 
       transparent 93.33333%
     );
+
+
     
+}
+
+h5 {
+    margin-top: 12px;
+    margin-bottom: -2px;
 }

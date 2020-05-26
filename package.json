@@ -25,7 +25,7 @@
     "@okta/okta-angular": "^2.0.0",
     "@oktadev/schematics": "^2.0.2",
     "bootstrap": "^4.4.1",
-    "firebase": "^7.14.3",
+    "firebase": "^7.14.5",
     "ngx-pagination": "^5.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
