@@ -27,6 +27,8 @@ export class ExploreComponent implements OnInit {
     userID: any;
     userImg: any;
     userEmail: any;
+    userContact: any;
+    roomDetails: any;
 
     // Updates on user details
     userForm: FormGroup;
@@ -63,19 +65,32 @@ export class ExploreComponent implements OnInit {
         })
      }
 
-    get roomDetails() { return this.userForm.get('roomDetails') }
-    get userContact() { return this.userForm.get('userContact') }
+    get newRoomDetails() { return this.userForm.get('roomDetails') }
+    get newUserContact() { return this.userForm.get('userContact') }
 
     ngOnInit(): void {
-        this.auth.getUser().pipe().subscribe(user => {
+        this.auth.getUser().pipe(take(1)).subscribe(user => {
 
             // Get user details.
             this.userID = user.uid;
-            this.displayName = user.displayName;
-            this.userImg = user.photoURL;
-            this.userEmail = user.email;
-
+            this.userService.getUser(this.userID).pipe(take(1)).subscribe(firebaseUser => {
+                console.log(firebaseUser);
+                this.displayName = firebaseUser['displayName'];
+                this.userEmail = firebaseUser['email'];
+                this.userImg = firebaseUser['profileImg'];
+                if (!firebaseUser['userContact'] || !firebaseUser['roomDetails'] ) {
+                    alert("Your profile is incompete, please complete them before viewing requests.");
+                } else {
+                    this.userContact = firebaseUser['userContact'];
+                    this.roomDetails = firebaseUser['roomDetails'];
+                }
+            })
             this.reloadRequests();
+            $(document).ready(function() {
+                $("#loading-header").hide();
+                $('#header').fadeIn(1000);
+                
+            })
         })
     }
 
@@ -109,29 +124,48 @@ export class ExploreComponent implements OnInit {
 
     // User details update methods
     updateUserInfo() {
+        if (this.newRoomDetails.value) {}
         var formDetails = {
             // Input details
-            roomDetails: this.roomDetails.value,
-            userContact: this.userContact.value,
+            roomDetails: (this.newRoomDetails.value) ? this.newRoomDetails.value : this.roomDetails,
+            userContact: (this.newUserContact.value) ? this.newUserContact.value : this.userContact,
         }
 
         this.userService.updateDetails(this.userID, formDetails).then(() => {
-            this.userForm.reset();
             this.toggleUserDetailsDisplay();
+            this.roomDetails = (this.newRoomDetails.value) ? this.newRoomDetails.value : this.roomDetails;
+            this.userContact = (this.newUserContact.value) ? this.newUserContact.value : this.userContact;
+            this.userForm.reset();
         });
         
     }
 
     // User details update methods
     toggleUserDetailsDisplay() {
-        $('#user-detail-display').show();
-        $('#user-detail-edit').hide();
+        $('#user-contact-display').show();
+        $('#user-contact-edit').hide();
+
+        $('#room-detail-display').show();
+        $('#room-detail-edit').hide();
+
+
+        $('#edit-icon').show();
+        $('#update-button').hide();
     }
 
     // User details update methods
     toggleUserDetailsEdit() {
-        $('#user-detail-display').hide();
-        $('#user-detail-edit').show();
+        $('#user-contact-display').hide();
+        $('#user-contact-edit').show();
+        $('#user-contact-textarea').val(this.userContact);
+
+        $('#room-detail-display').hide();
+        $('#room-detail-edit').show();
+        $('#room-detail-textarea').val(this.roomDetails);
+
+
+        $('#edit-icon').hide();
+        $('#update-button').show();
     }
 
 }

@@ -28,7 +28,6 @@ export class NewRequestComponent implements OnInit {
             urgency: '',
             duration: '',
             incentive: '',
-            contact: '',
         })
     }
 
@@ -44,7 +43,6 @@ export class NewRequestComponent implements OnInit {
     get title() { return this.requestForm.get('title') }
     get description() { return this.requestForm.get('description') }
     get incentive() { return this.requestForm.get('incentive') }
-    get contact() { return this.requestForm.get('contact') }
     get duration() { return this.requestForm.get('duration') }
     get urgency() { return this.requestForm.get('urgency') }
 
@@ -55,7 +53,6 @@ export class NewRequestComponent implements OnInit {
             title: this.title.value,
             description: this.description.value,
             incentive: this.incentive.value,
-            contact: this.contact.value,
             duration: Number(this.duration.value),
             urgency: this.urgency.value,
 

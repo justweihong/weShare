@@ -23,15 +23,21 @@
             <div id="incentive">
                 Incentive: {{this.requestDetails['incentive']}}
             </div>
-            <div id="contact">
-                Contact: {{this.requestDetails['contact']}}
-            </div>
             <div id="status">
                 Status: {{this.requestDetails['status']}}
             </div>
+
+            <!-- creator details -->
             <div id="creator">
                 Created By: {{this.creatorDisplayName}}
             </div>
+            <div id="contact-details">
+                Contact: {{this.creatorContact}}
+            </div>
+            <div id="room-details">
+                Room: {{this.creatorRoom}}
+            </div>
+
 
             <!-- helper details -->
             <div *ngIf="this.requestDetails['helper'] && this.requestDetails['helper'] != 'nil'">
