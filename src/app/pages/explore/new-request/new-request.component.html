@@ -1,7 +1,7 @@
 <div id="new-request" > 
     <!-- Button trigger modal -->
     <button type="button" id = "modal-button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    + Submit Request
+    + New Request
   </button>
   
   <!-- Modal -->
@@ -14,7 +14,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="font-size:0.5em; width: inherit;">
   
   
   
@@ -65,8 +65,7 @@
                 <label class="col-sm-2 col-form-label">Duration</label>
                 <div class="col-sm-4">
                     <select class="custom-select" formControlName="duration">
-                        <option selected>1 Hours</option>
-                        <option value="1">1 Hours</option>
+                        <option selected="1">1 Hour</option>
                         <option value="2">2 Hours</option>
                         <option value="3">3 Hours</option>
                         <option value="5">5 Hours</option>
@@ -75,6 +74,7 @@
                         <option value="24">1 day</option>
                         <option value="72">3 days</option>
                         <option value="168">1 week</option>
+                        <option value="no limit">no limit</option>
                       </select>
                     </div>
               </div>
@@ -99,7 +99,7 @@
   
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="submitRequest()" data-dismiss="modal"> Submit Request </button>
+          <button type="button" class="btn btn-primary" (click)="submitRequest()" data-dismiss="modal"> Add Request </button>
         </div>
       </div>
     </div>

@@ -15,8 +15,14 @@
     border-radius: .25rem;
     cursor: pointer;
     padding: 1em;
+    width: 15em;
+    height: 15em;
 }
-
+.word-break {
+    overflow: hidden;
+    word-break: break-word;
+    width: 100%;
+}
 .req-card:hover {
     background-color: aliceblue;
 }

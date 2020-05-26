@@ -1,20 +1,50 @@
-<div>
+<div class ="page">
     <!-- Main header  -->
     <header>
 
-        <!-- welcome description -->
-        <h1><span>Welcome {{this.displayName}}, here are some of the requests</span></h1>
+        <!-- welcome profile -->
+        <div class="width container" style="padding-top: 2em;">
+            <div class="image-holder" style="margin-left: 0.5em; margin-top: 0.3em;">
+                <img src="{{this.userImg}}" class="image-holder">
+            </div>
+            <div class="profile-header">
+                <div class="profile-name">
+                    {{this.displayName}}
+                </div>
+                
+                <!-- new request button -->
+                <app-new-request></app-new-request>
+            </div>
+        </div>
 
-        <!-- new request button -->
-        <app-new-request></app-new-request>
+        <div id="user-details" class="width container" style="color:grey; padding-left: 1em;">
+            <!-- user details display -->
+            <div id="user-detail-display" >
+                <div>ID : {{this.userID}}</div>
+                <div>email : {{this.userEmail}}</div>
+                <fa-icon [icon]="faEdit" (click)="toggleUserDetailsEdit()" ></fa-icon>
+            </div>
+
+            <!-- user details edit --> 
+            <form id="user-detail-edit" [formGroup]="userForm" style="display: none;"> 
+                <textarea id="roomDetails" rows = "1" cols = "40"  formControlName="roomDetails" placeholder="edit room details" ></textarea>
+                <textarea id="userContact" rows = "1" cols = "40"  formControlName="userContact" placeholder="update your contact" ></textarea>
+                <button type="button" class="btn btn-primary" (click)="updateUserInfo()" data-dismiss="modal"> update </button>
+            </form>
+        </div>
+        
+
+        
+
+        
 
         <!-- search bar -->
-        <form id="search-bar" class="form-inline my-2 my-lg-0">
+        <!-- <form id="search-bar" class="form-inline my-2 my-lg-0">
             <span>
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </span>
-        </form>
+        </form> -->
     </header>
 
     <!-- request details modal -->
