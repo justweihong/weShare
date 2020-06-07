@@ -1,0 +1,55 @@
+.listing-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    cursor: pointer;
+    padding: 1em;
+}
+
+.listing-card:hover {
+    background-color: aliceblue;
+}
+
+.listing-title {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.listing-desc {
+    font-size: 1em;
+    flex: 1 1 auto;
+    min-height: 1px;
+    margin-bottom: 0.5em;
+}
+
+
+
+div.card-body {
+    height: 8rem;
+    overflow: hidden;
+    white-space: pre-wrap;
+    -webkit-mask-image: linear-gradient(
+      to bottom, 
+      black 70%, 
+      transparent 93.33333%
+    );
+    mask-image: linear-gradient(
+      to bottom, 
+      black 70%, 
+      transparent 93.33333%
+    );
+
+
+    
+}
+
+.card-img-top {
+    height: 9rem;
+    object-fit: contain;
+}
