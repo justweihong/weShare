@@ -52,6 +52,9 @@ export class ExploreComponent implements OnInit {
         private afs: AngularFirestore,
         public fb: FormBuilder,
     ) {
+        $('#user-contact-textarea').on('blur', function() {
+            alert(" dsadsadsd");
+        });
 
         // Reload all requests cards upon detecting any changes in status.
         this.requestService.getDetailUpdates().subscribe( () => {
@@ -166,6 +169,9 @@ export class ExploreComponent implements OnInit {
 
         $('#edit-icon').hide();
         $('#update-button').show();
+    }
+    trigger() {
+        alert(" blur!");
     }
 
 }
