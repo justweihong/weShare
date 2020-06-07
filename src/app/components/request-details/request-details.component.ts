@@ -12,12 +12,19 @@ declare var $: any;
   styleUrls: ['./request-details.component.css']
 })
 export class RequestDetailsComponent implements OnInit {
+
+    // Creator's request details.
     requestDetailSubscripton: Subscription;
     requestDetails:any;
     creatorDisplayName: any;
     creatorID:any;
+    creatorContact: any;
+    creatorRoom: any;
+
+    // Current user details.
     displayName: any;
     userID: any;
+
 
 
   constructor(
@@ -38,6 +45,9 @@ export class RequestDetailsComponent implements OnInit {
           this.userService.getUser(this.requestDetails['createdBy']).pipe(take(1)).subscribe(user => {
             this.creatorID = user['uid'];
             this.creatorDisplayName = user['displayName'];
+            this.creatorContact = user['userContact'];
+            this.creatorRoom = user['roomDetails'];
+
         })
       })
   }
