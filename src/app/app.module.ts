@@ -26,6 +26,8 @@ import { MarketplaceComponent } from './pages/marketplace/marketplace.component'
 import { NewListingComponent } from './pages/marketplace/new-listing/new-listing/new-listing.component';
 import { ListingService } from './services/listing/listing.service';
 import { ListingCardComponent } from './components/listing-card/listing-card.component';
+import { FooterComponent } from './footer/footer.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // My web app's Firebase configuration
 const firebaseConfig = {
@@ -52,6 +54,7 @@ const firebaseConfig = {
     MarketplaceComponent,
     NewListingComponent,
     ListingCardComponent,
+    FooterComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
@@ -62,7 +65,8 @@ const firebaseConfig = {
     BrowserModule,
     AppRoutingModule,
     NgxPaginationModule,
-    NgbModule
+    NgbModule,
+    FontAwesomeModule,
   ],
   providers: [ListingService],
   bootstrap: [AppComponent]

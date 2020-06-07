@@ -1,102 +1,272 @@
-<div>
-    <!-- Main header  -->
-    <header>
-
-        <!-- welcome description -->
-        <h1><span>Welcome {{this.displayName}}, here are some of the requests</span></h1>
+<div class="page">
+  <img id="loading-header" src="../../../assets/loading.gif" />
+  <!-- Main header  -->
+  <header id="header" style="display: none;">
+    <!-- welcome profile -->
+    <div class="width container" style="padding-top: 2em;">
+      <div class="image-holder" style="margin-left: 0.5em; margin-top: 0.3em;">
+        <img src="{{ this.userImg }}" class="image-holder" />
+      </div>
+      <div class="profile-header">
+        <div class="profile-name">
+          {{ this.displayName }}
+        </div>
 
         <!-- new request button -->
         <app-new-request></app-new-request>
+      </div>
+    </div>
 
-        <!-- search bar -->
-        <form id="search-bar" class="form-inline my-2 my-lg-0">
+    <div
+      id="user-details"
+      class="width container"
+      style="color: grey; padding-left: 1em;"
+      (blur)="trigger()"
+    >
+      <form id="user-detail-edit" [formGroup]="userForm">
+        <!-- user details display -->
+        <div
+          id="user-detail-display"
+          style="min-height: 2em; line-height: 2em;"
+        >
+          <!-- non-editable user details -->
+          <div>ID : {{ this.userID }}</div>
+          <div>email : {{ this.userEmail }}</div>
+
+          <!-- user contact -->
+          <div id="user-contact-display">
+            <div *ngIf="this.userContact">contact: {{ this.userContact }}</div>
+            <div *ngIf="!this.userContact">contact: nil</div>
+          </div>
+          <div id="user-contact-edit" style="display: none;">
+            contact :
+            <textarea
+              id="user-contact-textarea"
+              rows="1"
+              cols="20"
+              style="vertical-align: middle;"
+              formControlName="userContact"
+              >{{ this.userContact }}</textarea
+            >
+          </div>
+
+          <!-- room details -->
+          <div id="room-detail-display">
+            <div *ngIf="this.roomDetails">
+              room details: {{ this.roomDetails }}
+            </div>
+            <div *ngIf="!this.roomDetails">room details: nil</div>
+          </div>
+          <div id="room-detail-edit" style="display: none;">
+            room details :
+            <textarea
+              id="room-detail-textarea"
+              rows="1"
+              cols="20"
+              style="vertical-align: middle;"
+              formControlName="roomDetails"
+              >{{ this.roomDetails }}</textarea
+            >
+          </div>
+
+          <!-- edit icon -->
+          <fa-icon
+            id="edit-icon"
+            [icon]="faEdit"
+            (click)="toggleUserDetailsEdit()"
+          ></fa-icon>
+
+          <!-- update button -->
+          <i class="fas fa-check"></i>
+          <button
+            id="update-button"
+            style="display: none;"
+            type="button"
+            class="btn btn-primary"
+            (click)="updateUserInfo()"
+            data-dismiss="modal"
+          >
+            update
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- search bar -->
+    <!-- <form id="search-bar" class="form-inline my-2 my-lg-0">
             <span>
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </span>
-        </form>
-    </header>
+        </form> -->
+  </header>
 
-    <!-- request details modal -->
-    <app-request-details id="request-details" class="modal fade" tabindex="-1" role="dialog"  aria-hidden="true" ></app-request-details>
+  <!-- request details modal -->
+  <app-request-details
+    id="request-details"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+  ></app-request-details>
 
-    <!-- request section -->
-    <div id="request-section" style="padding:3em;" >
-        <!-- requests tab -->
-        <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="my-req-tab" data-toggle="tab" href="#my-req" role="tab"
-                    aria-controls="available-req" aria-selected="true">My Requests</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="all-req-tab" data-toggle="tab" href="#all-req" role="tab"
-                    aria-controls="all-req" aria-selected="false">All</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="active-req-tab" data-toggle="tab" href="#active-req" role="tab"
-                    aria-controls="available-req" aria-selected="false">Active</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="ongoing-req-tab" data-toggle="tab" href="#ongoing-req" role="tab" aria-controls="your-req"
-                    aria-selected="false">Ongoing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="completed-req-tab" data-toggle="tab" href="#completed-req" role="tab"
-                    aria-controls="completed-req" aria-selected="false">Completed</a>
-            </li>
-        </ul>
+  <!-- request section -->
+  <div
+    *ngIf="this.roomDetails && this.userContact"
+    id="request-section"
+    style="padding: 3em;"
+  >
+    <!-- requests tab -->
+    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a
+          class="nav-link active"
+          id="my-req-tab"
+          data-toggle="tab"
+          href="#my-req"
+          role="tab"
+          aria-controls="available-req"
+          aria-selected="true"
+          >My Requests</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          id="all-req-tab"
+          data-toggle="tab"
+          href="#all-req"
+          role="tab"
+          aria-controls="all-req"
+          aria-selected="false"
+          >All</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          id="active-req-tab"
+          data-toggle="tab"
+          href="#active-req"
+          role="tab"
+          aria-controls="available-req"
+          aria-selected="false"
+          >Active</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          id="ongoing-req-tab"
+          data-toggle="tab"
+          href="#ongoing-req"
+          role="tab"
+          aria-controls="your-req"
+          aria-selected="false"
+          >Ongoing</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          id="completed-req-tab"
+          data-toggle="tab"
+          href="#completed-req"
+          role="tab"
+          aria-controls="completed-req"
+          aria-selected="false"
+          >Completed</a
+        >
+      </li>
+    </ul>
 
-        <!-- request tab content -->
-        <div class="tab-content" id="request-tab-content">
-
-            <!-- my requests -->
-            <div class="tab-pane fade" id="my-req" role="tabpanel" aria-labelledby="your-req-tab">
-                <div class="request-list" *ngIf="this.myRequests">
-                    <div *ngFor="let request of this.myRequests " class="request-area">
-                        <app-request-listing-card [requestDetails]="request"></app-request-listing-card>
-                    </div>
-                </div>
-            </div>
-
-            <!-- all requests -->
-            <div class="tab-pane fade" id="all-req" role="tabpanel" aria-labelledby="all-req-tab">
-                <div class="request-list" *ngIf="this.allRequests">
-                    <div *ngFor="let request of this.allRequests " class="request-area">
-                        <app-request-listing-card [requestDetails]="request"></app-request-listing-card>
-                    </div>
-                </div>
-            </div>
-
-            <!-- active requests -->
-            <div class="tab-pane fade show active" id="active-req" role="tabpanel" aria-labelledby="available-req-tab">
-                <div class="request-list" *ngIf="this.activeRequests">
-                    <div *ngFor="let request of this.activeRequests " class="request-area">
-                        <app-request-listing-card [requestDetails]="request"></app-request-listing-card>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ongoing requests -->
-            <div class="tab-pane fade" id="ongoing-req" role="tabpanel" aria-labelledby="your-req-tab">
-                <div class="request-list" *ngIf="this.ongoingRequests">
-                    <div *ngFor="let request of this.ongoingRequests " class="request-area">
-                        <app-request-listing-card [requestDetails]="request"  ></app-request-listing-card>
-                    </div>
-                </div>
-            </div>
-
-            <!-- completed requests -->
-            <div class="tab-pane fade" id="completed-req" role="tabpanel" aria-labelledby="completed-req-tab"> 
-                <div class="request-list" *ngIf="this.completedRequests">
-                    <div *ngFor="let request of this.completedRequests" class="request-area">
-                        <app-request-listing-card [requestDetails]="request"  ></app-request-listing-card>
-                    </div>
-                </div>
-            </div>
-
+    <!-- request tab content -->
+    <div class="tab-content" id="request-tab-content">
+      <!-- my requests -->
+      <div
+        class="tab-pane fade"
+        id="my-req"
+        role="tabpanel"
+        aria-labelledby="your-req-tab"
+      >
+        <div class="request-list" *ngIf="this.myRequests">
+          <div *ngFor="let request of this.myRequests" class="request-area">
+            <app-request-listing-card
+              [requestDetails]="request"
+            ></app-request-listing-card>
+          </div>
         </div>
+      </div>
 
-        
+      <!-- all requests -->
+      <div
+        class="tab-pane fade"
+        id="all-req"
+        role="tabpanel"
+        aria-labelledby="all-req-tab"
+      >
+        <div class="request-list" *ngIf="this.allRequests">
+          <div *ngFor="let request of this.allRequests" class="request-area">
+            <app-request-listing-card
+              [requestDetails]="request"
+            ></app-request-listing-card>
+          </div>
+        </div>
+      </div>
+
+      <!-- avtive requests -->
+      <div
+        class="tab-pane fade show active"
+        id="active-req"
+        role="tabpanel"
+        aria-labelledby="available-req-tab"
+      >
+        <div class="request-list" *ngIf="this.activeRequests">
+          <div *ngFor="let request of this.activeRequests" class="request-area">
+            <app-request-listing-card
+              [requestDetails]="request"
+            ></app-request-listing-card>
+          </div>
+        </div>
+      </div>
+
+      <!-- ongoing requests -->
+      <div
+        class="tab-pane fade"
+        id="ongoing-req"
+        role="tabpanel"
+        aria-labelledby="your-req-tab"
+      >
+        <div class="request-list" *ngIf="this.ongoingRequests">
+          <div
+            *ngFor="let request of this.ongoingRequests"
+            class="request-area"
+          >
+            <app-request-listing-card
+              [requestDetails]="request"
+            ></app-request-listing-card>
+          </div>
+        </div>
+      </div>
+
+      <!-- completed requests -->
+      <div
+        class="tab-pane fade"
+        id="completed-req"
+        role="tabpanel"
+        aria-labelledby="completed-req-tab"
+      >
+        <div class="request-list" *ngIf="this.completedRequests">
+          <div
+            *ngFor="let request of this.completedRequests"
+            class="request-area"
+          >
+            <app-request-listing-card
+              [requestDetails]="request"
+            ></app-request-listing-card>
+          </div>
+        </div>
+      </div>
     </div>
-
+  </div>
 </div>
