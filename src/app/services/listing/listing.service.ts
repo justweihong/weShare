@@ -32,9 +32,9 @@ export class ListingService {
   });
   }
 
-  // updateWishList(userID, listingDetails) {
-    // console.log(this.db.doc(`listings/${listingDetails['ID']}`).collection("wishList"));
-    // this.db.doc(`listings/${listingDetails['ID']}/wishList`).collection("wishList").add(userID);
+  // updateListingDetails(userID, listingDetails) {
+  //   // console.log(this.db.doc(`listings/${listingDetails['ID']}`).collection("wishList"));
+  //   this.db.doc(`listings/${listingDetails['ID']}`).set({listingDetails},{merge: true});
   // }
 
 

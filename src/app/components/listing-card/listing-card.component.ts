@@ -124,7 +124,10 @@ export class ListingCardComponent implements OnInit {
   }
 
   // addToWishlist() {
-  //   this.listingService.updateWishList(this.userID, this.listingDetails);
+  //   var listingDetails = {
+  //     wishlist : this.usergfdsgfdsg
+  //   }
+  //   this.listingService.updateListingDetails(this.userID, this.listingDetails);
   // }
 
 }
