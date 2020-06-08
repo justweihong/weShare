@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -7,6 +9,7 @@ import { AppComponent } from './app.component';
 // Firestore
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule} from '@angular/fire/storage';
 
 // Forms
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,6 +22,10 @@ import { HomeComponent } from './pages/home/home.component'
 import { NewRequestComponent } from './pages/explore/new-request/new-request.component'
 import {NgxPaginationModule} from 'ngx-pagination';
 import { RequestDetailsComponent } from './components/request-details/request-details.component';
+import { MarketplaceComponent } from './pages/marketplace/marketplace.component';
+import { NewListingComponent } from './pages/marketplace/new-listing/new-listing/new-listing.component';
+import { ListingService } from './services/listing/listing.service';
+import { ListingCardComponent } from './components/listing-card/listing-card.component';
 import { FooterComponent } from './footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -44,19 +51,24 @@ const firebaseConfig = {
     HomeComponent,
     NewRequestComponent,
     RequestDetailsComponent,
+    MarketplaceComponent,
+    NewListingComponent,
+    ListingCardComponent,
     FooterComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
+    AngularFireStorageModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     NgxPaginationModule,
+    NgbModule,
     FontAwesomeModule,
   ],
-  providers: [],
+  providers: [ListingService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

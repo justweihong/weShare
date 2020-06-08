@@ -1,9 +1,4 @@
-/* :hover {
-    background: #acceeb;
-    text-decoration: none;
-} */
-
-.req-card {
+.listing-card {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -15,40 +10,27 @@
     border-radius: .25rem;
     cursor: pointer;
     padding: 1em;
-    width: 15em;
-    height: 15em;
 }
-.word-break {
-    overflow: hidden;
-    word-break: break-word;
-    width: 100%;
-}
-.req-card:hover {
+
+.listing-card:hover {
     background-color: aliceblue;
 }
 
-.req-title {
+.listing-title {
     font-size: 1.5em;
-    margin-top:1em;
     margin-bottom: 0.5em;
 }
 
-.req-desc {
+.listing-desc {
     font-size: 1em;
     flex: 1 1 auto;
     min-height: 1px;
     margin-bottom: 0.5em;
 }
 
-.time-ago {
-    font-size: 0.7em;
-    text-align: right;
-}
 
 
-
-div.card-text {
-    width: 12rem;
+div.card-body {
     height: 8rem;
     overflow: hidden;
     white-space: pre-wrap;
@@ -67,7 +49,7 @@ div.card-text {
     
 }
 
-h5 {
-    margin-top: 12px;
-    margin-bottom: -2px;
+.card-img-top {
+    height: 9rem;
+    object-fit: contain;
 }

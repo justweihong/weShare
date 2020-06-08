@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { RequestService } from '../../../services/request/request.service';
+import { RequestService } from '../../../services/request/request.service'; 
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
-declare var $: any;
 
 @Component({
-    selector: 'app-new-request',
-    templateUrl: './new-request.component.html',
-    styleUrls: ['./new-request.component.css']
+  selector: 'app-new-request',
+  templateUrl: './new-request.component.html',
+  styleUrls: ['./new-request.component.css']
 })
 export class NewRequestComponent implements OnInit {
     displayName: any;

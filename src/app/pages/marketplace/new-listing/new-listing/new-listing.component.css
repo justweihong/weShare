@@ -1,0 +1,47 @@
+#price-input {
+    margin-top: 10px;
+}
+
+#picture-upload {
+    text-align: center;
+}
+
+progress::-webkit-progress-value {
+    transition: width 0.1s ease;
+  }
+
+#drop-area { 
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    /* flex-direction: column;  */
+    /* min-width: 10vw; */
+    /* font-weight: 200; */
+    /* height: 50px; */
+    border: 2px dashed #f16624;
+    border-radius: 5px;
+    background: white;
+    /* margin: 10px 0; */
+    padding: 10px 100px;
+}
+
+  
+#drop-area:hover {
+    border: 2px solid #f16624;
+}
+
+.file-label {
+    font-size: 1.2em;
+}
+ 
+img {
+    /* border: solid; */
+    object-fit: contain;
+    width: 300px;
+    height: 300px;
+}
+
+.alert {
+    color: red;
+    padding: 0%;
+}
