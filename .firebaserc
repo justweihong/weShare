@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "splashbros-126a0": {
+      "hosting": {
+        "SplashBros": [
+          "splashbros-126a0"
+        ]
+      }
+    }
+  }
+}
