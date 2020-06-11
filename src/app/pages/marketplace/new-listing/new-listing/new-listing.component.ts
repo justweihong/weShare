@@ -56,9 +56,9 @@ export class NewListingComponent implements OnInit {
     this.imgURL = "./assets/no-preview-available.png";
     this.listingForm = this.fb.group({
       title: ['', Validators.required],
-      description: '',
+      description: ['', [Validators.required, Validators.maxLength(400)]],
       price: ['', Validators.required],
-      contact: '',
+      contact: ['', Validators.required],
     })
   }
 
@@ -82,7 +82,8 @@ export class NewListingComponent implements OnInit {
   startUpload(event: FileList) {
 
 
-    if (this.listingForm.controls['title'].invalid.valueOf() || this.listingForm.controls['price'].invalid.valueOf()) {
+    if (this.listingForm.controls['title'].invalid.valueOf() || this.listingForm.controls['price'].invalid.valueOf()
+   || this.listingForm.controls['description'].invalid.valueOf() || this.listingForm.controls['contact'].invalid.valueOf()) {
       alert("Incomplete Form!");
       this.modalService.dismissAll();
       return;
