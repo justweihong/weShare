@@ -1,118 +1,118 @@
 <!-- Button trigger modal -->
-<button type="button" id = "modal-button" class="btn btn-primary" data-toggle="modal" data-target="#listingModal">
-    + Submit Listing
-  </button>
+<button type="button" id="modal-button" class="btn btn-primary" data-toggle="modal" data-target="#listingModal">
+  + Submit Listing
+</button>
 
-   <!-- Modal -->
-   <div #listingModal class="modal fade" id="listingModal" tabindex="-1" role="dialog" aria-labelledby="listingModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title" id="listingModalLabel">New Listing</h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-  
-  
-  
-          <!-- Start of form -->
-          <form [formGroup]="listingForm" novalidate>
-            <div class = "form-group" id = "picture-upload">
-              <div id = "file-upload">
+<!-- Modal -->
+<div #listingModal class="modal fade" id="listingModal" tabindex="-1" role="dialog" aria-labelledby="listingModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="listingModalLabel">New Listing</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
 
-                
-                <label>Drag and Drop or Select a file: </label>
-                <span style="color:red;" *ngIf="message">{{message}}</span>
-                <input #dropArea id = "drop-area" name="drop-area" #file type="file" accept='image/*' (change)="preview(file.files)">
-            
-            
-            
+
+
+        <!-- Start of form -->
+        <form [formGroup]="listingForm" novalidate>
+          <div class="form-group" id="picture-upload">
+            <div id="file-upload">
+
+
+              <label>Drag and Drop or Select a file: </label>
+              <span style="color:red;" *ngIf="message">{{message}}</span>
+              <input #dropArea id="drop-area" name="drop-area" #file type="file" accept='image/*'
+                (change)="preview(file.files)">
+
+
+
             </div>
             <!-- Image Preview -->
-            <img [src] = "imgURL" *ngIf="imgURL">
+            <img [src]="imgURL" *ngIf="imgURL">
             <!-- End of Image Preview -->
 
             <br>
-            <button type="button"  (click)="clearImage()">Clear Image</button>
+            <button type="button" (click)="clearImage()">Clear Image</button>
           </div>
 
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Title</label>
-              <div class="col-sm-8">
-              <textarea class = "formControl" id="title" rows = "2" cols = "40"  formControlName="title" placeholder="input title">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Title</label>
+            <div class="col-sm-8">
+              <textarea class="formControl" id="title" rows="2" cols="40" formControlName="title"
+                placeholder="input title">
               </textarea>
               <div *ngIf="listingForm.controls['title'].invalid">
                 <div *ngIf="listingForm.controls['title'].errors.required">
-                  <span class = "alert" >*Title is required.</span>
+                  <span class="alert">*Title is required.</span>
                 </div>
               </div>
-              </div>
-              </div>
-            
+            </div>
+          </div>
 
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Description</label>
-              <div class="col-sm-8">
-              <textarea id="description" rows = "4" cols = "40" formControlName="description" placeholder="describe your request bro." >
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-8">
+              <textarea id="description" rows="4" cols="40" formControlName="description"
+                placeholder="describe your request bro.">
               </textarea>
             </div>
-            
-            </div>
-  
-  
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Price (SGD)</label>
-                <div class="col-sm-4">
-                    <input id = "price-input" type ="number"  step='0.05' rows = "2" cols = "40" formControlName="price">
-                  
-                    <div *ngIf="listingForm.controls['price'].invalid">
-                      <!-- <div *ngIf="!listingForm.controls.price.valid"> -->
-                        <span class = "alert" >*Price is required.</span>
-                      <!-- </div> -->
-                    </div>
-                  </div>
+
+          </div>
+
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Price (SGD)</label>
+            <div class="col-sm-4">
+              <input id="price-input" type="number" step='0.05' rows="2" cols="40" formControlName="price">
+
+              <div *ngIf="listingForm.controls['price'].invalid">
+                <span class="alert">*Price is required.</span>
               </div>
-  
-  
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Contact Details</label>
-                    <div class="col-sm-8">
-                        <textarea rows = "2" cols = "40" formControlName="contact">
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Contact Details</label>
+            <div class="col-sm-8">
+              <textarea rows="2" cols="40" formControlName="contact">
                         </textarea>
-                    </div>
-                  </div>
-          </form>
-  
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="open(progressBar)" (click)="startUpload(imagePath)"> Post Listing </button>
-          </div>
-
-          <ng-template #progressBar id = "progressBar" let-modal>
-          <!-- Progress Bar-->
-          <div>
-            <div *ngIf = "percentage | async as pct">
-              <progress [value] = "pct" max = "100"></progress>
-              {{ pct | number }}%
-            </div>
-    
-            <div *ngIf = "snapshot | async as snap">
-              {{ snap.bytesTransferred }} of {{ snap.totalBytes }} Bytes
-            </div>
-            <div class="text-center">
-              <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
-                <span class="sr-only">Loading...</span>
-              </div>
             </div>
           </div>
-          </ng-template>
-         <!-- End of Progress Bar-->
+        </form>
 
-
-          
-        <!-- </div>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="open(progressBar)" (click)="startUpload(imagePath)"> Post
+          Listing </button>
+      </div>
+
+      <ng-template #progressBar id="progressBar" let-modal>
+        <!-- Progress Bar-->
+        <div>
+          <div *ngIf="percentage | async as pct">
+            <progress [value]="pct" max="100"></progress>
+            {{ pct | number }}%
+          </div>
+
+          <div *ngIf="snapshot | async as snap">
+            {{ snap.bytesTransferred }} of {{ snap.totalBytes }} Bytes
+          </div>
+          <div class="text-center">
+            <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <!-- End of Progress Bar-->
+
     </div>
-  </div> -->
+  </div>
+</div>

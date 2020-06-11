@@ -15,6 +15,7 @@ export class ListingService {
   ) { }
 
   getListings() {
+    // console.log(this.db.collection(`listings`));
     return this.db.collection(`listings`).valueChanges();
   }
 
@@ -30,6 +31,15 @@ export class ListingService {
   }).catch(function(error) {
       console.error("Error removing document: ", error);
   });
+  }
+
+  addOffer(offererName, offererID, listingDetails, price) {
+    this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").doc(offererID).set({offererName, offererID, price})
+  }
+
+  getListingOffers(listingDetails) {
+    // console.log(this.db.doc(`listings/${listingDetails['ID']}`).collection("offers"));
+    return this.db.collection("listings").doc(listingDetails['ID']).collection("offers").valueChanges();
   }
 
   // updateListingDetails(userID, listingDetails) {
