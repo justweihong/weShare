@@ -53,3 +53,8 @@ div.card-body {
     height: 9rem;
     object-fit: contain;
 }
+
+.alert {
+    color: red;
+    padding: 0%;
+}

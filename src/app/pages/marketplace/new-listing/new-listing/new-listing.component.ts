@@ -5,10 +5,10 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { tap, finalize } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 // import { $ } from 'protractor';
-declare var $ : any;
+declare var $: any;
 
 @Component({
   selector: 'app-new-listing',
@@ -16,8 +16,8 @@ declare var $ : any;
   styleUrls: ['./new-listing.component.css']
 })
 export class NewListingComponent implements OnInit {
-  @ViewChild('dropArea') dropArea:ElementRef;
-  modalOptions:NgbModalOptions;
+  @ViewChild('dropArea') dropArea: ElementRef;
+  modalOptions: NgbModalOptions;
   closeResult: string;
 
   //input image file
@@ -30,12 +30,12 @@ export class NewListingComponent implements OnInit {
   public message: string;
 
   //listing input
-  listingForm : FormGroup;
+  listingForm: FormGroup;
 
   //Listing creator
   createdBy: String;
- 
-  
+
+
   //Main task
   task: AngularFireUploadTask;
 
@@ -49,25 +49,25 @@ export class NewListingComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private storage: AngularFireStorage, 
+    private storage: AngularFireStorage,
     private db: AngularFirestore,
     public fb: FormBuilder,
-    private modalService: NgbModal,) {
-      this.imgURL = "./assets/no-preview-available.png";
-      this.listingForm = this.fb.group({
-        title: ['', Validators.required],
-        description: '',
-        price: ['', Validators.required],
-        contact: '',
-      })
-     }
+    private modalService: NgbModal, ) {
+    this.imgURL = "./assets/no-preview-available.png";
+    this.listingForm = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', [Validators.required, Validators.maxLength(400)]],
+      price: ['', Validators.required],
+      contact: ['', Validators.required],
+    })
+  }
 
 
   //Get all inputs from form
   get title(): any { return this.listingForm.get('title') }
   get description(): any { return this.listingForm.get('description') }
-  get price():any { return this.listingForm.get('price') }
-  get contact():any { return this.listingForm.get('contact') }
+  get price(): any { return this.listingForm.get('price') }
+  get contact(): any { return this.listingForm.get('contact') }
 
 
   //Update creator of this listing
@@ -82,7 +82,8 @@ export class NewListingComponent implements OnInit {
   startUpload(event: FileList) {
 
 
-    if (this.listingForm.controls['title'].invalid.valueOf() || this.listingForm.controls['price'].invalid.valueOf()) {
+    if (this.listingForm.controls['title'].invalid.valueOf() || this.listingForm.controls['price'].invalid.valueOf()
+   || this.listingForm.controls['description'].invalid.valueOf() || this.listingForm.controls['contact'].invalid.valueOf()) {
       alert("Incomplete Form!");
       this.modalService.dismissAll();
       return;
@@ -101,22 +102,21 @@ export class NewListingComponent implements OnInit {
         contact: this.contact.value,
         path: path,
         createdBy: this.createdBy,
-        wishList: [],
       }
       this.db.collection('listings').add(formDetails).then(
         key => {
           this.db.collection('listings').doc(`${key.id}`).set({ ID: key.id }, { merge: true });
         }
-    );
-    $('#listingModal').modal('hide');
-    this.listingForm.reset();
-    this.modalService.dismissAll();
-    return;
-  } 
+      );
+      $('#listingModal').modal('hide');
+      this.listingForm.reset();
+      this.modalService.dismissAll();
+      return;
+    }
 
     // The File Object
     const file = event.item(0)
-    
+
     // Client-side validation
     if (file.type.split('/')[0] !== 'image') {
       console.error('unsupported file type :( ');
@@ -135,12 +135,11 @@ export class NewListingComponent implements OnInit {
       contact: this.contact.value,
       path: path,
       createdBy: this.createdBy,
-      wishList: [],
     }
-  
+
     //The main task
     this.task = this.storage.upload(path, file)
-  
+
     //Progress monitoring
     this.percentage = this.task.percentageChanges();
     this.snapshot = this.task.snapshotChanges().pipe(
@@ -153,15 +152,15 @@ export class NewListingComponent implements OnInit {
 
       //update firebase 
       finalize(() => {
-          //update firestore on completion
-          this.db.collection('listings').add(formDetails).then(
-                    key => {
-                      this.db.collection('listings').doc(`${key.id}`).set({ ID: key.id }, { merge: true });
-                    }
-                );
+        //update firestore on completion
+        this.db.collection('listings').add(formDetails).then(
+          key => {
+            this.db.collection('listings').doc(`${key.id}`).set({ ID: key.id }, { merge: true });
+          }
+        );
       })
     );
-  
+
 
     //Reset listing form
     $('#listingModal').modal('hide');
@@ -171,56 +170,56 @@ export class NewListingComponent implements OnInit {
 
   /**************End of Upload *****************/
 
-  
+
 
   /************* Preview images in new listing modal ****************/
   preview(files) {
     if (files.length === 0)
       return;
- 
+
     //check input type
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
       this.message = " *Only images are supported.*";
       return;
     }
- 
+
     //update display image URL
     var reader = new FileReader();
     this.imagePath = files;
-    reader.readAsDataURL(files[0]); 
-    reader.onload = (_event) => { 
-      this.imgURL = reader.result; 
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
       this.message = "";
-  
+
     }
   }
-/************** End of Preview *****************/
+  /************** End of Preview *****************/
 
 
 
-clearImage() {
-  this.imgURL = "./assets/no-preview-available.png";
-  this.imagePath = null;
-  this.dropArea.nativeElement.value = null;
-}
-
-
-open(content) {
-  this.modalService.open(content, this.modalOptions).result.then((result) => {
-    this.closeResult = `Closed with: ${result}`;
-  }, (reason) => {
-    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  });
-}
-
-private getDismissReason(reason: any): string {
-  if (reason === ModalDismissReasons.ESC) {
-    return 'by pressing ESC';
-  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-    return 'by clicking on a backdrop';
-  } else {
-    return  `with: ${reason}`;
+  clearImage() {
+    this.imgURL = "./assets/no-preview-available.png";
+    this.imagePath = null;
+    this.dropArea.nativeElement.value = null;
   }
-}
+
+
+  open(content) {
+    this.modalService.open(content, this.modalOptions).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
 }
