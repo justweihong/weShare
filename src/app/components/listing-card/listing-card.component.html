@@ -52,31 +52,54 @@
 
     <br>
 
+    <!-- creator view-->
     <div id="offers">
-      Current offers:
-      <div *ngIf="this.offers">
+      <div *ngIf="this.offers && this.userID == this.creatorID">
+        Current offers below - click to accept!
+        <div *ngFor="let offer of this.offers">
+          <button (click)="open(acceptOfferModal)">${{offer["price"]}} by {{offer["offererName"]}}</button>
+
+          <!-- Accept Offer confirmation -->
+          <ng-template #acceptOfferModal let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Accept Offer Confirmation</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Offer: ${{offer["price"]}} by {{offer["offererName"]}}
+
+            </div>
+
+            <div class="modal-footer">
+              This listing will be marked as completed!
+              <button type="button" class="btn btn-primary" (click)="acceptOffer(offer)">Accept Offer</button>
+
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <!-- non creator view-->
+    <div id="offers">
+      <div *ngIf="this.offers && this.userID != this.creatorID">
+        Current offers:
         <div *ngFor="let offer of this.offers">
           ${{offer["price"]}} by {{offer["offererName"]}}
         </div>
       </div>
     </div>
   </div>
-  <!-- <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
-    </div> -->
+
   <div id="possible-actions" class="modal-footer">
     <div *ngIf="this.userID == this.creatorID">
-      <!-- <button  type="button" class="btn btn-primary" >Edit</button> -->
       <button type="button" class="btn btn-primary" (click)="deleteListing()">Delete</button>
     </div>
 
-    <!-- <div *ngIf="this.userID == this.creatorID">
-          <button  type="button" class="btn btn-primary" (click) = "addToWishlist()">Add To Wishlist</button>
-      </div> -->
     <div *ngIf="this.userID != this.creatorID">
       <button type="button" class="btn btn-primary" (click)="open(makeOfferModal)">Make Offer</button>
-      <!-- <button *ngIf="this.requestDetails['status'] == 'ongoing' && this.requestDetails['helper'] == this.userID " type="button" class="btn btn-primary" (click)="unacceptRequest()" >Give up</button>
-          <button *ngIf="this.requestDetails['status'] == 'ongoing' && this.requestDetails['helper'] == this.userID " type="button" class="btn btn-primary" (click)="completeRequest()" >I've finished!</button> -->
     </div>
   </div>
 </ng-template>

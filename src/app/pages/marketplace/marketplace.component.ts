@@ -37,48 +37,48 @@ export class MarketplaceComponent implements OnInit {
 
     this.allListings = [];
     this.myListings = [];
-    // this.wishlist = [];
     this.ongoingListings = [];
     this.completedListings = [];
 
 
     this.listingService.getListings().subscribe(listing => {
       this.myListings = [];
-      this.allListings = listing;
+      this.allListings = [];
       this.ongoingListings = [];
-      
+      this.completedListings = [];
+
       listing.forEach(post => {
-        if (post['createdBy'] === this.userID) {
+        if (post['status'] === "active") {
+          this.allListings.push(post);
+        }
+
+        if (post['createdBy'] === this.userID && post['status'] == "active") {
           this.myListings.push(post);
         }
 
-        
-        this.listingService.getListingOffers(post).subscribe(offer => {
-          offer.forEach(individualOffer => {
-            if (individualOffer['offererID'] === this.userID) {
-              function checkPost(input) {
-                return input === post;
-              }
-              var index = this.ongoingListings.findIndex(checkPost);
-              if (index != -1) {
-                this.ongoingListings[index] = post;
-              } else {
-                this.ongoingListings.push(post);
-              }
-              
-            }
-          });
-        })
+        if (post['hasOffers'] && post['status'] == "active") {
+          this.listingService.getListingOffers(post).subscribe(offer => {
+            offer.forEach(individualOffer => {
+              if (individualOffer['offererID'] === this.userID) {
+                function checkPost(input) {
+                  return input === post;
+                }
+                var index = this.ongoingListings.findIndex(checkPost);
+                if (index != -1) {
+                  this.ongoingListings[index] = post;
+                } else {
+                  this.ongoingListings.push(post);
+                }
 
-        // if (request['status'] == "active") {
-        //     this.activeRequests.push(request);
-        // } else if (request['status'] == "ongoing") {
-        //     this.ongoingRequests.push(request);
-        // } else if (request['status'] == "completed") {
-        //     this.completedRequests.push(request);
-        // } else {
-        //     console.error("request ID (" + request['ID'] + ") has invalid status.");
-        // }
+              }
+            });
+          })
+        }
+
+        if (post['status'] === "completed") {
+          this.completedListings.push(post);
+        }
+
       })
     })
 

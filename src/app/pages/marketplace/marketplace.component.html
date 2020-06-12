@@ -77,7 +77,11 @@
 
         <!-- completed listings -->
         <div class="tab-pane fade" id="completed-listings" role="tabpanel" aria-labelledby="completed-listings-tab">
-            completed works
+            <div class="listings" *ngIf="this.completedListings">
+                <div *ngFor="let listing of this.completedListings">
+                    <app-listing-card [listingDetails]="listing"></app-listing-card>
+                </div>
+            </div>
         </div>
 
     </div>
