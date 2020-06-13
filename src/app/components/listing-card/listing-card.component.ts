@@ -1,10 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { AngularFireStorage, createStorageRef } from '@angular/fire/storage';
 import { UserService } from 'src/app/services/user/user.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { take } from 'rxjs/operators';
-import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
-import  { ListingService } from '../../services/listing/listing.service';
+import { take, delay } from 'rxjs/operators';
+import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { ListingService } from '../../services/listing/listing.service';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 declare var $: any;
 
@@ -15,89 +18,111 @@ declare var $: any;
   styleUrls: ['./listing-card.component.css']
 })
 export class ListingCardComponent implements OnInit {
+  subscription: Subscription[] = [];
   closeResult: string;
-  modalOptions:NgbModalOptions;
+  modalOptions: NgbModalOptions;
   @Input() listingDetails: any;
   url: any;
   displayName: any;
   creatorID: any;
   userID: any;
+  userName: any;
+  offerForm: FormGroup;
+  offers: any;
 
 
   constructor(
     private modalService: NgbModal,
-    private storage : AngularFireStorage,
+    private storage: AngularFireStorage,
     public auth: AuthService,
     private userService: UserService,
-    private listingService: ListingService
+    private listingService: ListingService,
+    private fb: FormBuilder,
+    private db: AngularFirestore,
   ) {
     this.modalOptions = {
-      backdrop:'static',
-      backdropClass:'customBackdrop'
+      backdrop: 'static',
+      backdropClass: 'customBackdrop'
     }
-    }
+
+    this.offerForm = this.fb.group({ price: ['', Validators.required] });
+  }
+
+  get price(): any { return this.offerForm.get('price') }
 
   ngOnInit(): void {
     this.url = "./assets/no-preview-available.png"
-    this.auth.getUser().pipe().subscribe(user => {
+    this.offers = [];
+
+    this.subscription.push(this.auth.getUser().pipe(take(1)).subscribe(user => {
       // Get user details.
       this.userID = user.uid;
-  });
+      this.userName = user.displayName;
+    }));
 
     if (this.listingDetails['path']) {
-       this.storage.ref(this.listingDetails['path']).getDownloadURL().subscribe(url =>
-        this.url = url)
+      this.subscription.push(this.storage.ref(this.listingDetails['path']).getDownloadURL().subscribe(url =>
+        this.url = url))
     }
+
     if (this.listingDetails) {
       this.creatorID = this.listingDetails['createdBy'];
       this.userService.getUser(this.creatorID).pipe(take(1)).subscribe(user => {
-          this.displayName = user['displayName'];
+        this.displayName = user['displayName'];
       });
 
-      
-    
-  }
+
+      if (this.listingDetails['hasOffers']) {
+        this.subscription.push(this.listingService.getListingOffers(this.listingDetails).subscribe(offer => {
+          this.offers = [];
+          offer.forEach(individualOffer => {
+            this.offers.push(individualOffer);
+          })
+        }))
+      }
+
+    }
   }
 
 
   timeAgo() {
     var timestamp = this.listingDetails['timeStamp'];
     var delta = Date.now() - timestamp;
-    var days =Math.floor(delta / (1000 * 60 * 60 * 24));
+    var days = Math.floor(delta / (1000 * 60 * 60 * 24));
     var hours = Math.floor(delta / (1000 * 60 * 60));
-    var min = Math.floor(delta / (1000 * 60 ));
+    var min = Math.floor(delta / (1000 * 60));
     var sec = Math.floor(delta / (1000));
-    
-    if(days < 0){
+
+    if (days < 0) {
       return `now`;
-    }else if(days > 14){
+    } else if (days > 14) {
 
       return `${new Date(timestamp).toLocaleDateString()}`;
-    }else if(days){
+    } else if (days) {
 
       return `${days} days ago`;
-    }else if (hours){
+    } else if (hours) {
 
       return `${hours} hours ago`;
-    }else if (min){
+    } else if (min) {
 
       return `${min} mins ago`;
-    }else if (sec){
+    } else if (sec) {
 
       return ` seconds ago`;
-    }else{
+    } else {
       return `now`;
     }
-}
+  }
 
   seeListingDetails() {
     if (this.listingDetails) {
       // this.listingService.sendRequestDetails(this.requestDetails);
       alert("works")
       $('#listing-details').modal('show');
-  } else {
+    } else {
       alert("This listing has incomplete details!");
-  }
+    }
   }
 
   open(content) {
@@ -114,7 +139,7 @@ export class ListingCardComponent implements OnInit {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
 
@@ -123,11 +148,27 @@ export class ListingCardComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
-  // addToWishlist() {
-  //   var listingDetails = {
-  //     wishlist : this.usergfdsgfdsg
-  //   }
-  //   this.listingService.updateListingDetails(this.userID, this.listingDetails);
-  // }
+  makeOffer() {
+    if (this.offerForm.controls['price'].invalid.valueOf()) {
+      alert("Please fill in a price!");
+      return;
+    }
+
+    this.listingService.addOffer(this.userName, this.userID, this.listingDetails, this.price.value);
+    this.offerForm.reset();
+    this.modalService.dismissAll();
+    // location.reload();
+  }
+
+
+  acceptOffer(offer) {
+    this.listingService.acceptOffer(offer, this.listingDetails);
+    this.modalService.dismissAll();
+  }
+
+
+  ngOnDestroy() {
+    this.subscription.forEach(subscription => subscription.unsubscribe());
+  }
 
 }

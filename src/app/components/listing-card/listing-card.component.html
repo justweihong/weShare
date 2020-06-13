@@ -1,120 +1,146 @@
-<div class="listing-card" style="width: 17rem; margin:0.5em;"  (click) = "open(listingDetailModal)">
+<div class="listing-card" style="width: 17rem; margin:0.5em;" (click)="open(listingDetailModal)">
   <div class="time-ago">
-    {{this.displayName}} / {{this.timeAgo()}} 
-</div>
-    <img class="card-img-top" [src] = "url" *ngIf = "url" alt="Card image cap" >
-    <div class="card-body">
-      
-      <div class="listing-title"> {{this.listingDetails['title']}}</div>
-
-    <div class="listing-desc"> 
-        {{this.listingDetails['description']}} 
-    </div>
-      
-
-    
-    </div>
+    {{this.displayName}} / {{this.timeAgo()}}
   </div>
+  <img class="card-img-top" [src]="url" *ngIf="url" alt="Card image cap">
+  <div class="card-body">
 
+    <div class="listing-title"> {{this.listingDetails['title']}}</div>
 
-
-  <!-- Modal details-->
-  <ng-template #listingDetailModal let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">{{this.listingDetails['title']}}</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <div class="listing-desc">
+      {{this.listingDetails['description']}}
     </div>
-    <div class="modal-body">
-      <img class="card-img-top" [src] = "url" *ngIf = "url" alt="Card image cap" >
-      <div id="description">
-        Description: {{this.listingDetails['description']}}
+
+
+
+  </div>
+</div>
+
+
+
+<!-- Modal details-->
+<ng-template #listingDetailModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{this.listingDetails['title']}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <img class="card-img-top" [src]="url" *ngIf="url" alt="Card image cap">
+    <div id="description">
+      Description: {{this.listingDetails['description']}}
     </div>
 
     <br>
 
     <div id="duration">
-        Price (SGD): {{this.listingDetails['price']}}
+      Price (SGD): {{this.listingDetails['price']}}
     </div>
 
     <br>
 
     <div id="contact">
-        Contact: {{this.listingDetails['contact']}}
+      Contact: {{this.listingDetails['contact']}}
     </div>
 
     <br>
 
     <div id="creator">
-        Posted By: {{this.displayName}}
+      Posted By: {{this.displayName}}
     </div>
-    </div>
-    <!-- <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
-    </div> -->
-    <div id="possible-actions" class="modal-footer">
-      <div *ngIf="this.userID == this.creatorID">
-          <!-- <button  type="button" class="btn btn-primary" >Edit</button> -->
-          <button  type="button" class="btn btn-primary" (click) = "deleteListing()">Delete</button>
-      </div>
 
-      <!-- <div *ngIf="this.userID == this.creatorID">
-          <button  type="button" class="btn btn-primary" (click) = "addToWishlist()">Add To Wishlist</button>
-      </div> -->
-      <div *ngIf="this.userID == this.creatorID">
-          <button type="button" class="btn btn-primary"  >Help {{this.displayName}}!</button>
-          <!-- <button *ngIf="this.requestDetails['status'] == 'ongoing' && this.requestDetails['helper'] == this.userID " type="button" class="btn btn-primary" (click)="unacceptRequest()" >Give up</button>
-          <button *ngIf="this.requestDetails['status'] == 'ongoing' && this.requestDetails['helper'] == this.userID " type="button" class="btn btn-primary" (click)="completeRequest()" >I've finished!</button> -->
-      </div>
-  </div>
-  </ng-template>
-  <!-- Modal -->
-<!-- <div id="listingDetailsModal" class="modal fade" role="dialog">
-  <div class="modal-dialog"> -->
+    <br>
 
-    <!-- Modal content-->
-    <!-- <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.{{this.listingDetails['description']}}</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <!-- creator view-->
+    <div id="offers">
+      <div *ngIf="this.offers && this.userID == this.creatorID">
+        Current offers below - click to accept!
+        <div *ngFor="let offer of this.offers">
+          <button (click)="open(acceptOfferModal)">${{offer["price"]}} by {{offer["offererName"]}}</button>
+
+          <!-- Accept Offer confirmation -->
+          <ng-template #acceptOfferModal let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Accept Offer Confirmation</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Offer: ${{offer["price"]}} by {{offer["offererName"]}}
+
+            </div>
+
+            <div class="modal-footer">
+              This listing will be marked as completed!
+              <button type="button" class="btn btn-primary" (click)="acceptOffer(offer)">Accept Offer</button>
+
+            </div>
+          </ng-template>
+        </div>
       </div>
     </div>
 
-  </div>
-</div> -->
-
-  <!-- Modal -->
-<!-- <div class="modal fade" id="listingDetailsModal" tabindex="-1" role="dialog" aria-labelledby="listingDetailsModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        {{this.listingDetails['title']}} 
-        <h5 class="modal-title" id="listingDetailsModalLabel">{{this.listingDetails['title']}} </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+    <!-- non creator view-->
+    <div id="offers">
+      <div *ngIf="this.offers && this.userID != this.creatorID">
+        Current offers:
+        <div *ngFor="let offer of this.offers">
+          ${{offer["price"]}} by {{offer["offererName"]}}
+        </div>
       </div>
     </div>
   </div>
-</div> -->
 
-<!-- <script>
+  <div id="possible-actions" class="modal-footer">
+    <div *ngIf="this.userID == this.creatorID">
+      <button type="button" class="btn btn-primary" (click)="deleteListing()">Delete</button>
+    </div>
 
-  $(document).ready(function() {
-    $('#listingDetailsModal').modal('show');
-  })
-</script> -->
+    <div *ngIf="this.userID != this.creatorID">
+      <button type="button" class="btn btn-primary" (click)="open(makeOfferModal)">Make Offer</button>
+    </div>
+  </div>
+</ng-template>
+
+
+<!-- Make Offer details-->
+<ng-template #makeOfferModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Make Offer Confirmation</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div id="offers">
+      Current offers:
+      <div *ngIf="this.offers">
+        <div *ngFor="let offer of this.offers">
+          ${{offer["price"]}} by {{offer["offererName"]}}
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <form [formGroup]="offerForm">
+        <label class="col-sm-4 col-form-label">Price (SGD)
+          <span *ngIf="offerForm.controls['price'].invalid">
+            <span class="alert">*</span>
+          </span>
+        </label>
+        <input type="number" step="0.05" placeholder="Price" formControlName="price">
+      </form>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    This will be added to your Ongoing transactions.
+    <button type="button" class="btn btn-primary" (click)="makeOffer()">Confirm Offer</button>
+
+  </div>
+</ng-template>

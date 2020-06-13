@@ -10,11 +10,12 @@ import { tap, finalize } from 'rxjs/operators';
 export class ListingService {
 
   constructor(
-    private db : AngularFirestore,
-    private storage : AngularFireStorage
+    private db: AngularFirestore,
+    private storage: AngularFireStorage
   ) { }
 
   getListings() {
+    // console.log(this.db.collection(`listings`));
     return this.db.collection(`listings`).valueChanges();
   }
 
@@ -25,11 +26,40 @@ export class ListingService {
       this.storage.ref(listingDetails["path"]).delete();
       // console.log("picDeleted");
     };
-    this.db.doc(`listings/${listingDetails['ID']}`).delete().then(function() {
+
+    if (listingDetails['hasOffers']) {
+      this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").snapshotChanges().subscribe(offer => {
+        offer.forEach(individualOffer => {
+          this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").doc(individualOffer['offererID']).delete()
+        })
+      })
+    }
+    this.db.doc(`listings/${listingDetails['ID']}`).delete().then(function () {
       console.log("Document successfully deleted!");
-  }).catch(function(error) {
+    }).catch(function (error) {
       console.error("Error removing document: ", error);
-  });
+    });
+  }
+
+  addOffer(offererName, offererID, listingDetails, price) {
+    this.db.doc(`listings/${listingDetails['ID']}`).set({ hasOffers: true }, { merge: true });
+    this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").doc(offererID).set({ offererName, offererID, price })
+  }
+
+  getListingOffers(listingDetails) {
+    // console.log(this.db.doc(`listings/${listingDetails['ID']}`).collection("offers"));
+    return this.db.collection("listings").doc(listingDetails['ID']).collection("offers").valueChanges();
+  }
+
+
+  acceptOffer(offer, listingDetails) {
+    var dataToChange = {
+      completeTimeStamp: Date.now(),
+      status: "completed",
+      acceptedBy: offer["offererName"],
+      acceptedPrice: offer["price"]
+    }
+    this.db.doc(`listings/${listingDetails['ID']}`).set(dataToChange, { merge: true });
   }
 
   // updateListingDetails(userID, listingDetails) {
