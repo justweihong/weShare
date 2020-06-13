@@ -19,6 +19,7 @@ export class NewListingComponent implements OnInit {
   @ViewChild('dropArea') dropArea: ElementRef;
   modalOptions: NgbModalOptions;
   closeResult: string;
+  status: String;
 
   //input image file
   public imagePath;
@@ -75,6 +76,7 @@ export class NewListingComponent implements OnInit {
     this.auth.getUser().subscribe(usr => {
       this.createdBy = usr.uid;
     })
+    // this.status = "active";
   }
 
 
@@ -102,10 +104,13 @@ export class NewListingComponent implements OnInit {
         contact: this.contact.value,
         path: path,
         createdBy: this.createdBy,
+        status: "active",
+        hasOffers: false
       }
       this.db.collection('listings').add(formDetails).then(
         key => {
           this.db.collection('listings').doc(`${key.id}`).set({ ID: key.id }, { merge: true });
+          // this.db.collection('listings').doc(`${key.id}`).collection("offers").doc('creator').set({offererID: this.createdBy});
         }
       );
       $('#listingModal').modal('hide');
@@ -135,6 +140,8 @@ export class NewListingComponent implements OnInit {
       contact: this.contact.value,
       path: path,
       createdBy: this.createdBy,
+      status: "active",
+      hasOffers: false
     }
 
     //The main task
@@ -156,10 +163,14 @@ export class NewListingComponent implements OnInit {
         this.db.collection('listings').add(formDetails).then(
           key => {
             this.db.collection('listings').doc(`${key.id}`).set({ ID: key.id }, { merge: true });
+            // this.db.collection('listings').doc(`${key.id}`).collection("offers").doc('creator').set({offererID: this.createdBy});            
           }
         );
+        
       })
     );
+
+    
 
 
     //Reset listing form

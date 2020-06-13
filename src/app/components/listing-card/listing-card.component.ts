@@ -7,6 +7,7 @@ import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng
 import { ListingService } from '../../services/listing/listing.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 declare var $: any;
 
@@ -37,13 +38,14 @@ export class ListingCardComponent implements OnInit {
     private userService: UserService,
     private listingService: ListingService,
     private fb: FormBuilder,
+    private db: AngularFirestore,
   ) {
     this.modalOptions = {
       backdrop: 'static',
       backdropClass: 'customBackdrop'
     }
 
-    this.offerForm = this.fb.group({price:['', Validators.required]});
+    this.offerForm = this.fb.group({ price: ['', Validators.required] });
   }
 
   get price(): any { return this.offerForm.get('price') }
@@ -69,14 +71,15 @@ export class ListingCardComponent implements OnInit {
         this.displayName = user['displayName'];
       });
 
-      this.subscription.push(this.listingService.getListingOffers(this.listingDetails).subscribe(offer => {
+
+      if (this.listingDetails['hasOffers']) {
+        this.subscription.push(this.listingService.getListingOffers(this.listingDetails).subscribe(offer => {
           this.offers = [];
           offer.forEach(individualOffer => {
             this.offers.push(individualOffer);
-        })
-      }))
-
-
+          })
+        }))
+      }
 
     }
   }
@@ -150,19 +153,20 @@ export class ListingCardComponent implements OnInit {
       alert("Please fill in a price!");
       return;
     }
-    
+
     this.listingService.addOffer(this.userName, this.userID, this.listingDetails, this.price.value);
     this.offerForm.reset();
     this.modalService.dismissAll();
     // location.reload();
   }
 
-  // addToWishlist() {
-  //   var listingDetails = {
-  //     wishlist : this.usergfdsgfdsg
-  //   }
-  //   this.listingService.updateListingDetails(this.userID, this.listingDetails);
-  // }
+
+  acceptOffer(offer) {
+    this.listingService.acceptOffer(offer, this.listingDetails);
+    this.modalService.dismissAll();
+  }
+
+
   ngOnDestroy() {
     this.subscription.forEach(subscription => subscription.unsubscribe());
   }
