@@ -57,6 +57,9 @@ export class MarketplaceComponent implements OnInit {
         }
 
         if (post['hasOffers'] && post['status'] == "active") {
+          if (post['createdBy'] === this.userID) {
+            this.ongoingListings.push(post);
+          }
           this.listingService.getListingOffers(post).subscribe(offer => {
             offer.forEach(individualOffer => {
               if (individualOffer['offererID'] === this.userID) {

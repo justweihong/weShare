@@ -52,9 +52,9 @@
 
     <br>
 
-    <!-- creator view-->
+    <!-- creator view for current offers-->
     <div id="offers">
-      <div *ngIf="this.offers && this.userID == this.creatorID">
+      <div *ngIf="this.offers && this.userID == this.creatorID && this.listingDetails['status'] != 'completed'">
         Current offers below - click to accept!
         <div *ngFor="let offer of this.offers">
           <button (click)="open(acceptOfferModal)">${{offer["price"]}} by {{offer["offererName"]}}</button>
@@ -82,9 +82,9 @@
       </div>
     </div>
 
-    <!-- non creator view-->
+    <!-- non creator view for current offers -->
     <div id="offers">
-      <div *ngIf="this.offers && this.userID != this.creatorID">
+      <div *ngIf="this.offers && this.userID != this.creatorID && this.listingDetails['status'] != 'completed'">
         Current offers:
         <div *ngFor="let offer of this.offers">
           ${{offer["price"]}} by {{offer["offererName"]}}
@@ -93,12 +93,21 @@
     </div>
   </div>
 
+  <!-- Completed view -->
+  <div id="completedListing">
+    <div *ngIf="this.listingDetails['status'] == 'completed'">
+      <h3 class="badge badge-success"> Accepted by {{this.listingDetails['acceptedBy']}} at ${{this.listingDetails['acceptedPrice']}}</h3>
+    </div>
+  </div>
+  <!-- end of completed view -->
+
+
   <div id="possible-actions" class="modal-footer">
-    <div *ngIf="this.userID == this.creatorID">
+    <div *ngIf="this.userID == this.creatorID ">
       <button type="button" class="btn btn-primary" (click)="deleteListing()">Delete</button>
     </div>
 
-    <div *ngIf="this.userID != this.creatorID">
+    <div *ngIf="this.userID != this.creatorID && this.listingDetails['status'] != 'completed'">
       <button type="button" class="btn btn-primary" (click)="open(makeOfferModal)">Make Offer</button>
     </div>
   </div>
