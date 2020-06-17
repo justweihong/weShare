@@ -40,7 +40,8 @@ export class RequestService {
             status: "ongoing",
         }
         return this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
-            this.subject2.next();
+            // this.subject2.next();
+            console.log("done")
         })
     }
 
@@ -52,7 +53,7 @@ export class RequestService {
             status: "active",
         }
         return this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
-            this.subject2.next();
+            // this.subject2.next();
         });
     }
 
@@ -63,7 +64,7 @@ export class RequestService {
             status: "completed",
         }
         return this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
-            this.subject2.next();
+            // this.subject2.next();
         });
     }
 

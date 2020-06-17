@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RequestListingCardComponent } from '../../components/request-listing-card/request-listing-card.component';
 import { RequestService } from '../../services/request/request.service';
 import { UserService } from '../../services/user/user.service';
@@ -19,6 +19,7 @@ import * as $ from 'jquery';
     styleUrls: ['./explore.component.css']
 })
 export class ExploreComponent implements OnInit {
+    subscriptions: Subscription[] = [];
     faEdit = faEdit;
 
     // User details
@@ -42,7 +43,7 @@ export class ExploreComponent implements OnInit {
 
 
     p: number = 1;
-    
+
 
     constructor(
         private router: Router,
@@ -57,9 +58,9 @@ export class ExploreComponent implements OnInit {
         });
 
         // Reload all requests cards upon detecting any changes in status.
-        this.requestService.getDetailUpdates().subscribe( () => {
-            this.reloadRequests();
-        })
+        // this.requestService.getDetailUpdates().subscribe( () => {
+        //     this.reloadRequests();
+        // })
 
         // User update form
         this.userForm = this.fb.group({
@@ -73,7 +74,6 @@ export class ExploreComponent implements OnInit {
 
     ngOnInit(): void {
         this.auth.getUser().pipe(take(1)).subscribe(user => {
-
             // Get user details.
             this.userID = user.uid;
             this.userService.getUser(this.userID).pipe(take(1)).subscribe(firebaseUser => {
@@ -88,15 +88,39 @@ export class ExploreComponent implements OnInit {
                     this.roomDetails = firebaseUser['roomDetails'];
                 }
             })
-            this.reloadRequests();
+            // this.reloadRequests();
             $(document).ready(function() {
                 $("#loading-header").hide();
                 $('#header').fadeIn(1000);
-                
+
             })
         })
+
+        this.subscriptions.push(this.requestService.getRequests().pipe().subscribe(requests =>{
+          this.allRequests = requests;
+          this.myRequests = [];
+          this.activeRequests = [];
+          this.ongoingRequests = [];
+          this.completedRequests = [];
+          requests.forEach(request => {
+              if (request['createdBy'] == this.userID) {
+                  this.myRequests.push(request);
+                  console.log("push");
+              }
+              if (request['status'] == "active") {
+                  this.activeRequests.push(request);
+              } else if (request['status'] == "ongoing") {
+                  this.ongoingRequests.push(request);
+              } else if (request['status'] == "completed") {
+                  this.completedRequests.push(request);
+              } else {
+                  console.error("request ID (" + request['ID'] + ") has invalid status.");
+              }
+          })
+        }))
     }
 
+    //TODO: remove??
     reloadRequests() {
         this.myRequests = [];
         this.activeRequests = [];
@@ -140,7 +164,7 @@ export class ExploreComponent implements OnInit {
             this.userContact = (this.newUserContact.value) ? this.newUserContact.value : this.userContact;
             this.userForm.reset();
         });
-        
+
     }
 
     // User details update methods
@@ -172,6 +196,14 @@ export class ExploreComponent implements OnInit {
     }
     trigger() {
         alert(" blur!");
+    }
+
+    test() {
+      $('#request-details').show();
+    }
+
+    ngOnDestroy(): void {
+      this.subscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
 }
