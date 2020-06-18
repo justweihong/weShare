@@ -1,5 +1,6 @@
+/* explore page */
 
- .image-holder {
+.image-holder {
     display: block;
     position: relative;
     z-index: 1;
@@ -28,7 +29,7 @@
     align-self: center;
 }
 
- 
+
  #modal-button {
   margin-top: -73px;
   margin-left: 780px;
@@ -38,7 +39,7 @@
   /* width: fit-content; */
   margin-left: 950px;
   margin-top: -65px !important;
-} 
+}
 
 .request-list {
     display: flex;

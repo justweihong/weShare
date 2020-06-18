@@ -17,6 +17,10 @@
     color: #226580;
 }
 
+.toggle-sidebar:hover {
+  color: #226580;
+}
+
 .image-holder {
     border-radius: 50%;
     width: 2em;

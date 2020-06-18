@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth/auth.service';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +10,20 @@ import { AuthService } from './services/auth/auth.service';
 export class AppComponent implements OnInit {
   title = 'SplashBros';
   isAuthenticated: boolean;
+  navstate: String = '';
 
   constructor(
-      public auth: AuthService
+      public auth: AuthService,
+      private router: Router,
+      private activatedRoute: ActivatedRoute,
   ) {
   }
 
   async ngOnInit() {
+    this.router.events.subscribe(val => {
+      if (val instanceof NavigationEnd) {
+        this.navstate = val.url.slice(1);
+      }
+    })
   }
 }

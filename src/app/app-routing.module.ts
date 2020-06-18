@@ -22,7 +22,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard]}, // Only registered users.
     { path: 'marketplace', component: MarketplaceComponent, canActivate: [AuthGuard]}, // Only registered users.
-    {path: '**', redirectTo: 'home'}
+    { path: '**', redirectTo: 'home' }
     //{ path: 'explore', redirectTo: '/explore'},
 ];
 

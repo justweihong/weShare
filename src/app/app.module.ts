@@ -29,6 +29,7 @@ import { ListingCardComponent } from './components/listing-card/listing-card.com
 import { FooterComponent } from './footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RequestListingComponent } from './components/request-listing/request-listing.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 // My web app's Firebase configuration
 const firebaseConfig = {
@@ -57,6 +58,7 @@ const firebaseConfig = {
     ListingCardComponent,
     FooterComponent,
     RequestListingComponent,
+    SidenavComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),

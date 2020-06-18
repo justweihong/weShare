@@ -93,8 +93,15 @@ export class ExploreComponent implements OnInit {
                 $("#loading-header").hide();
                 $('#header').fadeIn(1000);
 
+                $('#sidebarCollapse').on('click', function () {
+                  // console.log("hello")
+                  // console.log($('#sidebarCollapse').parent().attr('id'))
+                    $('#sidebar').toggleClass('active');
+                });
+
             })
         })
+
 
         this.subscriptions.push(this.requestService.getRequests().pipe().subscribe(requests =>{
           this.allRequests = requests;
