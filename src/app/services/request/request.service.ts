@@ -8,6 +8,7 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection 
 export class RequestService {
     subject = new Subject<any>();
     subject2 = new Subject<any>();
+    requestStates = new Subject<any>();
 
 
     constructor(
@@ -81,5 +82,12 @@ export class RequestService {
     // Explore constructor take changes in request details.
     getDetailUpdates(): Observable<any> {
         return this.subject2.asObservable();
+    }
+
+    sendRequestState(details) {
+      this.requestStates.next(details)
+    }
+    getRequestState(): Observable<any> {
+      return this.requestStates.asObservable();
     }
 }

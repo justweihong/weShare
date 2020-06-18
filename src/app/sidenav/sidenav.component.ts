@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth/auth.service';
 import { UserService } from '../services/user/user.service';
 import { take } from 'rxjs/operators';
 import { Router, NavigationEnd } from '@angular/router';
+import { RequestService } from '../services/request/request.service';
 
 
 
@@ -23,6 +24,7 @@ export class SidenavComponent implements OnInit {
     public auth: AuthService,
     private router: Router,
     private userService: UserService,
+    public requestService: RequestService,
   ) { }
 
   ngOnInit(): void {

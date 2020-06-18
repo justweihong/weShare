@@ -2,11 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RequestListingCardComponent } from '../../components/request-listing-card/request-listing-card.component';
 import { RequestService } from '../../services/request/request.service';
 import { UserService } from '../../services/user/user.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { take } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { take, map } from 'rxjs/operators';
+import { Subscription, Observable } from 'rxjs';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 // declare var $: any;
@@ -19,7 +19,9 @@ import * as $ from 'jquery';
     styleUrls: ['./explore.component.css']
 })
 export class ExploreComponent implements OnInit {
+    state$: Observable<object>;
     subscriptions: Subscription[] = [];
+    requestState: any = '';
     faEdit = faEdit;
 
     // User details
@@ -73,6 +75,11 @@ export class ExploreComponent implements OnInit {
     get newUserContact() { return this.userForm.get('userContact') }
 
     ngOnInit(): void {
+        this.subscriptions.push(this.requestService.getRequestState().pipe().subscribe(details => {
+          this.requestState = details["state"];
+          console.log(this.requestState)
+        }));
+
         this.auth.getUser().pipe(take(1)).subscribe(user => {
             // Get user details.
             this.userID = user.uid;
@@ -94,8 +101,6 @@ export class ExploreComponent implements OnInit {
                 $('#header').fadeIn(1000);
 
                 $('#sidebarCollapse').on('click', function () {
-                  // console.log("hello")
-                  // console.log($('#sidebarCollapse').parent().attr('id'))
                     $('#sidebar').toggleClass('active');
                 });
 

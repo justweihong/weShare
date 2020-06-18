@@ -31,13 +31,13 @@
           <a href="#requestSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Requests</a>
           <ul class="collapse list-unstyled" id="requestSubmenu">
               <li>
-                  <a routerLink="/explore"> All Requests</a>
+                  <a routerLink="/explore" (click)="this.requestService.sendRequestState({state: 'all requests'})"> All Requests</a>
               </li>
               <li>
-                  <a routerLink="/explore">My Requests</a>
+                  <a routerLink="/explore" (click)="this.requestService.sendRequestState({state: 'my requests'})">My Requests</a>
               </li>
               <li>
-                  <a routerLink="/explore">Requests I accepted</a>
+                  <a routerLink="/explore" (click)="this.requestService.sendRequestState({state: 'requests I accepted'})">Requests I accepted</a>
               </li>
           </ul>
       </li>
