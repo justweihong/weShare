@@ -89,18 +89,12 @@ export class ExploreComponent implements OnInit {
                 this.displayName = firebaseUser['displayName'];
                 this.userEmail = firebaseUser['email'];
                 this.userImg = firebaseUser['profileImg'];
-                if (!firebaseUser['userContact'] || !firebaseUser['roomDetails'] ) {
-                    alert("Your profile is incompete, please complete them before viewing requests.");
-                } else {
-                    this.userContact = firebaseUser['userContact'];
-                    this.roomDetails = firebaseUser['roomDetails'];
-                }
             })
 
             // this.reloadRequests();
             $(document).ready(function() {
                 $("#loading-header").hide();
-                $('#header').fadeIn(1000);
+                $(".fade-right").animate({left:"-=20px", opacity:"show"}, 1000);
 
                 $('#sidebarCollapse').on('click', function () {
                     $('#sidebar').toggleClass('active');

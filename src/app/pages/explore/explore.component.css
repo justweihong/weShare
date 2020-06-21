@@ -44,7 +44,7 @@
 .request-list {
     display: flex;
     flex-wrap: wrap;
-    background-color: #fbf7ec;
+    /* background-color: #f3f3f3; */
     min-height: 20em;
     /* max-width: 112em; */
 }
