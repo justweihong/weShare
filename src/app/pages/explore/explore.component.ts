@@ -19,7 +19,6 @@ import * as $ from 'jquery';
     styleUrls: ['./explore.component.css']
 })
 export class ExploreComponent implements OnInit {
-    state$: Observable<object>;
     subscriptions: Subscription[] = [];
     requestState: any = '';
     faEdit = faEdit;
@@ -75,13 +74,15 @@ export class ExploreComponent implements OnInit {
     get newUserContact() { return this.userForm.get('userContact') }
 
     ngOnInit(): void {
+
+        // Update the request state
         this.subscriptions.push(this.requestService.getRequestState().pipe().subscribe(details => {
           this.requestState = details["state"];
           console.log(this.requestState)
         }));
 
+        // Get user details.
         this.auth.getUser().pipe(take(1)).subscribe(user => {
-            // Get user details.
             this.userID = user.uid;
             this.userService.getUser(this.userID).pipe(take(1)).subscribe(firebaseUser => {
                 console.log(firebaseUser);
@@ -95,6 +96,7 @@ export class ExploreComponent implements OnInit {
                     this.roomDetails = firebaseUser['roomDetails'];
                 }
             })
+
             // this.reloadRequests();
             $(document).ready(function() {
                 $("#loading-header").hide();
@@ -107,7 +109,7 @@ export class ExploreComponent implements OnInit {
             })
         })
 
-
+        // Update all requests when there is change in request collection.
         this.subscriptions.push(this.requestService.getRequests().pipe().subscribe(requests =>{
           this.allRequests = requests;
           this.myRequests = [];

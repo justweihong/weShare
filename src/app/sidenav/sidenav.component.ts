@@ -28,6 +28,7 @@ export class SidenavComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.navstate)
     this.auth.getUser().pipe(take(1)).subscribe(user => {
 
       // Get user details.

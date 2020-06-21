@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg bg" style="max-height: 120px;">
-  <div *ngIf="this.navstate != 'login' && this.navstate != 'home'">
+  <div *ngIf="this.navstate != 'login' && this.navstate != 'home' && this.navstate != ''" >
     <button type="button" id="sidebarCollapse" class="btn btn-info">
       <fa-icon id="toggle-sidebar" [icon]="faBars"></fa-icon>
     </button>
