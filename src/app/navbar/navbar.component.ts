@@ -13,7 +13,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 export class NavbarComponent implements OnInit {
     @Input() navstate: any;
     subscription:Subscription[]=[];
-    isLogin:boolean=false;
+    isLogin:boolean;
     userID:any;
     userImg:any;
     faBars = faBars;
@@ -28,6 +28,8 @@ export class NavbarComponent implements OnInit {
               this.userID = user.uid;
               this.isLogin = true;
               this.userImg = user.photoURL;
+          } else {
+            this.isLogin = false;
           }
       }))
       $('#sidebarCollapse').on('click', function () {
@@ -38,4 +40,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  showNotifications() {
+    alert("This notification service has not been done yet!");
+  }
 }

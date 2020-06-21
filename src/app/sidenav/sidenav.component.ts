@@ -28,13 +28,12 @@ export class SidenavComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.navstate)
     this.auth.getUser().pipe(take(1)).subscribe(user => {
 
       // Get user details.
       this.userID = user.uid;
       this.userService.getUser(this.userID).pipe(take(1)).subscribe(firebaseUser => {
-          console.log(firebaseUser);
+          // console.log(firebaseUser);
           this.displayName = firebaseUser['displayName'];
           this.userEmail = firebaseUser['email'];
           this.userImg = firebaseUser['profileImg'];
