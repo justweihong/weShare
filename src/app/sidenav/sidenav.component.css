@@ -9,17 +9,15 @@
 #sidebar {
   min-width: 250px;
   max-width: 250px;
+  overflow: scroll;
+}
+#sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 /* #sidebar.active {
   margin-left: -250px;
 } */
-
-#sidebar {
-  min-width: 250px;
-  max-width: 250px;
-  min-height: 100vh;
-}
 
 a[data-toggle="collapse"] {
   position: relative;

@@ -12,11 +12,11 @@
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid rgba(0,0,0,.125);
-  border-radius: .25rem;
+  border-radius: .5rem;
   cursor: pointer;
   padding: 1em;
-  width: 15em;
-  height: 15em;
+  /* width: 15em; */
+  height: 10em;
 }
 .word-break {
   overflow: hidden;

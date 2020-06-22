@@ -76,8 +76,13 @@ export class ExploreComponent implements OnInit {
     ngOnInit(): void {
 
         // Update the request state
+        if (!this.requestState) {
+          this.requestState = "all requests";
+        }
         this.subscriptions.push(this.requestService.getRequestState().pipe().subscribe(details => {
           this.requestState = details["state"];
+          // $("#loading-header").show(0).delay(200).hide(0);
+          $(".fade-right").animate({left:"+=20px",opacity:"hide"},0).delay(300).animate({left:"-=20px", opacity:"show"}, 800);
           console.log(this.requestState)
         }));
 
@@ -93,8 +98,8 @@ export class ExploreComponent implements OnInit {
 
             // this.reloadRequests();
             $(document).ready(function() {
-                $("#loading-header").hide();
-                $(".fade-right").animate({left:"-=20px", opacity:"show"}, 1000);
+                // $("#loading-header").delay(300).hide(0);
+                $(".fade-right").animate({left:"+=20px",opacity:"hide"},0).delay(300).animate({left:"-=20px", opacity:"show"}, 800);
 
                 $('#sidebarCollapse').on('click', function () {
                     $('#sidebar').toggleClass('active');

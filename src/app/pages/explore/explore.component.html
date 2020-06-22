@@ -1,17 +1,24 @@
-<div style="background-color: #f3f3f3">
-  <img id="loading-header" src="../../../assets/loading.gif" />
-  <div id="content" class="fade-right" style="display:none; padding-left: 20px;position:relative">
+<div style="overflow: hidden;">
+  <img id="loading-header" src="../../../assets/loading.gif" style="display: none;"/>
+  <div id="content" class="fade-right" style="display:none; padding-left: 0px;position:relative">
     <div id="requests" >
 
       <!-- all requests -->
-      <div *ngIf="this.requestState == 'all requests' && this.allRequests" class="request-list">
-        <div *ngFor="let request of this.allRequests" class="request-area">
+      <!-- <div id="request-list" class="request-list page-height" *ngIf="this.requestState == 'all requests' && this.allRequests">
+          <div *ngFor="let request of this.allRequests" class="request-area">
+            <app-request-listing [requestID]="request['ID']"></app-request-listing>
+          </div>
+      </div> -->
+
+      <div class="grid request-list page-height" *ngIf="this.requestState == 'all requests' && this.allRequests">
+        <ng-container *ngFor="let request of this.allRequests">
           <app-request-listing [requestID]="request['ID']"></app-request-listing>
-        </div>
+        </ng-container>
       </div>
 
+
       <!-- my requests -->
-      <div *ngIf="this.requestState == 'my requests' && this.myRequests" class="request-list">
+      <div id="request-list" class="request-list page-height" *ngIf="this.requestState == 'my requests' && this.myRequests" >
         <div *ngFor="let request of this.myRequests" class="request-area">
           <app-request-listing [requestID]="request['ID']"></app-request-listing>
         </div>
