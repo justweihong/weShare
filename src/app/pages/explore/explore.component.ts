@@ -19,7 +19,6 @@ import * as $ from 'jquery';
     styleUrls: ['./explore.component.css']
 })
 export class ExploreComponent implements OnInit {
-    faEdit = faEdit;
 
     // User details
     detailUpdateSubscription: Subscription;
