@@ -1,0 +1,64 @@
+<div>
+  <img id="loading-header" src="../../../assets/loading.gif" />
+  <div id="content" class="fade-right" style="display:none; padding-left: 20px;position:relative">
+    <!-- welcome profile -->
+    <div class="width container" style="padding-top: 2em;">
+      <div class="image-holder" style="margin-left: 0.5em; margin-top: 0.3em;">
+        <img src="{{ this.userImg }}" class="image-holder" />
+      </div>
+      <div class="profile-header">
+        <div class="profile-name">
+          {{ this.displayName }}
+        </div>
+
+      </div>
+    </div>
+
+    <div id="user-details" class="width container" style="color: grey; padding-left: 1em;">
+      <form id="user-detail-edit" [formGroup]="userForm">
+        <!-- user details display -->
+        <div id="user-detail-display" style="min-height: 2em; line-height: 2em;">
+          <!-- non-editable user details -->
+          <div>ID : {{ this.userID }}</div>
+          <div>email : {{ this.userEmail }}</div>
+
+          <!-- user contact -->
+          <div id="user-contact-display">
+            <div *ngIf="this.userContact">contact: {{ this.userContact }}</div>
+            <div *ngIf="!this.userContact">contact: nil</div>
+          </div>
+          <div id="user-contact-edit" style="display: none;">
+            contact :
+            <textarea id="user-contact-textarea" rows="1" cols="20" style="vertical-align: middle;"
+              formControlName="userContact">{{ this.userContact }}</textarea>
+          </div>
+
+          <!-- room details -->
+          <div id="room-detail-display">
+            <div *ngIf="this.roomDetails">
+              room details: {{ this.roomDetails }}
+            </div>
+            <div *ngIf="!this.roomDetails">room details: nil</div>
+          </div>
+          <div id="room-detail-edit" style="display: none;">
+            room details :
+            <textarea id="room-detail-textarea" rows="1" cols="20" style="vertical-align: middle;"
+              formControlName="roomDetails">{{ this.roomDetails }}</textarea>
+          </div>
+
+          <!-- edit icon -->
+          <fa-icon id="edit-icon" [icon]="faEdit" (click)="toggleUserDetailsEdit()"></fa-icon>
+
+          <!-- update button -->
+          <i class="fas fa-check"></i>
+          <button id="update-button" style="display: none;" type="button" class="btn btn-primary"
+            (click)="updateUserInfo()" data-dismiss="modal">
+            update
+          </button>
+        </div>
+      </form>
+    </div>
+
+
+  </div>
+</div>

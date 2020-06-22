@@ -1,0 +1,73 @@
+/* :hover {
+    background: #acceeb;
+    text-decoration: none;
+} */
+
+.req-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .5rem;
+  cursor: pointer;
+  padding: 1em;
+  /* width: 15em; */
+  height: 10em;
+}
+.word-break {
+  overflow: hidden;
+  word-break: break-word;
+  width: 100%;
+}
+.req-card:hover {
+  background-color: aliceblue;
+}
+
+.req-title {
+  font-size: 1.5em;
+  margin-top:1em;
+  margin-bottom: 0.5em;
+}
+
+.req-desc {
+  font-size: 1em;
+  flex: 1 1 auto;
+  min-height: 1px;
+  margin-bottom: 0.5em;
+}
+
+.time-ago {
+  font-size: 0.7em;
+  text-align: right;
+}
+
+
+
+div.card-text {
+  width: 12rem;
+  height: 8rem;
+  overflow: hidden;
+  white-space: pre-wrap;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 70%,
+    transparent 93.33333%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    black 70%,
+    transparent 93.33333%
+  );
+
+
+
+}
+
+h5 {
+  margin-top: 12px;
+  margin-bottom: -2px;
+}

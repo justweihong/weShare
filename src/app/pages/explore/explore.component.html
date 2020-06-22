@@ -193,76 +193,39 @@
           </div>
         </div>
       </div>
+<div style="overflow: hidden;">
+  <img id="loading-header" src="../../../assets/loading.gif" style="display: none;"/>
+  <div id="content" class="fade-right" style="display:none; padding-left: 0px;position:relative">
+    <div id="requests" >
 
       <!-- all requests -->
-      <div
-        class="tab-pane fade"
-        id="all-req"
-        role="tabpanel"
-        aria-labelledby="all-req-tab"
-      >
-        <div class="request-list" *ngIf="this.allRequests">
+      <!-- <div id="request-list" class="request-list page-height" *ngIf="this.requestState == 'all requests' && this.allRequests">
           <div *ngFor="let request of this.allRequests" class="request-area">
-            <app-request-listing-card
-              [requestDetails]="request"
-            ></app-request-listing-card>
+            <app-request-listing [requestID]="request['ID']"></app-request-listing>
           </div>
-        </div>
+      </div> -->
+
+      <div class="grid request-list page-height" *ngIf="this.requestState == 'all requests' && this.allRequests">
+        <ng-container *ngFor="let request of this.allRequests">
+          <app-request-listing [requestID]="request['ID']"></app-request-listing>
+        </ng-container>
       </div>
 
-      <!-- avtive requests -->
-      <div
-        class="tab-pane fade show active"
-        id="active-req"
-        role="tabpanel"
-        aria-labelledby="available-req-tab"
-      >
-        <div class="request-list" *ngIf="this.activeRequests">
-          <div *ngFor="let request of this.activeRequests" class="request-area">
-            <app-request-listing-card
-              [requestDetails]="request"
-            ></app-request-listing-card>
-          </div>
-        </div>
+      <div class="grid request-list page-height"  *ngIf="this.requestState == 'my requests' && this.myRequests">
+        <ng-container *ngFor="let request of this.myRequests" class="request-area">
+          <app-request-listing [requestID]="request['ID']"></app-request-listing>
+        </ng-container>
       </div>
 
-      <!-- ongoing requests -->
-      <div
-        class="tab-pane fade"
-        id="ongoing-req"
-        role="tabpanel"
-        aria-labelledby="your-req-tab"
-      >
-        <div class="request-list" *ngIf="this.ongoingRequests">
-          <div
-            *ngFor="let request of this.ongoingRequests"
-            class="request-area"
-          >
-            <app-request-listing-card
-              [requestDetails]="request"
-            ></app-request-listing-card>
-          </div>
-        </div>
-      </div>
 
-      <!-- completed requests -->
-      <div
-        class="tab-pane fade"
-        id="completed-req"
-        role="tabpanel"
-        aria-labelledby="completed-req-tab"
-      >
-        <div class="request-list" *ngIf="this.completedRequests">
-          <div
-            *ngFor="let request of this.completedRequests"
-            class="request-area"
-          >
-            <app-request-listing-card
-              [requestDetails]="request"
-            ></app-request-listing-card>
-          </div>
+      <!-- my requests -->
+      <!-- <div id="request-list" class="request-list page-height" *ngIf="this.requestState == 'my requests' && this.myRequests" >
+        <div *ngFor="let request of this.myRequests" class="request-area">
+          <app-request-listing [requestID]="request['ID']"></app-request-listing>
         </div>
-      </div>
+      </div> -->
+
     </div>
+
   </div>
 </div>

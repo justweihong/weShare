@@ -17,6 +17,10 @@ export class UserService {
     return this.afs.doc(`user/${userID}`).valueChanges();
   }
 
+  getUsers() {
+    return this.afs.collection(`user`).valueChanges();
+  }
+
   updateDetails(userID, data) {
     return this.afs.doc(`user/${userID}`).set(data, { merge: true });
   }
