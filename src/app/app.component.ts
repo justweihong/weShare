@@ -26,5 +26,13 @@ export class AppComponent implements OnInit {
         // console.log(this.navstate);
       }
     })
+
+    $(document).ready(function() {
+
+      $('#sidebarCollapse').on('click', function () {
+          $('#sidebar').toggleClass('active');
+      });
+
+  })
   }
 }
