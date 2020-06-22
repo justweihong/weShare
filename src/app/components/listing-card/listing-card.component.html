@@ -27,7 +27,9 @@
     </button>
   </div>
   <div class="modal-body">
-    <img class="card-img-top" [src]="url" *ngIf="url" alt="Card image cap">
+    <!-- <div *ngIf="downloadURL | async; let url"> -->
+      <img class="card-img-top" [src]="url" *ngIf="url" alt="Card image cap">
+    <!-- </div> -->
     <div id="description">
       Description: {{this.listingDetails['description']}}
     </div>
@@ -96,7 +98,8 @@
   <!-- Completed view -->
   <div id="completedListing">
     <div *ngIf="this.listingDetails['status'] == 'completed'">
-      <h3 class="badge badge-success"> Accepted by {{this.listingDetails['acceptedBy']}} at ${{this.listingDetails['acceptedPrice']}}</h3>
+      <h3 class="badge badge-success"> Accepted by {{this.listingDetails['acceptedBy']}} at
+        ${{this.listingDetails['acceptedPrice']}}</h3>
     </div>
   </div>
   <!-- end of completed view -->

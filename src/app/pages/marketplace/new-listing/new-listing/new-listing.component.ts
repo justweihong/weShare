@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { tap, finalize } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from 'src/app/services/user/user.service';
 
 // import { $ } from 'protractor';
 declare var $: any;
@@ -50,10 +51,11 @@ export class NewListingComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
+    private userService: UserService,
     private storage: AngularFireStorage,
     private db: AngularFirestore,
     public fb: FormBuilder,
-    private modalService: NgbModal, ) {
+    private modalService: NgbModal,) {
     this.imgURL = "./assets/no-preview-available.png";
     this.listingForm = this.fb.group({
       title: ['', Validators.required],
@@ -76,16 +78,15 @@ export class NewListingComponent implements OnInit {
     this.auth.getUser().subscribe(usr => {
       this.createdBy = usr.uid;
     })
-    // this.status = "active";
   }
 
 
   /****************** Upload Process ****************/
   startUpload(event: FileList) {
 
-
+    //handle invalid form
     if (this.listingForm.controls['title'].invalid.valueOf() || this.listingForm.controls['price'].invalid.valueOf()
-   || this.listingForm.controls['description'].invalid.valueOf() || this.listingForm.controls['contact'].invalid.valueOf()) {
+      || this.listingForm.controls['description'].invalid.valueOf() || this.listingForm.controls['contact'].invalid.valueOf()) {
       alert("Incomplete Form!");
       this.modalService.dismissAll();
       return;
@@ -93,7 +94,7 @@ export class NewListingComponent implements OnInit {
     //get TimeStamp of this listing
     const timeStamp = Date.now();
 
-    /********** Handle no image ********/
+    /***********8**** Handle no image ****************/
     if (event == null) {
       const path = `no-preview-available.png`
       var formDetails = {
@@ -110,14 +111,15 @@ export class NewListingComponent implements OnInit {
       this.db.collection('listings').add(formDetails).then(
         key => {
           this.db.collection('listings').doc(`${key.id}`).set({ ID: key.id }, { merge: true });
-          // this.db.collection('listings').doc(`${key.id}`).collection("offers").doc('creator').set({offererID: this.createdBy});
         }
       );
       $('#listingModal').modal('hide');
       this.listingForm.reset();
       this.modalService.dismissAll();
+      this.userService.increaseListingCount(this.createdBy);
       return;
     }
+    /*************** End of handle no image ***************/
 
     // The File Object
     const file = event.item(0)
@@ -132,6 +134,7 @@ export class NewListingComponent implements OnInit {
     //The Storage path
     const path = `listing-pics/${timeStamp}_${file.name}`;
 
+    //listing form
     var formDetails = {
       timeStamp: timeStamp,
       title: this.title.value,
@@ -144,35 +147,28 @@ export class NewListingComponent implements OnInit {
       hasOffers: false
     }
 
+
     //The main task
-    this.task = this.storage.upload(path, file)
+    this.task = this.storage.upload(path, file);
 
     //Progress monitoring
     this.percentage = this.task.percentageChanges();
-    this.snapshot = this.task.snapshotChanges().pipe(
-      //dismiss loading modal 
-      tap(snap => {
-        if (snap.bytesTransferred === snap.totalBytes) {
-          this.modalService.dismissAll();
-        }
-      }),
+    this.snapshot = this.task.snapshotChanges();
 
-      //update firebase 
-      finalize(() => {
-        //update firestore on completion
-        this.db.collection('listings').add(formDetails).then(
-          key => {
-            this.db.collection('listings').doc(`${key.id}`).set({ ID: key.id }, { merge: true });
-            // this.db.collection('listings').doc(`${key.id}`).collection("offers").doc('creator').set({offererID: this.createdBy});            
-          }
-        );
-        
-      })
-    );
+    //update firebase 
+    this.task.then(() => {
+      this.modalService.dismissAll();
+      this.db.collection('listings').add(formDetails).then(
+        key => {
+          this.db.collection('listings').doc(`${key.id}`).set({ ID: key.id }, { merge: true });
+          // this.db.collection('listings').doc(`${key.id}`).collection("offers").doc('creator').set({offererID: this.createdBy});            
+        }
+      );
+    })
+
+    this.userService.increaseListingCount(this.createdBy);
 
     
-
-
     //Reset listing form
     $('#listingModal').modal('hide');
     this.clearImage();
