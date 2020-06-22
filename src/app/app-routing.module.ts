@@ -10,6 +10,7 @@ import { HomeComponent } from './pages/home/home.component';
 
 // Authentication
 import { AuthGuard } from './services/auth/auth.guard';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 
@@ -20,9 +21,10 @@ const routes: Routes = [
 
     { path: 'home', component: HomeComponent}, // Landing Page
     { path: 'login', component: LoginComponent },
+    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}, // Only registered users.
     { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard]}, // Only registered users.
     { path: 'marketplace', component: MarketplaceComponent, canActivate: [AuthGuard]}, // Only registered users.
-    {path: '**', redirectTo: 'home'}
+    { path: '**', redirectTo: 'home' }
     //{ path: 'explore', redirectTo: '/explore'},
 ];
 

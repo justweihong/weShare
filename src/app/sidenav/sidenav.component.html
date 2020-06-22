@@ -1,0 +1,80 @@
+<nav id="sidebar" class="page-height" *ngIf="this.navstate != 'login' && this.navstate != 'home' && this.navstate != ''" >
+  <!-- user details -->
+  <div class="sidebar-header" >
+    <div id="image-area" style="display: flex; justify-content: center;padding-bottom: 1em;">
+      <div class="image-holder" style="margin-left: 0.5em; margin-top: 0.3em; ">
+        <img src="{{ this.userImg }}" class="image-holder" />
+      </div>
+    </div>
+    <div id="name" style="text-align: center; font-size: 20px;">
+      {{ this.displayName }}
+    </div>
+    <div id="email" style="text-align: center; font-size: 13px; color:#8f939e;">
+      {{ this.userEmail }}
+    </div>
+
+  </div>
+
+  <ul class="list-unstyled components">
+      <div id="navigation" style="color:grey;font-size:13px;">NAVIGATION</div>
+
+      <!-- profile -->
+      <li>
+        <a routerLinkActive="active" routerLink="/profile">Profile</a>
+      </li>
+
+      <!-- requests -->
+      <li>
+          <a href="#requestSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Requests</a>
+          <ul class="collapse list-unstyled" id="requestSubmenu">
+              <li>
+                  <a routerLink="/explore" (click)="this.requestService.sendRequestState({state: 'all requests'})"> All Requests</a>
+              </li>
+              <li>
+                  <a routerLink="/explore" (click)="this.requestService.sendRequestState({state: 'my requests'})">My Requests</a>
+              </li>
+              <li>
+                  <a routerLink="/explore" (click)="this.requestService.sendRequestState({state: 'requests I accepted'})">Requests I accepted</a>
+              </li>
+          </ul>
+      </li>
+
+      <!-- marketplace -->
+      <li>
+        <a href="#marketplaceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Marketplace</a>
+        <ul class="collapse list-unstyled" id="marketplaceSubmenu">
+            <li>
+                <a routerLink="/marketplace"> All Listings</a>
+            </li>
+            <li>
+                <a routerLink="/marketplace">My Listings</a>
+            </li>
+            <li>
+                <a routerLink="/marketplace">My Ongoing Listings</a>
+            </li>
+        </ul>
+      </li>
+
+      <!-- chat -->
+      <li>
+        <a href="#">Chat</a>
+      </li>
+
+      <!-- leaderboard -->
+      <li>
+        <a href="#">Leaderboard</a>
+      </li>
+
+
+      <!-- push notifications toggle -->
+      <li>
+          <a href="#">Push Notifications (Y/N?)</a>
+      </li>
+
+      <!-- log out -->
+      <li>
+        <a href="#">Log out</a>
+      </li>
+  </ul>
+
+</nav>

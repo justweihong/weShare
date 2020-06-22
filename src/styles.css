@@ -4,9 +4,15 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 
-.page {
-    background-color: #fbfbfb;
-    min-height: calc(100vh - 150px);
+.page-color {
+    background-color: #f3f3f3;
+}
+.page-height {
+  height: calc(100vh - 60px);
+}
+.page-width {
+  /* width: calc(100% - 250px); */
+  width: calc(100%);
 }
 
 .pri-button {

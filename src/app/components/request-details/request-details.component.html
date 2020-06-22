@@ -3,12 +3,7 @@
     <div class="modal-content" *ngIf="this.requestDetails">
       <div class="modal-header">
         <h1>{{ this.requestDetails["title"] }}</h1>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -30,12 +25,10 @@
         <div id="room-details">Room: {{ this.creatorRoom }}</div>
 
         <!-- helper details -->
-        <div
-          *ngIf="
+        <div *ngIf="
             this.requestDetails['helper'] &&
             this.requestDetails['helper'] != 'nil'
-          "
-        >
+          ">
           Helper : {{ this.requestDetails["helper"] }}
         </div>
       </div>
@@ -45,34 +38,20 @@
                 <button  type="button" class="btn btn-primary" >Delete</button>
             </div> -->
         <div *ngIf="this.userID != this.creatorID">
-          <button
-            *ngIf="this.requestDetails['status'] == 'active'"
-            type="button"
-            class="btn btn-primary"
-            (click)="acceptRequest()"
-          >
+          <button *ngIf="this.requestDetails['status'] == 'active'" type="button" class="btn btn-primary"
+            (click)="acceptRequest()">
             Help {{ this.creatorDisplayName }}!
           </button>
-          <button
-            *ngIf="
+          <button *ngIf="
               this.requestDetails['status'] == 'ongoing' &&
               this.requestDetails['helper'] == this.userID
-            "
-            type="button"
-            class="btn btn-primary"
-            (click)="unacceptRequest()"
-          >
+            " type="button" class="btn btn-primary" (click)="unacceptRequest()">
             Give up
           </button>
-          <button
-            *ngIf="
+          <button *ngIf="
               this.requestDetails['status'] == 'ongoing' &&
               this.requestDetails['helper'] == this.userID
-            "
-            type="button"
-            class="btn btn-primary"
-            (click)="completeRequest()"
-          >
+            " type="button" class="btn btn-primary" (click)="completeRequest()">
             I've finished!
           </button>
         </div>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RequestService } from '../../../services/request/request.service'; 
+import { RequestService } from '../../../services/request/request.service';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
+import { NewListingComponent } from '../../marketplace/new-listing/new-listing/new-listing.component';
 
 @Component({
   selector: 'app-new-request',
@@ -59,6 +60,8 @@ export class NewRequestComponent implements OnInit {
             createdBy: this.userID,
             timeStamp: Date.now(),
             status: "active",
+            helper: "nil",
+            helpTimeStamp: "nil",
         }
 
         this.requestService.addRequest(formDetails).then(() => {

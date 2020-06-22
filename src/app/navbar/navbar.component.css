@@ -11,10 +11,19 @@
 
 .nav-text {
     color: #fff;
+    height:100%;
+    display: flex;
+    align-items: center;
     font-size:1.2em;
 }
 .nav-text:hover {
     color: #226580;
+    background-color: #fff;
+    border-radius: 0.5em;
+}
+
+.toggle-sidebar:hover {
+  color: #226580;
 }
 
 .image-holder {
@@ -61,9 +70,16 @@
     background: rgba(0, 0, 0, 0.8);
 }
 
-@media (min-width: 992px) {
+/* @media (min-width: 992px) {
 .navbar-expand-lg .navbar-nav .nav-link {
     padding-right: 0.7rem;
     padding-left: 0.7rem;
     }
+} */
+
+@media (min-width: 1px) {
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: .5rem;
+    padding-left: .5rem;
+}
 }
