@@ -6,8 +6,8 @@
     <!-- search bar -->
     <form id="search-bar" class="form-inline my-2 my-lg-0">
         <span>
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)] = "searchBox" name="searchBox">
+            <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
         </span>
     </form>
 
@@ -26,10 +26,6 @@
             <a class="nav-link" id="my-listings-tab" data-toggle="tab" href="#my-listings" role="tab"
                 aria-controls="my-listings" aria-selected="false">My Listings</a>
         </li>
-        <!-- <li class="nav-item">
-            <a class="nav-link" id="wishlist-tab" data-toggle="tab" href="#wishlist" role="tab" aria-controls="wishlist"
-                aria-selected="false">My Wishlist</a>
-        </li> -->
         <li class="nav-item">
             <a class="nav-link" id="ongoing-tab" data-toggle="tab" href="#ongoing-listings" role="tab"
                 aria-controls="ongoing-listings" aria-selected="false">Ongoing Transactions</a>
@@ -46,7 +42,7 @@
         <!-- all listings -->
         <div class="tab-pane fade show active" id="all-listings" role="tabpanel" aria-labelledby="all-listings-tab">
             <div class="listings" *ngIf="this.allListings">
-                <div *ngFor="let listing of this.allListings">
+                <div *ngFor="let listing of this.filteredAllListings">
                     <app-listing-card [listingDetails]="listing"></app-listing-card>
                 </div>
             </div>
@@ -55,21 +51,16 @@
         <!-- My Listings -->
         <div class="tab-pane fade" id="my-listings" role="tabpanel" aria-labelledby="my-listings-tab">
             <div class="listings" *ngIf="this.myListings">
-                <div *ngFor="let listing of this.myListings">
+                <div *ngFor="let listing of this.filteredMyListings">
                     <app-listing-card [listingDetails]="listing"></app-listing-card>
                 </div>
             </div>
         </div>
 
-        <!-- wishlist -->
-        <!-- <div class="tab-pane fade" id="wishlist" role="tabpanel" aria-labelledby="wishlist-tab">
-            wishlist works
-        </div> -->
-
         <!-- ongoing listings -->
         <div class="tab-pane fade" id="ongoing-listings" role="tabpanel" aria-labelledby="ongoing-tab">
             <div class="listings" *ngIf="this.ongoingListings">
-                <div *ngFor="let listing of this.ongoingListings">
+                <div *ngFor="let listing of this.filteredOngoingListings">
                     <app-listing-card [listingDetails]="listing"></app-listing-card>
                 </div>
             </div>
@@ -78,7 +69,7 @@
         <!-- completed listings -->
         <div class="tab-pane fade" id="completed-listings" role="tabpanel" aria-labelledby="completed-listings-tab">
             <div class="listings" *ngIf="this.completedListings">
-                <div *ngFor="let listing of this.completedListings">
+                <div *ngFor="let listing of this.filteredCompletedListings">
                     <app-listing-card [listingDetails]="listing"></app-listing-card>
                 </div>
             </div>
