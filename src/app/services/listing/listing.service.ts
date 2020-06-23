@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireStorage, AngularFireUploadTask, createStorageRef } from '@angular/fire/storage';
-import { Observable, from } from 'rxjs';
+import { Subject, Observable, from } from 'rxjs';
 import { tap, finalize } from 'rxjs/operators';
 import { UserService } from '../user/user.service';
 
@@ -9,6 +9,7 @@ import { UserService } from '../user/user.service';
   providedIn: 'root'
 })
 export class ListingService {
+  listingStates = new Subject<any>();
 
   constructor(
     private db: AngularFirestore,
@@ -75,10 +76,13 @@ export class ListingService {
     this.db.doc(`listings/${listingDetails['ID']}`).set(dataToChange, { merge: true });
   }
 
-  // updateListingDetails(userID, listingDetails) {
-  //   // console.log(this.db.doc(`listings/${listingDetails['ID']}`).collection("wishList"));
-  //   this.db.doc(`listings/${listingDetails['ID']}`).set({listingDetails},{merge: true});
-  // }
+  sendListingState(details) {
+    this.listingStates.next(details)
+  }
+
+  getListingState(): Observable<any> {
+    return this.listingStates.asObservable();
+  }
 
 
 }

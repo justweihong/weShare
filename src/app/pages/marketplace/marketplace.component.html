@@ -1,23 +1,24 @@
-<div>
-  <header>
-      <h1><span>Hello {{this.displayName}}, Welcome to the Marketplace!</span></h1>
+<div style="overflow: hidden;">
+    <header>
+        <h1><span>Hello {{this.displayName}}, Welcome to the Marketplace!</span></h1>
 
-      <app-new-listing></app-new-listing>
+        <app-new-listing></app-new-listing>
 
-    <!-- search bar -->
-    <form id="search-bar" class="form-inline my-2 my-lg-0">
-        <span>
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)] = "searchBox" name="searchBox">
-            <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-        </span>
-    </form>
+        <!-- search bar -->
+        <form id="search-bar" class="form-inline my-2 my-lg-0">
+            <span>
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                    [(ngModel)]="searchBox" name="searchBox">
+                <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+            </span>
+        </form>
 
 
-  </header>
+    </header>
 
-<!-- request section -->
-<div id="request-section" style="padding:3em;">
-    <!-- requests tab -->
+    <!-- request section -->
+    <!-- <div id="request-section" style="padding:3em;">
+    <!~~ requests tab ~~>
     <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="all-listings-tab" data-toggle="tab" href="#all-listings" role="tab"
@@ -37,10 +38,10 @@
         </li>
     </ul>
 
-      <!-- request tab content -->
+      <!~~ request tab content ~~>
       <div class="tab-content" id="request-tab-content">
 
-        <!-- all listings -->
+        <!~~ all listings ~~>
         <div class="tab-pane fade show active" id="all-listings" role="tabpanel" aria-labelledby="all-listings-tab">
             <div class="listings" *ngIf="this.allListings">
                 <div *ngFor="let listing of this.filteredAllListings">
@@ -49,7 +50,7 @@
             </div>
         </div>
 
-        <!-- My Listings -->
+        <!~~ My Listings ~~>
         <div class="tab-pane fade" id="my-listings" role="tabpanel" aria-labelledby="my-listings-tab">
             <div class="listings" *ngIf="this.myListings">
                 <div *ngFor="let listing of this.filteredMyListings">
@@ -58,16 +59,16 @@
             </div>
         </div>
 
-        <!-- ongoing listings -->
+        <!~~ ongoing listings ~~>
         <div class="tab-pane fade" id="ongoing-listings" role="tabpanel" aria-labelledby="ongoing-tab">
             <div class="listings" *ngIf="this.ongoingListings">
                 <div *ngFor="let listing of this.filteredOngoingListings">
                     <app-listing-card [listingDetails]="listing"></app-listing-card>
-                </div>
+                </div>  
             </div>
         </div>
 
-        <!-- completed listings -->
+        <!~~ completed listings ~~>
         <div class="tab-pane fade" id="completed-listings" role="tabpanel" aria-labelledby="completed-listings-tab">
             <div class="listings" *ngIf="this.completedListings">
                 <div *ngFor="let listing of this.filteredCompletedListings">
@@ -78,5 +79,31 @@
 
       </div>
 
-  </div>
+  </div> -->
+
+    <!-- <div id="content" class="fade-right" style="display:none; padding-left: 0px;position:relative"> -->
+        <div class="grid listing-list page-height" *ngIf="this.listingState == 'all listings' && this.allListings">
+            <ng-container *ngFor="let listing of this.filteredAllListings">
+                <app-listing-card [listingDetails]="listing"></app-listing-card>
+            </ng-container>
+        </div>
+
+        <div class="grid listing-list page-height" *ngIf="this.listingState == 'my listings' && this.myListings">
+            <ng-container *ngFor="let listing of this.filteredMyListings">
+                <app-listing-card [listingDetails]="listing"></app-listing-card>
+            </ng-container>
+        </div>
+
+        <div class="grid listing-list page-height" *ngIf="this.listingState == 'my listings' && this.myListings">
+            <ng-container *ngFor="let listing of this.filteredOngoingListings">
+                <app-listing-card [listingDetails]="listing"></app-listing-card>
+            </ng-container>
+        </div>
+
+        <div class="grid listing-list page-height" *ngIf="this.listingState == 'my listings' && this.myListings">
+            <ng-container *ngFor="let listing of this.filteredCompletedListings">
+                <app-listing-card [listingDetails]="listing"></app-listing-card>
+            </ng-container>
+        </div>
+    <!-- </div> -->
 </div>

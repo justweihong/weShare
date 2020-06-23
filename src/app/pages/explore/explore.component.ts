@@ -21,7 +21,7 @@ import * as $ from 'jquery';
 export class ExploreComponent implements OnInit {
     subscriptions: Subscription[] = [];
     requestState: any = '';
-    faEdit = faEdit;
+    // faEdit = faEdit;
 
     // User details
     detailUpdateSubscription: Subscription;

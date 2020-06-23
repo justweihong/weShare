@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { ListingService } from '../../services/listing/listing.service';
 
 import { take } from 'rxjs/operators';
-import { pipe } from 'rxjs';
+import { Subscription, pipe } from 'rxjs';
 
 @Component({
   selector: 'app-marketplace',
@@ -13,6 +13,8 @@ import { pipe } from 'rxjs';
 export class MarketplaceComponent implements OnInit {
   displayName: any;
   userID: any;
+  listingState: any = '';
+  subscriptions: Subscription[] = [];
 
   private _searchBox: string;
   get searchBox(): string {
@@ -46,6 +48,18 @@ export class MarketplaceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    if (!this.listingState) {
+      this.listingState = "all listings";
+    }
+
+    this.subscriptions.push(this.listingService.getListingState().pipe().subscribe(details => {
+      this.listingState = details["state"];
+      // $("#loading-header").show(0).delay(200).hide(0);
+      // $(".fade-right").animate({left:"+=20px",opacity:"hide"},0).delay(300).animate({left:"-=20px", opacity:"show"}, 800);
+      // console.log(this.listingState)
+    }));
+
     $(document).ready(function() {
       $('#sidebarCollapse').on('click', function () {
           $('#sidebar').toggleClass('active');
