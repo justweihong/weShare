@@ -1,12 +1,13 @@
-#search-bar  {
-    /* width: fit-content; */
-    margin-left: 950px;
-    margin-top: -65px !important;
-  } 
+
 
   .listings {
     display: flex;
     flex-wrap: wrap;
+}
+
+#submit-listing {
+  position: absolute;
+  right:0
 }
 
 .listing-list {

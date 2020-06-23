@@ -2,14 +2,13 @@
     <header>
         <h1><span>Hello {{this.displayName}}, Welcome to the Marketplace!</span></h1>
 
-        <app-new-listing></app-new-listing>
+        <div id = 'submit-listing'><app-new-listing></app-new-listing></div>
 
         <!-- search bar -->
         <form id="search-bar" class="form-inline my-2 my-lg-0">
             <span>
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
                     [(ngModel)]="searchBox" name="searchBox">
-                <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
             </span>
         </form>
 
@@ -94,13 +93,13 @@
             </ng-container>
         </div>
 
-        <div class="grid listing-list page-height" *ngIf="this.listingState == 'my listings' && this.myListings">
+        <div class="grid listing-list page-height" *ngIf="this.listingState == 'ongoing listings' && this.ongoingListings">
             <ng-container *ngFor="let listing of this.filteredOngoingListings">
                 <app-listing-card [listingDetails]="listing"></app-listing-card>
             </ng-container>
         </div>
 
-        <div class="grid listing-list page-height" *ngIf="this.listingState == 'my listings' && this.myListings">
+        <div class="grid listing-list page-height" *ngIf="this.listingState == 'completed listings' && this.completedListings">
             <ng-container *ngFor="let listing of this.filteredCompletedListings">
                 <app-listing-card [listingDetails]="listing"></app-listing-card>
             </ng-container>
