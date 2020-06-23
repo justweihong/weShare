@@ -31,6 +31,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RequestListingComponent } from './components/request-listing/request-listing.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component';
 
 // My web app's Firebase configuration
 const firebaseConfig = {
@@ -61,6 +62,7 @@ const firebaseConfig = {
     RequestListingComponent,
     SidenavComponent,
     ProfileComponent,
+    LeaderboardComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
