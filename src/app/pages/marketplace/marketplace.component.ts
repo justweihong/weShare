@@ -112,7 +112,7 @@ export class MarketplaceComponent implements OnInit {
           })
         }
 
-        if (post['status'] === "completed") {
+        if (post['status'] === "completed" && (post['createdBy'] === this.userID || post['acceptedBy'] === this.displayName)) {
           this.completedListings.push(post);
         }
 
