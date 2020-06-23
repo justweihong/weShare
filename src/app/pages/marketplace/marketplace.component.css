@@ -8,3 +8,39 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.listing-list {
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  /* background-color: #f3f3f3; */
+  /* min-height: 20em; */
+  overflow: scroll;
+  /* max-width: 112em; */
+}
+.listing-list::-webkit-scrollbar {
+display: none;
+}
+
+.grid {
+  display:grid;
+  grid-auto-rows: min-content;
+}
+
+
+@media(min-width:1025px) {
+  .grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width:1024px) {
+  .grid {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media screen and (max-width:480px) {
+  .grid {
+    grid-template-columns: auto;
+  }
+}

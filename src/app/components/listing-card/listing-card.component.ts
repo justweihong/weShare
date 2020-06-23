@@ -29,6 +29,7 @@ export class ListingCardComponent implements OnInit {
   userName: any;
   offerForm: FormGroup;
   offers: any;
+  // downloadURL:any;
 
 
   constructor(
@@ -61,8 +62,8 @@ export class ListingCardComponent implements OnInit {
     }));
 
     if (this.listingDetails['path']) {
-      this.subscription.push(this.storage.ref(this.listingDetails['path']).getDownloadURL().subscribe(url =>
-        this.url = url))
+      this.storage.ref(this.listingDetails['path']).getDownloadURL().subscribe(url =>
+        this.url = url)
     }
 
     if (this.listingDetails) {

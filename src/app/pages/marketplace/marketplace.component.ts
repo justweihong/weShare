@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { ListingService } from '../../services/listing/listing.service';
 
 import { take } from 'rxjs/operators';
-import { pipe } from 'rxjs';
+import { Subscription, pipe } from 'rxjs';
 
 @Component({
   selector: 'app-marketplace',
@@ -13,10 +13,28 @@ import { pipe } from 'rxjs';
 export class MarketplaceComponent implements OnInit {
   displayName: any;
   userID: any;
+  listingState: any = '';
+  subscriptions: Subscription[] = [];
+
+  private _searchBox: string;
+  get searchBox(): string {
+    return this._searchBox;
+  }
+  set searchBox(value: string) {
+    this._searchBox = value;
+    this.filteredAllListings = this.filterAllListings(value);
+    this.filteredMyListings = this.filterMyListings(value);
+    this.filteredOngoingListings = this.filterOngoingListings(value);
+    this.filteredCompletedListings = this.filterCompletedListings(value);
+  }
+
+  filteredAllListings: any
+  filteredMyListings: any
+  filteredOngoingListings: any
+  filteredCompletedListings: any
 
   allListings: any;
   myListings: any;
-  // wishlist: any;
   ongoingListings: any;
   completedListings: any;
 
@@ -30,6 +48,18 @@ export class MarketplaceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    if (!this.listingState) {
+      this.listingState = "all listings";
+    }
+
+    this.subscriptions.push(this.listingService.getListingState().pipe().subscribe(details => {
+      this.listingState = details["state"];
+      // $("#loading-header").show(0).delay(200).hide(0);
+      // $(".fade-right").animate({left:"+=20px",opacity:"hide"},0).delay(300).animate({left:"-=20px", opacity:"show"}, 800);
+      // console.log(this.listingState)
+    }));
+
     $(document).ready(function() {
       $('#sidebarCollapse').on('click', function () {
           $('#sidebar').toggleClass('active');
@@ -44,7 +74,6 @@ export class MarketplaceComponent implements OnInit {
     this.myListings = [];
     this.ongoingListings = [];
     this.completedListings = [];
-
 
     this.listingService.getListings().subscribe(listing => {
       this.myListings = [];
@@ -62,6 +91,9 @@ export class MarketplaceComponent implements OnInit {
         }
 
         if (post['hasOffers'] && post['status'] == "active") {
+          if (post['createdBy'] === this.userID) {
+            this.ongoingListings.push(post);
+          }
           this.listingService.getListingOffers(post).subscribe(offer => {
             offer.forEach(individualOffer => {
               if (individualOffer['offererID'] === this.userID) {
@@ -85,8 +117,43 @@ export class MarketplaceComponent implements OnInit {
         }
 
       })
+      this.filteredAllListings = this.allListings;
+      this.filteredMyListings = this.myListings;
+      this.filteredOngoingListings = this.ongoingListings;
+      this.filteredCompletedListings = this.completedListings;
     })
 
+
+
+  }
+
+  filterAllListings(searchBox: string) {
+    return this.allListings.filter(listing =>
+      (listing['title'].toLowerCase().indexOf(searchBox.toLowerCase()) !== -1) ||
+      listing['description'].toLowerCase().indexOf(searchBox.toLowerCase()) !== -1
+    )
+  }
+
+
+  filterMyListings(searchBox: string) {
+    return this.myListings.filter(listing =>
+      (listing['title'].toLowerCase().indexOf(searchBox.toLowerCase()) !== -1) ||
+      listing['description'].toLowerCase().indexOf(searchBox.toLowerCase()) !== -1
+    )
+  }
+
+  filterOngoingListings(searchBox: string) {
+    return this.ongoingListings.filter(listing =>
+      (listing['title'].toLowerCase().indexOf(searchBox.toLowerCase()) !== -1) ||
+      listing['description'].toLowerCase().indexOf(searchBox.toLowerCase()) !== -1
+    )
+  }
+
+  filterCompletedListings(searchBox: string) {
+    return this.completedListings.filter(listing =>
+      (listing['title'].toLowerCase().indexOf(searchBox.toLowerCase()) !== -1) ||
+      listing['description'].toLowerCase().indexOf(searchBox.toLowerCase()) !== -1
+    )
   }
 
 }

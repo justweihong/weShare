@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireStorage, AngularFireUploadTask, createStorageRef } from '@angular/fire/storage';
-import { Observable, from } from 'rxjs';
+import { Subject, Observable, from } from 'rxjs';
 import { tap, finalize } from 'rxjs/operators';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListingService {
+  listingStates = new Subject<any>();
 
   constructor(
     private db: AngularFirestore,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private userService: UserService
   ) { }
 
   getListings() {
@@ -20,13 +23,12 @@ export class ListingService {
   }
 
   deleteListing(listingDetails) {
-    // console.log(listingDetails['ID']);
-    // console.log(listingDetails["path"]);
+    //delete picture
     if (listingDetails["path"] != "no-preview-available.png") {
       this.storage.ref(listingDetails["path"]).delete();
-      // console.log("picDeleted");
     };
 
+    //delete offer collection
     if (listingDetails['hasOffers']) {
       this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").snapshotChanges().subscribe(offer => {
         offer.forEach(individualOffer => {
@@ -34,6 +36,13 @@ export class ListingService {
         })
       })
     }
+
+    //reduce count of user if listing not completed
+    if (listingDetails['status'] === "active") {
+      this.userService.reduceListingCount(listingDetails['createdBy']);
+    }
+
+    //delete document
     this.db.doc(`listings/${listingDetails['ID']}`).delete().then(function () {
       console.log("Document successfully deleted!");
     }).catch(function (error) {
@@ -59,13 +68,21 @@ export class ListingService {
       acceptedBy: offer["offererName"],
       acceptedPrice: offer["price"]
     }
+    //increase completed listing count for both users
+    this.userService.increaseCompletedListingCount(offer['offererID']);
+    this.userService.increaseCompletedListingCount(listingDetails['createdBy']);
+
+    //change status to completed
     this.db.doc(`listings/${listingDetails['ID']}`).set(dataToChange, { merge: true });
   }
 
-  // updateListingDetails(userID, listingDetails) {
-  //   // console.log(this.db.doc(`listings/${listingDetails['ID']}`).collection("wishList"));
-  //   this.db.doc(`listings/${listingDetails['ID']}`).set({listingDetails},{merge: true});
-  // }
+  sendListingState(details) {
+    this.listingStates.next(details)
+  }
+
+  getListingState(): Observable<any> {
+    return this.listingStates.asObservable();
+  }
 
 
 }
