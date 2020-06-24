@@ -65,6 +65,7 @@ export class ListingService {
     var dataToChange = {
       completeTimeStamp: Date.now(),
       status: "completed",
+      acceptedByID: offer["offererID"],
       acceptedBy: offer["offererName"],
       acceptedPrice: offer["price"]
     }
