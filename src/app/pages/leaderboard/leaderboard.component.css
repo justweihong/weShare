@@ -1,6 +1,7 @@
 @media(min-width:1025px) {
     .container-fluid {
       grid-template-columns: 1fr 1fr 1fr;
+      
     }
   }
   

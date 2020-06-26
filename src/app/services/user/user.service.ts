@@ -35,10 +35,25 @@ export class UserService {
     return this.afs.doc(`user/${userID}`).update({completedListingCount : increment});
   }
 
-  reduceListingCount(userID) {
+  decreaseListingCount(userID) {
     const decrement = firebase.firestore.FieldValue.increment(-1);
     return this.afs.doc(`user/${userID}`).update({listingCount : decrement});
   }
+
+  increaseCompletedRequest(userID) {
+    const increment = firebase.firestore.FieldValue.increment(1);
+    return this.afs.doc(`user/${userID}`).update({completedRequestCount : increment});
+  }
+
+  decreaseCompletedRequest(userID) {
+    const decrement = firebase.firestore.FieldValue.increment(-1);
+    return this.afs.doc(`user/${userID}`).update({completedRequestCount : decrement});
+  }
+
+  getListingCount() {
+    return this.afs.collection(`user`, ref => ref.orderBy('listingCount', 'desc').limit(3)).valueChanges();
+  }
+
 
 
 }

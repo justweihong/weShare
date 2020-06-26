@@ -39,7 +39,7 @@ export class ListingService {
 
     //reduce count of user if listing not completed
     if (listingDetails['status'] === "active") {
-      this.userService.reduceListingCount(listingDetails['createdBy']);
+      this.userService.decreaseListingCount(listingDetails['createdBy']);
     }
 
     //delete document
@@ -82,6 +82,10 @@ export class ListingService {
 
   getListingState(): Observable<any> {
     return this.listingStates.asObservable();
+  }
+
+  getListingAnalytics() {
+    return this.db.collection('listings', ref => ref.where("status", "==", "completed")).valueChanges();
   }
 
 

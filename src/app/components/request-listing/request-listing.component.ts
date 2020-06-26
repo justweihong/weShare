@@ -107,7 +107,7 @@ export class RequestListingComponent implements OnInit {
   completeRequest() {
     if (confirm("Are you you have completed " + this.creatorDetails['displayName'] + "/'s request")) {
       this.closeDetailsModal();
-      this.requestService.completeRequest(this.requestDetails["ID"]).then(() => {
+      this.requestService.completeRequest(this.requestDetails["ID"], this.requestDetails["helper"]).then(() => {
       });
     }
   }

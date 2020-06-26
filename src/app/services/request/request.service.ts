@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subscription, merge, Subject, Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { UserService } from '../user/user.service';
 
 @Injectable({
     providedIn: 'root'
@@ -13,12 +14,14 @@ export class RequestService {
 
     constructor(
         private afs: AngularFirestore,
+        private userService: UserService
     ) { }
 
     getRequests() {
+        
         return this.afs.collection(`requests`, ref => ref.orderBy('timeStamp', 'desc')).valueChanges();
     }
-    getRequest(requestID) {
+    getRequest(requestID) {        
         return this.afs.doc(`requests/${requestID}`).valueChanges();
     }
 
@@ -59,11 +62,24 @@ export class RequestService {
     }
 
     // Update status on Firebase then allow subject2 to detect change for subscription in explore & request-detail.
-    completeRequest(requestID) {
+    completeRequest(requestID, requestHelper) {
         var dataToChange = {
             completeTimeStamp: Date.now(),
             status: "completed",
         }
+
+        //increase completed request for helper
+        this.userService.increaseCompletedRequest(requestHelper);
+        
+        // var tempSub = this.getRequest(requestID).subscribe(req => {
+        //     if (req['helper'] != "nil") {
+        //         console.log(req['helper']);
+        //         this.userService.increaseCompletedRequest(req['helper']);
+                
+        //     }
+        // })
+        // tempSub.unsubscribe();
+
         return this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
             // this.subject2.next();
         });
@@ -90,4 +106,5 @@ export class RequestService {
     getRequestState(): Observable<any> {
       return this.requestStates.asObservable();
     }
+
 }
