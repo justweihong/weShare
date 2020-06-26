@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { NavbarService } from '../services/navbar/navbar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -21,6 +22,7 @@ export class NavbarComponent implements OnInit {
   constructor(
       public auth: AuthService,
       private router: Router,
+      private navbarService: NavbarService,
       private afs: AngularFirestore,
   ) {
       this.subscription.push(this.auth.getUser().subscribe(user => {
@@ -32,12 +34,13 @@ export class NavbarComponent implements OnInit {
             this.isLogin = false;
           }
       }))
-      $('#sidebarCollapse').on('click', function () {
-        $('#sidebar').toggleClass('active');
-      });
    }
 
   ngOnInit(): void {
+  }
+
+  toggleSidenav() {
+    this.navbarService.sendSidenavToggle();
   }
 
   showNotifications() {
