@@ -22,13 +22,12 @@ export class SidenavComponent implements OnInit {
   displayName:any;
   userEmail:any;
   userImg:any;
-  hello:any;
 
   constructor(
     public auth: AuthService,
     private router: Router,
     private userService: UserService,
-    private navbarService: NavbarService,
+    public navbarService: NavbarService,
     public requestService: RequestService,
     public listingService: ListingService
   ) { }
@@ -54,5 +53,8 @@ export class SidenavComponent implements OnInit {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
+  incompleteFeatureAlert(type) {
+    alert(type + " feature has not been created yet!");
+  }
 
 }

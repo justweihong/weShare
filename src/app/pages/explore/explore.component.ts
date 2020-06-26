@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RequestListingCardComponent } from '../../components/request-listing-card/request-listing-card.component';
 import { RequestService } from '../../services/request/request.service';
 import { UserService } from '../../services/user/user.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { take, map } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 // declare var $: any;
 import * as $ from 'jquery';
+import { NavbarService } from 'src/app/services/navbar/navbar.service';
 // import { request } from 'http';
 
 @Component({
@@ -21,6 +22,7 @@ import * as $ from 'jquery';
 export class ExploreComponent implements OnInit {
     subscriptions: Subscription[] = [];
     requestState: any = '';
+    navstate:any;
     // faEdit = faEdit;
 
     // User details
@@ -50,9 +52,11 @@ export class ExploreComponent implements OnInit {
         private router: Router,
         public auth: AuthService,
         private requestService: RequestService,
+        private navbarService: NavbarService,
         private userService: UserService,
         private afs: AngularFirestore,
         public fb: FormBuilder,
+        private activatedRoute: ActivatedRoute,
     ) {
 
 
@@ -67,17 +71,12 @@ export class ExploreComponent implements OnInit {
     get newUserContact() { return this.userForm.get('userContact') }
 
     ngOnInit(): void {
-
+        console.log("hello")
         // Update the request state
+        this.requestState = this.activatedRoute.snapshot.url[1].path;
         if (!this.requestState) {
-          this.requestState = "all requests";
+          this.requestState = "all-requests";
         }
-        this.subscriptions.push(this.requestService.getRequestState().pipe().subscribe(details => {
-          this.requestState = details["state"];
-          // $("#loading-header").show(0).delay(200).hide(0);
-          $(".fade-right").animate({left:"+=20px",opacity:"hide"},0).delay(300).animate({left:"-=20px", opacity:"show"}, 800);
-          console.log(this.requestState)
-        }));
 
         // Get user details.
         this.auth.getUser().pipe(take(1)).subscribe(user => {

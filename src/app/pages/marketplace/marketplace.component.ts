@@ -4,6 +4,8 @@ import { ListingService } from '../../services/listing/listing.service';
 
 import { take } from 'rxjs/operators';
 import { Subscription, pipe } from 'rxjs';
+import { NavbarService } from 'src/app/services/navbar/navbar.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-marketplace',
@@ -42,27 +44,31 @@ export class MarketplaceComponent implements OnInit {
 
   constructor(
     public auth: AuthService,
-    private listingService: ListingService
+    private listingService: ListingService,
+    private navbarService: NavbarService,
+    private activatedRoute: ActivatedRoute,
   ) {
 
   }
 
   ngOnInit(): void {
 
+    // Update the request state
+    this.listingState = this.activatedRoute.snapshot.url[1].path;
     if (!this.listingState) {
       this.listingState = "all listings";
     }
 
-    this.subscriptions.push(this.listingService.getListingState().pipe().subscribe(details => {
-      this.listingState = details["state"];
-      // $("#loading-header").show(0).delay(200).hide(0);
-      // $(".fade-right").animate({left:"+=20px",opacity:"hide"},0).delay(300).animate({left:"-=20px", opacity:"show"}, 800);
-      // console.log(this.listingState)
-    }));
+    // this.subscriptions.push(this.navbarService.getState().pipe().subscribe(details => {
+    //   this.listingState = details["state"];
+    //   // $("#loading-header").show(0).delay(200).hide(0);
+    //   // $(".fade-right").animate({left:"+=20px",opacity:"hide"},0).delay(300).animate({left:"-=20px", opacity:"show"}, 800);
+    //   // console.log(this.listingState)
+    // }));
 
-    $(document).ready(function() {
+    // $(document).ready(function() {
 
-    })
+    // })
     this.auth.user.subscribe(x => {
       this.displayName = x.displayName;
       this.userID = x.uid;

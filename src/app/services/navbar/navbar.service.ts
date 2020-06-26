@@ -6,6 +6,7 @@ import { Subject, Observable } from 'rxjs';
 })
 export class NavbarService {
   navbarSubject = new Subject<any>();
+  stateSubject = new Subject<any>();
 
 
   constructor() { }
@@ -17,4 +18,12 @@ export class NavbarService {
   getSidenavToggle(): Observable<any>{
     return this.navbarSubject.asObservable();
   }
+
+  // sendState(details) {
+  //   this.stateSubject.next(details);
+  // }
+
+  // getState(): Observable<any> {
+  //   return this.stateSubject.asObservable();
+  // }
 }

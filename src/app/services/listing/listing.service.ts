@@ -76,13 +76,4 @@ export class ListingService {
     this.db.doc(`listings/${listingDetails['ID']}`).set(dataToChange, { merge: true });
   }
 
-  sendListingState(details) {
-    this.listingStates.next(details)
-  }
-
-  getListingState(): Observable<any> {
-    return this.listingStates.asObservable();
-  }
-
-
 }
