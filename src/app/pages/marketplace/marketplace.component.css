@@ -4,6 +4,11 @@
     flex-wrap: wrap;
 }
 
+#submit-listing {
+  position: absolute;
+  right:0
+}
+
 .listing-list {
   /* display: flex; */
   /* flex-wrap: wrap; */
