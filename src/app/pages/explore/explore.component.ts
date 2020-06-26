@@ -54,14 +54,7 @@ export class ExploreComponent implements OnInit {
         private afs: AngularFirestore,
         public fb: FormBuilder,
     ) {
-        $('#user-contact-textarea').on('blur', function() {
-            alert(" dsadsadsd");
-        });
 
-        // Reload all requests cards upon detecting any changes in status.
-        // this.requestService.getDetailUpdates().subscribe( () => {
-        //     this.reloadRequests();
-        // })
 
         // User update form
         this.userForm = this.fb.group({
@@ -100,10 +93,6 @@ export class ExploreComponent implements OnInit {
             $(document).ready(function() {
                 // $("#loading-header").delay(300).hide(0);
                 $(".fade-right").animate({left:"+=20px",opacity:"hide"},0).delay(300).animate({left:"-=20px", opacity:"show"}, 800);
-
-                $('#sidebarCollapse').on('click', function () {
-                    $('#sidebar').toggleClass('active');
-                });
 
             })
         })

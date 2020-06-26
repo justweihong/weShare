@@ -1,10 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { UserService } from '../services/user/user.service';
 import { take } from 'rxjs/operators';
 import { Router, NavigationEnd } from '@angular/router';
 import { RequestService } from '../services/request/request.service';
 import { ListingService } from '../services/listing/listing.service';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { NavbarService } from '../services/navbar/navbar.service';
 
 
 
@@ -15,6 +17,7 @@ import { ListingService } from '../services/listing/listing.service';
 })
 export class SidenavComponent implements OnInit {
   @Input() navstate: any;
+  subscriptions: Subscription[] = [];
   userID:any;
   displayName:any;
   userEmail:any;
@@ -25,6 +28,7 @@ export class SidenavComponent implements OnInit {
     public auth: AuthService,
     private router: Router,
     private userService: UserService,
+    private navbarService: NavbarService,
     public requestService: RequestService,
     public listingService: ListingService
   ) { }
@@ -41,6 +45,14 @@ export class SidenavComponent implements OnInit {
           this.userImg = firebaseUser['profileImg'];
       })
     })
+    this.subscriptions.push(this.navbarService.getSidenavToggle().pipe().subscribe(() => {
+      $('#sidebar').toggleClass('active');
+    }));
   }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
 
 }

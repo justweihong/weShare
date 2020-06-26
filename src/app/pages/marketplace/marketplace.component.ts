@@ -61,9 +61,7 @@ export class MarketplaceComponent implements OnInit {
     }));
 
     $(document).ready(function() {
-      $('#sidebarCollapse').on('click', function () {
-          $('#sidebar').toggleClass('active');
-      });
+
     })
     this.auth.user.subscribe(x => {
       this.displayName = x.displayName;

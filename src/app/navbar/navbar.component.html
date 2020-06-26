@@ -2,7 +2,7 @@
 
   <!-- left toggle sidenav -->
   <div *ngIf="this.navstate != 'login' && this.navstate != 'home' && this.navstate != ''" >
-    <button type="button" id="sidebarCollapse" class="btn btn-info">
+    <button type="button" id="sidebarCollapse" class="btn btn-info" (click)="toggleSidenav()">
       <fa-icon id="toggle-sidebar" [icon]="faBars"></fa-icon>
     </button>
   </div>

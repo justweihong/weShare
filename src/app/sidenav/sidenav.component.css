@@ -15,9 +15,9 @@
   display: none;
 }
 
-/* #sidebar.active {
+#sidebar.active {
   margin-left: -250px;
-} */
+}
 
 a[data-toggle="collapse"] {
   position: relative;
