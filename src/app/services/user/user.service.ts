@@ -25,34 +25,34 @@ export class UserService {
     return this.afs.doc(`user/${userID}`).set(data, { merge: true });
   }
 
-  increaseListingCount(userID) {
-    const increment = firebase.firestore.FieldValue.increment(1);
-    return this.afs.doc(`user/${userID}`).update({listingCount : increment});
-  }
+  // increaseListingCount(userID) {
+  //   const increment = firebase.firestore.FieldValue.increment(1);
+  //   return this.afs.doc(`user/${userID}`).update({listingCount : increment});
+  // }
 
-  increaseCompletedListingCount(userID) {
-    const increment = firebase.firestore.FieldValue.increment(1);
-    return this.afs.doc(`user/${userID}`).update({completedListingCount : increment});
-  }
+  // increaseCompletedListingCount(userID) {
+  //   const increment = firebase.firestore.FieldValue.increment(1);
+  //   return this.afs.doc(`user/${userID}`).update({completedListingCount : increment});
+  // }
 
-  decreaseListingCount(userID) {
-    const decrement = firebase.firestore.FieldValue.increment(-1);
-    return this.afs.doc(`user/${userID}`).update({listingCount : decrement});
-  }
+  // decreaseListingCount(userID) {
+  //   const decrement = firebase.firestore.FieldValue.increment(-1);
+  //   return this.afs.doc(`user/${userID}`).update({listingCount : decrement});
+  // }
 
-  increaseCompletedRequest(userID) {
-    const increment = firebase.firestore.FieldValue.increment(1);
-    return this.afs.doc(`user/${userID}`).update({completedRequestCount : increment});
-  }
+  // increaseCompletedRequest(userID) {
+  //   const increment = firebase.firestore.FieldValue.increment(1);
+  //   return this.afs.doc(`user/${userID}`).update({completedRequestCount : increment});
+  // }
 
-  decreaseCompletedRequest(userID) {
-    const decrement = firebase.firestore.FieldValue.increment(-1);
-    return this.afs.doc(`user/${userID}`).update({completedRequestCount : decrement});
-  }
+  // decreaseCompletedRequest(userID) {
+  //   const decrement = firebase.firestore.FieldValue.increment(-1);
+  //   return this.afs.doc(`user/${userID}`).update({completedRequestCount : decrement});
+  // }
 
-  getListingCount() {
-    return this.afs.collection(`user`, ref => ref.orderBy('listingCount', 'desc').limit(3)).valueChanges();
-  }
+  // getListingCount() {
+  //   return this.afs.collection(`user`, ref => ref.orderBy('listingCount', 'desc').limit(3)).valueChanges();
+  // }
 
 
 

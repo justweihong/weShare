@@ -69,7 +69,7 @@ export class RequestService {
         }
 
         //increase completed request for helper
-        this.userService.increaseCompletedRequest(requestHelper);
+        // this.userService.increaseCompletedRequest(requestHelper);
         
         // var tempSub = this.getRequest(requestID).subscribe(req => {
         //     if (req['helper'] != "nil") {

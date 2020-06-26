@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { RequestService } from '../../services/request/request.service';
 import { ListingService } from '../../services/listing/listing.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-leaderboard',
@@ -13,10 +14,20 @@ export class LeaderboardComponent implements OnInit {
 
   displayName: any;
   userID: any;
+  userListingCount: any;
+  userCompletedListingCount: any;
+  userCompletedRequestCount: any;
 
+  //dictionary for analytics
   listingCount: any;
   completedListingCount: any;
-  // goodSamaritan: any;
+  completedRequestCount: any;
+
+  //array for output
+  listingCountTop3: any;
+  completedListingCountTop3: any;
+  completedRequestCountTop3:any;
+
 
 
   constructor(
@@ -27,6 +38,7 @@ export class LeaderboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
 
     this.auth.user.subscribe(usr => {
       this.displayName = usr.displayName;
@@ -48,10 +60,16 @@ export class LeaderboardComponent implements OnInit {
       });
       return sortable; // array in format [ [ key1, val1 ], [ key2, val2 ], ... ]
     }
+
     ////////////////////////////////////////////////////
 
     this.listingCount = {};
     this.completedListingCount = {};
+    this.completedRequestCount = {};
+
+    this.listingCountTop3 = [];
+    this.completedListingCountTop3 = [];
+    this.completedRequestCountTop3 = [];
 
     this.listingService.getListings().subscribe(allListings => {
       this.listingCount = {};
@@ -78,38 +96,69 @@ export class LeaderboardComponent implements OnInit {
         }
 
       })
-      console.log(this.completedListingCount);
-      var items =  sortProperties(this.completedListingCount)
-      console.log(items.slice(0,2));
+
+      // console.log(this.listingCount);
+      // console.log(this.completedListingCount);
+      // var items =  sortProperties(this.completedListingCount)
+      // console.log(items.slice(0,2));
 
       //get person count
-      //get top 3
-      //todo for request
+      this.userListingCount = this.listingCount[this.userID];
+      this.userCompletedListingCount = this.completedListingCount[this.userID];
 
+      // console.log(this.userListingCount);
+      // console.log(this.userCompletedListingCount);
+
+      //get top 3
+      this.listingCountTop3 =  sortProperties(this.listingCount).slice(0,2)
+      this.completedListingCountTop3 =  sortProperties(this.completedListingCount).slice(0,2)
+      // console.log(this.listingCountTop3);
+      // console.log(this.completedListingCountTop3);
+      
+      
+      this.listingCountTop3.forEach(element => {
+        this.userService.getUser(element[0]).pipe(take(1)).subscribe(usr => {
+          element[2] = usr['displayName'];
+        })
+      });
+
+      this.completedListingCountTop3.forEach(element => {
+        this.userService.getUser(element[0]).pipe(take(1)).subscribe(usr => {
+          element[2] = usr['displayName'];
+        })
+      });
     })
 
+    this.requestService.getRequests().subscribe(allReq => {
+      this.completedRequestCount = {};
+      allReq.forEach(req => {
 
+        if (req['status'] === "completed") {
+          if (req['createdBy'] in this.completedRequestCount) {
+            this.completedRequestCount[req['createdBy']] += 1
+          } else {
+            this.completedRequestCount[req['createdBy']] = 1
+          }
 
+          if (req['helper'] in this.completedRequestCount) {
+            this.completedRequestCount[req['helper']] += 1
+          } else {
+            this.completedRequestCount[req['helper']] = 1
+          }
+        }
+      })
 
+      this.userCompletedRequestCount = this.completedRequestCount[this.userID];
 
-    // this.userService.getListingCount().subscribe(userList => {
+      this.completedRequestCountTop3 = sortProperties(this.completedRequestCountTop3).slice(0,2)
+      this.completedRequestCountTop3.forEach(element => {
+        this.userService.getUser(element[0]).pipe(take(1)).subscribe(usr => {
+          element[2] = usr['displayName'];
+        })
+      });
 
-    //   this.listingCount = [];
-
-    //   userList.forEach(user => {
-    //     this.listingCount.push(user)
-    //   })
-    // })
-
-
-    // this.requestService.getRequests().subscribe(all => {
-    //   this.goodSamaritan = []
-    //   all.forEach(request => {
-    //     if (request['status'] === 'completed') {
-
-    //     }
-    //   })
-    // })
+    })
+    
   }
 
 }
