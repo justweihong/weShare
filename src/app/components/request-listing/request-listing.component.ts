@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { NgbModal, NgbModalOptions, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 // import * as $ from 'jquery';
 declare var $: any;
 
@@ -18,12 +19,17 @@ export class RequestListingComponent implements OnInit {
   userID: any;
   userImg: any;
 
+  //modal attributes
+  closeResult: string;
+  modalOptions: NgbModalOptions;
+
   // Initilised attributes.
   requestDetails: any;
   creatorDetails: any;
   helperDetails: any;
 
   constructor(
+    private modalService: NgbModal,
     public auth: AuthService,
     private requestService: RequestService,
     private userService: UserService,
@@ -87,6 +93,22 @@ export class RequestListingComponent implements OnInit {
       return ` seconds ago`;
     } else {
       return `now`;
+    }
+  }
+  open(content) {
+     this.modalService.open(content, {windowClass: 'modal-holder', centered: true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
     }
   }
 

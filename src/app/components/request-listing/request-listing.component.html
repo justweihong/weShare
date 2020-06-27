@@ -2,7 +2,8 @@
 
   <!-- request card -->
   <!-- <div id="req-card" class="req-card" style="margin:1em;" data-toggle="modal" data-target="#request-details-modal"> -->
-  <div id="req-card" class="req-card" style="margin:0.5em;" (click)="openDetailsModal()">
+    <!-- <div id="req-card" class="req-card" style="margin:0.5em;" (click)="openDetailsModal()"> -->
+  <div id="req-card" class="req-card" style="margin:0.5em;" (click)="open(requestDetailModal)">
     <div id="header" style="display:flex">
       <div class="req-title"> {{this.requestDetails['title']}}</div>
       <div style="width:30%; display: flex; justify-content:center;">
@@ -20,43 +21,90 @@
     </div>
 
     <div id="time-ago" class="req-side-desc">
-        <img src="{{this.userImg}}" class="image-holder" style="margin: 0em 0.5em;">
+        <img src="{{this.creatorDetails['profileImg']}}" class="image-holder" style="width: 3em;height: 3em; margin: 0em 0.5em; " >
         {{this.creatorDetails["displayName"]}} / {{this.timeAgo()}}
     </div>
 
   </div>
 
   <!-- request details modal -->
-  <div id="request-details-modal" class="modal fade" tabindex="-1" role="dialog" style="display:none;">
-    <div  class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content" *ngIf="this.requestDetails && this.creatorDetails">
-        <div class="modal-header">
-          <h1>{{ this.requestDetails["title"] }}</h1>
-          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-          <button type="button" class="close"  (click)="closeDetailsModal()">
+  <ng-template #requestDetailModal let-modal>
+    <div class="request-detail-modal">
+
+        <!-- header -->
+        <div class="modal-header req-modal-header" *ngIf="this.requestDetails && this.creatorDetails">
+          {{ this.requestDetails["title"] }}
+          <button type="button" class="close" style="padding:0em;margin:0em;" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <div id="id">ID: {{ this.requestDetails["ID"] }}</div>
-          <div id="description">
-            Description: {{ this.requestDetails["description"] }}
-          </div>
-          <div id="urgency">Urgency: {{ this.requestDetails["urgency"] }}</div>
-          <div id="duration">Duration: {{ this.requestDetails["duration"] }}</div>
-          <div id="incentive">
-            Incentive: {{ this.requestDetails["incentive"] }}
-          </div>
-          <div id="status">Status: {{ this.requestDetails["status"] }}</div>
+
+        <div class="modal-body req-modal-body">
 
           <!-- creator details -->
-          <div id="creator">Created By: {{ this.creatorDetails["uid"] }}</div>
-          <div id="contact-details">Contact: {{ this.creatorDetails["userContact"] }}</div>
-          <div id="room-details">Room: {{ this.creatorDetails["roomDetails"] }}</div>
+          <div id="creator-details" style="display:flex;padding:0.5em 0em;">
+            <div id="image-area" style="display:flex; align-items:center; justify-content:center; width:15%;">
+              <img src="{{this.creatorDetails['profileImg']}}" class="image-holder" style="width: 3em;height: 3em;" >
+            </div>
 
-          <!-- helper details -->
-          <div *ngIf="this.helperDetails">Helper : {{ this.helperDetails["displayName"] }}</div>
-          <div *ngIf="!this.helperDetails">Helper : nil</div>
+            <div id="username-and-time" style="padding:0em 1em; width:55%;">
+              <div style="font-size:1.5em;">{{ this.creatorDetails["displayName"] }}</div>
+              <div style="font-size:0.9em; color:grey;"> {{this.timeAgo()}} </div>
+            </div>
+
+            <div style="width:30%; display: flex; justify-content:center;">
+              <div *ngIf="this.requestDetails['status'] == 'active'" class="req-progress progress-active"> active </div>
+              <div *ngIf="this.requestDetails['status'] == 'ongoing'" class="req-progress progress-ongoing"> ongoing </div>
+              <div *ngIf="this.requestDetails['status'] == 'completed'" class="req-progress progress-completed"> done </div>
+              <div *ngIf="this.requestDetails['status'] == 'expired'" class="req-progress progress-expired"> expired </div>
+            </div>
+
+          </div>
+
+          <!-- creator additional details -->
+          <div id="creator-add-details" style="display:flex;">
+            <div id="room-details" class="req-modal-item " style="width:50%;">
+              <i class="fa fa-home" aria-hidden="true" style="padding-right:0.5em;"></i> {{ this.creatorDetails["roomDetails"] }}
+            </div>
+
+            <div id="contact-details" class="req-modal-item " style="width:50%;">
+              <i class="fa fa-phone" aria-hidden="true" style="padding-right:0.5em;"></i> {{this.creatorDetails["userContact"] }}
+            </div>
+
+          </div>
+
+          <!-- description -->
+          <div id="description" class="req-modal-item item-top-border">
+            {{ this.requestDetails["description"] }}
+          </div>
+
+
+
+          <!-- urgency and duration -->
+          <div id="urgency-and-duration" style="display:flex;">
+            <div id="urgency" class="req-modal-item" style="width:50%;">
+              Urgency: {{ this.requestDetails["urgency"] }}
+            </div>
+
+            <div id="duration" class="req-modal-item" style="width:50%;">
+              <i class="fa fa-clock-o" aria-hidden="true" style="padding-right:0.5em;"></i>
+              {{ this.requestDetails["duration"] }}
+            </div>
+          </div>
+
+
+          <!-- rewards -->
+          <div id="incentive" class="req-modal-item item-top-border">
+            <i class="fa fa-usd" aria-hidden="true"></i> {{ this.requestDetails["incentive"] }}
+          </div>
+
+          <!-- helper -->
+          <div id="helper-details" class="req-modal-item item-top-border">
+            <div *ngIf="this.helperDetails">Helper : {{ this.helperDetails["displayName"] }}</div>
+            <div *ngIf="!this.helperDetails">No one has helped {{this.creatorDetails["displayName"]}} yet. Be the first to help!</div>
+          </div>
+
+
 
         </div>
 
@@ -84,8 +132,9 @@
             </button>
           </div>
         </div>
-      </div>
     </div>
-  </div>
+</ng-template>
+
 
 </div>
+

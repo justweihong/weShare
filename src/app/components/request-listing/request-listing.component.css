@@ -16,7 +16,7 @@
   cursor: pointer;
   padding: 1em;
   /* width: 15em; */
-  height: 10em;
+  height: 12em;
 }
 .word-break {
   overflow: hidden;
@@ -66,6 +66,9 @@
   flex: 1 1 auto;
   min-height: 1px;
   margin-bottom: 0.5em;
+  display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 .image-holder {
@@ -78,8 +81,6 @@
   overflow: hidden;
   /* -webkit-transition-duration: .22s;
   transition-duration: .22s; */
-  width: 2em;
-  height: 2em;
 }
 
 .req-side-desc {
@@ -114,4 +115,29 @@ div.card-text {
 h5 {
   margin-top: 12px;
   margin-bottom: -2px;
+}
+
+.request-detail-modal {
+  height:70vh;
+}
+
+.req-modal-header {
+  background-color:#328eb3;
+  color: white;
+  font-size: 1.5em;
+}
+.req-modal-body {
+  background-color: #f3f3f3;
+}
+
+.req-modal-item {
+  padding: 0.5em 0.5em;
+
+}
+.item-top-border {
+  border-top:solid;
+  /* border-bottom: solid; */
+  border-width: 1px;
+  /* border-bottom-width: 1px; */
+  border-color: #e3e1e1;
 }
