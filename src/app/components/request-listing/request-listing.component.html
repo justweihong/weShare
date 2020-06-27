@@ -3,13 +3,24 @@
   <!-- request card -->
   <!-- <div id="req-card" class="req-card" style="margin:1em;" data-toggle="modal" data-target="#request-details-modal"> -->
   <div id="req-card" class="req-card" style="margin:0.5em;" (click)="openDetailsModal()">
-    <div class="req-title"> {{this.requestDetails['title']}}</div>
+    <div id="header" style="display:flex">
+      <div class="req-title"> {{this.requestDetails['title']}}</div>
+      <div style="width:30%; display: flex; justify-content:center;">
+        <div *ngIf="this.requestDetails['status'] == 'active'" class="req-progress progress-active"> active </div>
+        <div *ngIf="this.requestDetails['status'] == 'ongoing'" class="req-progress progress-ongoing"> ongoing </div>
+        <div *ngIf="this.requestDetails['status'] == 'completed'" class="req-progress progress-completed"> done </div>
+        <div *ngIf="this.requestDetails['status'] == 'expired'" class="req-progress progress-expired"> expired </div>
+      </div>
+
+    </div>
+
 
     <div class="req-desc word-break">
         {{this.requestDetails['description']}}
     </div>
 
-    <div id="time-ago" class="time-ago">
+    <div id="time-ago" class="req-side-desc">
+        <img src="{{this.userImg}}" class="image-holder" style="margin: 0em 0.5em;">
         {{this.creatorDetails["displayName"]}} / {{this.timeAgo()}}
     </div>
 

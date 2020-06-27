@@ -16,6 +16,7 @@ export class RequestListingComponent implements OnInit {
   subscriptions: Subscription[] = [];
   @Input() requestID: any;
   userID: any;
+  userImg: any;
 
   // Initilised attributes.
   requestDetails: any;
@@ -31,7 +32,8 @@ export class RequestListingComponent implements OnInit {
 
   ngOnInit() {
     this.auth.getUser().pipe(take(1)).subscribe(user => {
-      this.userID = user.uid
+      this.userID = user.uid;
+      this.userImg = user.photoURL;
     })
 
     if (this.requestID) {
@@ -113,6 +115,7 @@ export class RequestListingComponent implements OnInit {
   }
 
   openDetailsModal() {
+    console.log(this.requestDetails)
     $('#request-details-modal').modal('show')
   }
 
