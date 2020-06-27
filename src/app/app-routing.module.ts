@@ -23,6 +23,7 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent},
     { path: 'login', component: LoginComponent },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+    { path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthGuard]},
 
     // requests
     { path: 'explore', redirectTo: 'explore/all'},

@@ -116,7 +116,6 @@ export class NewListingComponent implements OnInit {
       $('#listingModal').modal('hide');
       this.listingForm.reset();
       this.modalService.dismissAll();
-      this.userService.increaseListingCount(this.createdBy);
       return;
     }
     /*************** End of handle no image ***************/
@@ -166,7 +165,6 @@ export class NewListingComponent implements OnInit {
       );
     })
 
-    this.userService.increaseListingCount(this.createdBy);
 
     
     //Reset listing form

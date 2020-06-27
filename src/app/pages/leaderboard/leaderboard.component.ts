@@ -34,7 +34,7 @@ export class LeaderboardComponent implements OnInit {
     private userService: UserService,
     private auth: AuthService,
     private requestService: RequestService,
-    private listingService: ListingService
+    private listingService: ListingService,
   ) { }
 
   ngOnInit(): void {
