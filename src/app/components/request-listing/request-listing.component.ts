@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { NgbModal, NgbModalOptions, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 // import * as $ from 'jquery';
 declare var $: any;
 
@@ -30,6 +30,7 @@ export class RequestListingComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
+    // public activeModal: NgbActiveModal,
     public auth: AuthService,
     private requestService: RequestService,
     private userService: UserService,
@@ -45,9 +46,10 @@ export class RequestListingComponent implements OnInit {
     if (this.requestID) {
 
       // Get request details
-      this.subscriptions.push(this.requestService.getRequest(this.requestID).pipe((take(1))).subscribe(request => {
+      this.requestService.getRequest(this.requestID).pipe(take(1)).subscribe(request => {
         this.requestDetails = request;
-        console.log(this.requestDetails)
+        // console.log("card change")
+
 
         // Get creator data.
         var createdBy = this.requestDetails['createdBy'];
@@ -62,12 +64,11 @@ export class RequestListingComponent implements OnInit {
           });
         }
 
-      }));
+      });
     }
   }
 
-  timeAgo() {
-    var timestamp = this.requestDetails['timeStamp'];
+  timeAgo(timestamp) {
     var delta = Date.now() - timestamp;
     var days = Math.floor(delta / (1000 * 60 * 60 * 24));
     var hours = Math.floor(delta / (1000 * 60 * 60));
@@ -95,6 +96,40 @@ export class RequestListingComponent implements OnInit {
       return `now`;
     }
   }
+
+  /** Show the 24H time of the version made. */
+  datetime12H(timestamp) {
+    const day = new Date(timestamp).getDate();
+    const monthNo = new Date(timestamp).getMonth();
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"];
+    const month = months[monthNo];
+    var year = new Date(timestamp).getFullYear();
+    var hour24:any = new Date(timestamp).getHours();
+    var min:any = new Date(timestamp).getMinutes();
+
+    // Set to 12H timing.
+    var hour12 = hour24;
+    var ampm = "am";
+    if (hour24 > 12) {
+      hour12 = hour24 - 12;
+      ampm = "pm";
+    }
+    if (hour24 == 0 || hour24 == 24) {
+      hour12 = 12;
+      ampm = "am"
+    }
+
+    // Add 0 padding for single digits.
+    if (min < 10) {
+        min = "0" + min;
+    }
+    if (hour12 < 10) {
+        hour12 = "0" + hour12;
+    }
+
+    return day + " " + month + " " + year + ", " + hour12 + "." + min + " " +  ampm ;
+}
+
   open(content) {
      this.modalService.open(content, {windowClass: 'modal-holder', centered: true}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -114,23 +149,28 @@ export class RequestListingComponent implements OnInit {
 
   acceptRequest() {
     if (confirm("Are you sure you want to help " + this.creatorDetails['displayName'] + "?")) {
-      this.closeDetailsModal();
+      // this.closeDetailsModal();
+      this.modalService.dismissAll();
       this.requestService.acceptRequest(this.requestDetails["ID"], this.userID).then(() => {
+
       });
     }
   }
 
   unacceptRequest() {
     if (confirm("Are you sure you want to give up helping " + this.creatorDetails['displayName'] + "?")) {
-      this.closeDetailsModal();
+      // this.closeDetailsModal();
+      this.modalService.dismissAll();
       this.requestService.unacceptRequest(this.requestDetails["ID"]).then(() => {
+
       });
     }
   }
 
   completeRequest() {
     if (confirm("Are you you have completed " + this.creatorDetails['displayName'] + "/'s request")) {
-      this.closeDetailsModal();
+      // this.closeDetailsModal();
+      this.modalService.dismissAll();
       this.requestService.completeRequest(this.requestDetails["ID"]).then(() => {
       });
     }

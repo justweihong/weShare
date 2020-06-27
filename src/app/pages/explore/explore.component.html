@@ -1,15 +1,18 @@
 <div style="overflow: hidden;">
   <img id="loading-header" src="../../../assets/loading.gif" style="display: none;"/>
   <div id="content" class="fade-right" style="display:none; padding-left: 0px;position:relative">
-    <app-new-request></app-new-request>
-    <div id="requests" >
 
-      <!-- all requests -->
-      <!-- <div id="request-list" class="request-list page-height" *ngIf="this.requestState == 'all requests' && this.allRequests">
-          <div *ngFor="let request of this.allRequests" class="request-area">
-            <app-request-listing [requestID]="request['ID']"></app-request-listing>
-          </div>
-      </div> -->
+    <div id="search-and-new-request" style="padding:1em 0.5em; display:flex;">
+      <!-- Search form -->
+      <div class="md-form active-cyan-2 mb-3">
+        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+      </div>
+
+      <!-- new request button -->
+      <app-new-request style="margin:0em 1em;"></app-new-request>
+    </div>
+
+    <div id="requests" >
 
       <div class="grid request-list page-height" *ngIf="this.requestState == 'all-requests' && this.allRequests">
         <ng-container *ngFor="let request of this.allRequests">
@@ -23,13 +26,12 @@
         </ng-container>
       </div>
 
-
-      <!-- my requests -->
-      <!-- <div id="request-list" class="request-list page-height" *ngIf="this.requestState == 'my requests' && this.myRequests" >
-        <div *ngFor="let request of this.myRequests" class="request-area">
+      <div class="grid request-list page-height"  *ngIf="this.requestState == 'accepted-requests' && this.acceptedRequests">
+        <ng-container *ngFor="let request of this.acceptedRequests" class="request-area">
           <app-request-listing [requestID]="request['ID']"></app-request-listing>
-        </div>
-      </div> -->
+        </ng-container>
+      </div>
+
 
     </div>
 

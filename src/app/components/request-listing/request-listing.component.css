@@ -16,7 +16,7 @@
   cursor: pointer;
   padding: 1em;
   /* width: 15em; */
-  height: 12em;
+  /* height: 12em; */
 }
 .word-break {
   overflow: hidden;
@@ -49,16 +49,41 @@
   border-radius: 1em!important;
 }
 .progress-active {
-  background-color:rgb(73, 171, 98);
+  /* background-color:rgb(73, 171, 98); */
+  animation: active-color 8s infinite;
 }
 .progress-ongoing {
-  background-color:rgb(255, 186, 40);
+  /* background-color:rgb(255, 186, 40); */
+  animation: ongoing-color 8s infinite;
 }
 .progress-completed {
-  background-color:rgb(216, 120, 120);
+  /* background-color:rgb(216, 120, 120); */
+  animation: completed-color 8s infinite;
 }
 .progress-expired {
   background-color:rgb(160, 157, 157);
+}
+
+@keyframes active-color {
+  0% { background-color: rgb(73, 171, 98);}
+
+  50% { background-color: rgb(68, 158, 90);}
+
+  100% {background-color: rgb(73, 171, 98);}
+}
+@keyframes ongoing-color {
+  0% { background-color: rgb(255, 186, 40);}
+
+  50% { background-color: rgb(219, 159, 34);}
+
+  100% {background-color: rgb(255, 186, 40);}
+}
+@keyframes completed-color {
+  0% { background-color: rgb(216, 120, 120);}
+
+  50% { background-color: rgb(189, 105, 105);}
+
+  100% {background-color: rgb(216, 120, 120);}
 }
 
 .req-desc {
@@ -66,6 +91,8 @@
   flex: 1 1 auto;
   min-height: 1px;
   margin-bottom: 0.5em;
+  line-height: 1.5em;
+  height:4.5em;
   display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -118,7 +145,7 @@ h5 {
 }
 
 .request-detail-modal {
-  height:70vh;
+  /* max-height:70vh; */
 }
 
 .req-modal-header {
@@ -140,4 +167,8 @@ h5 {
   border-width: 1px;
   /* border-bottom-width: 1px; */
   border-color: #e3e1e1;
+}
+
+.req-modal-footer {
+  background-color: #f3f3f3;
 }

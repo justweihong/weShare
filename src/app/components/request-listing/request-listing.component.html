@@ -21,8 +21,8 @@
     </div>
 
     <div id="time-ago" class="req-side-desc">
-        <img src="{{this.creatorDetails['profileImg']}}" class="image-holder" style="width: 3em;height: 3em; margin: 0em 0.5em; " >
-        {{this.creatorDetails["displayName"]}} / {{this.timeAgo()}}
+        <img src="{{this.creatorDetails['profileImg']}}" class="image-holder" style="width: 2em;height: 2em; margin: 0em 0.5em; " >
+        {{this.creatorDetails["displayName"]}} / {{this.timeAgo(this.requestDetails['timeStamp'])}}
     </div>
 
   </div>
@@ -39,17 +39,17 @@
           </button>
         </div>
 
-        <div class="modal-body req-modal-body">
+        <div class="modal-body req-modal-body" style="padding:0em 0.5em;">
 
           <!-- creator details -->
-          <div id="creator-details" style="display:flex;padding:0.5em 0em;">
+          <div id="creator-details" style="display:flex;padding: 1.5em 0.5em 0em;">
             <div id="image-area" style="display:flex; align-items:center; justify-content:center; width:15%;">
               <img src="{{this.creatorDetails['profileImg']}}" class="image-holder" style="width: 3em;height: 3em;" >
             </div>
 
             <div id="username-and-time" style="padding:0em 1em; width:55%;">
               <div style="font-size:1.5em;">{{ this.creatorDetails["displayName"] }}</div>
-              <div style="font-size:0.9em; color:grey;"> {{this.timeAgo()}} </div>
+              <div style="font-size:0.9em; color:grey;"> {{this.timeAgo(this.requestDetails['timeStamp'])}} </div>
             </div>
 
             <div style="width:30%; display: flex; justify-content:center;">
@@ -99,37 +99,44 @@
           </div>
 
           <!-- helper -->
-          <div id="helper-details" class="req-modal-item item-top-border">
-            <div *ngIf="this.helperDetails">Helper : {{ this.helperDetails["displayName"] }}</div>
+          <div id="helper-details" class="req-modal-item item-top-border" >
+            <div *ngIf="this.helperDetails" style="display:flex;padding:0.5em 0em;">
+
+              <div id="image-area" style="display:flex; align-items:center; justify-content:center">
+                <img src="{{this.helperDetails['profileImg']}}" class="image-holder" style="width: 2em;height: 2em;" >
+              </div>
+              <div id="helper-desc" style="padding-left:0.5em;">
+                <span style="font-weight: bold;">{{ this.helperDetails["displayName"] }}</span>
+                decided to help at {{this.datetime12H(this.requestDetails["helpTimeStamp"])}} ({{this.timeAgo(this.requestDetails["helpTimeStamp"])}}).
+              </div>
+
+            </div>
+
             <div *ngIf="!this.helperDetails">No one has helped {{this.creatorDetails["displayName"]}} yet. Be the first to help!</div>
           </div>
 
-
-
         </div>
 
-        <div id="possible-actions" class="modal-footer">
-          <!-- <div *ngIf="this.userID == this.creatorID">
-                  <button  type="button" class="btn btn-primary" >Edit</button>
-                  <button  type="button" class="btn btn-primary" >Delete</button>
-              </div> -->
-          <div *ngIf="this.userID != this.creatorDetails['uid']">
-            <button *ngIf="this.requestDetails['status'] == 'active'" type="button" class="btn btn-primary"
-              (click)="acceptRequest()">
+        <div class="modal-footer req-modal-footer">
+          <div id="possible-actions" *ngIf="this.userID != this.creatorDetails['uid']" style="display:flex;">
+
+            <!-- start helping -->
+            <div *ngIf="this.requestDetails['status'] == 'active'" class="main-button" (click)="acceptRequest()">
               Help {{ this.creatorDetails['displayName'] }}!
-            </button>
-            <button *ngIf="
-                this.requestDetails['status'] == 'ongoing' &&
-                this.requestDetails['helper'] == this.userID
-              " type="button" class="btn btn-primary" (click)="unacceptRequest()">
+            </div>
+
+            <!-- give up or complete -->
+            <div *ngIf="this.requestDetails['status'] == 'ongoing' && this.requestDetails['helper'] == this.userID"
+            class="main-button" style="margin:0em 0.3em;" (click)="unacceptRequest()">
               Give up
-            </button>
-            <button *ngIf="
-                this.requestDetails['status'] == 'ongoing' &&
-                this.requestDetails['helper'] == this.userID
-              " type="button" class="btn btn-primary" (click)="completeRequest()">
+            </div>
+
+            <div *ngIf="this.requestDetails['status'] == 'ongoing' &&this.requestDetails['helper'] == this.userID"
+            class="main-button" style="margin:0em 0.3em;" (click)="completeRequest()">
               I've finished!
-            </button>
+            </div>
+
+
           </div>
         </div>
     </div>
