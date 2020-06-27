@@ -10,13 +10,13 @@
           </div>
       </div> -->
 
-      <div class="grid request-list page-height" *ngIf="this.requestState == 'all-requests' && this.allRequests">
+      <div class="grid request-list page-height" *ngIf="this.requestState == 'all requests' && this.allRequests">
         <ng-container *ngFor="let request of this.allRequests">
           <app-request-listing [requestID]="request['ID']"></app-request-listing>
         </ng-container>
       </div>
 
-      <div class="grid request-list page-height"  *ngIf="this.requestState == 'my-requests' && this.myRequests">
+      <div class="grid request-list page-height"  *ngIf="this.requestState == 'my requests' && this.myRequests">
         <ng-container *ngFor="let request of this.myRequests" class="request-area">
           <app-request-listing [requestID]="request['ID']"></app-request-listing>
         </ng-container>

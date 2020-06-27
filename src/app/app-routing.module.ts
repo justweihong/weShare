@@ -19,25 +19,13 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
 
-    { path: 'home', component: HomeComponent},
+    { path: 'home', component: HomeComponent}, // Landing Page
     { path: 'login', component: LoginComponent },
-    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-
-    // requests
-    { path: 'explore', redirectTo: 'explore/all'},
-    { path: 'explore/all-requests', component: ExploreComponent, canActivate: [AuthGuard]},
-    { path: 'explore/my-requests', component: ExploreComponent, canActivate: [AuthGuard]},
-    { path: 'explore/accepted-requests', component: ExploreComponent, canActivate: [AuthGuard]},
-
-    // marketplace
-    { path: 'marketplace', redirectTo: 'marketplace/all-listings'},
-    { path: 'marketplace/all-listings', component: MarketplaceComponent, canActivate: [AuthGuard]},
-    { path: 'marketplace/my-listings', component: MarketplaceComponent, canActivate: [AuthGuard]},
-    { path: 'marketplace/ongoing-listings', component: MarketplaceComponent, canActivate: [AuthGuard]},
-    { path: 'marketplace/completed-listings', component: MarketplaceComponent, canActivate: [AuthGuard]},
-
-
-    { path: '**', redirectTo: 'home' } //wildcard
+    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}, // Only registered users.
+    { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard]}, // Only registered users.
+    { path: 'marketplace', component: MarketplaceComponent, canActivate: [AuthGuard]}, // Only registered users.
+    { path: '**', redirectTo: 'home' }
+    //{ path: 'explore', redirectTo: '/explore'},
 ];
 
 @NgModule({

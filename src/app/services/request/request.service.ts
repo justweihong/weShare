@@ -83,4 +83,11 @@ export class RequestService {
     getDetailUpdates(): Observable<any> {
         return this.subject2.asObservable();
     }
+
+    sendRequestState(details) {
+      this.requestStates.next(details)
+    }
+    getRequestState(): Observable<any> {
+      return this.requestStates.asObservable();
+    }
 }

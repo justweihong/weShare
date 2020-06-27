@@ -2,11 +2,20 @@
 
   <!-- left toggle sidenav -->
   <div *ngIf="this.navstate != 'login' && this.navstate != 'home' && this.navstate != ''" >
-    <i id="sidebarCollapse" class="fa fa-bars nav-link nav-text" style="cursor: pointer;" (click)="toggleSidenav()"></i>
-    <!-- <button type="button" id="sidebarCollapse" class="btn btn-info" (click)="toggleSidenav()">
+    <button type="button" id="sidebarCollapse" class="btn btn-info">
       <fa-icon id="toggle-sidebar" [icon]="faBars"></fa-icon>
-    </button> -->
+    </button>
   </div>
+
+    <!-- not logged in navbar -->
+    <!-- <div id="unregistered-navbar" class="collapse navbar-collapse" *ngIf="!isLogin">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" style="color:#fff" routerLinkActive="active" routerLink="login">Login <span
+                        class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+    </div> -->
 
     <!-- middle logo -->
     <div class="mx-auto order-0">
@@ -23,9 +32,7 @@
         <!-- notification -->
         <li class="list-inline-item">
           <!-- TODO: replace with notification bell icon -->
-          <a class="nav-link nav-text" routerLinkActive="active" href="javascript:void(0);" (click)="showNotifications()">
-            <i class="fa fa-bell"></i>
-          </a>
+          <a class="nav-link nav-text" routerLinkActive="active" href="javascript:void(0);" (click)="showNotifications()">Noti</a>
         </li>
 
         <!-- image dropdown -->
