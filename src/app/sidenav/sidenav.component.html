@@ -17,11 +17,11 @@
   </div>
 
   <ul class="list-unstyled components">
-    <div id="navigation" style="color:grey;font-size:13px;">NAVIGATION</div>
+    <div id="navigation" class="group-header">NAVIGATION</div>
 
     <!-- profile -->
     <li>
-      <a routerLinkActive="active" routerLink="/profile">Profile</a>
+      <a id="profile" class="hello" routerLinkActive="active" routerLink="/profile">Profile</a>
     </li>
 
     <!-- requests -->
@@ -29,16 +29,19 @@
       <a href="#requestSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Requests</a>
       <ul class="collapse list-unstyled" id="requestSubmenu">
         <li>
-          <a routerLink="/explore" (click)="this.requestService.sendRequestState({state: 'all requests'})"> All
-            Requests</a>
+          <a routerLink="/explore/all-requests" routerLinkActive="active">
+            All Requests
+          </a>
         </li>
         <li>
-          <a routerLink="/explore" (click)="this.requestService.sendRequestState({state: 'my requests'})">My
-            Requests</a>
+          <a routerLink="/explore/my-requests" routerLinkActive="active">
+            My Requests
+          </a>
         </li>
         <li>
-          <a routerLink="/explore"
-            (click)="this.requestService.sendRequestState({state: 'requests I accepted'})">Requests I accepted</a>
+          <a routerLink="/explore/accepted-requests" routerLinkActive="active">
+          Requests I accepted
+          </a>
         </li>
       </ul>
     </li>
@@ -48,44 +51,42 @@
       <a href="#marketplaceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Marketplace</a>
       <ul class="collapse list-unstyled" id="marketplaceSubmenu">
         <li>
-          <a routerLink="/marketplace" (click)="this.listingService.sendListingState({state: 'all listings'})"> All
-            Listings</a>
+          <a routerLink="/marketplace/all-listings" routerLinkActive="active">
+          All Listings</a>
         </li>
         <li>
-          <a routerLink="/marketplace" (click)="this.listingService.sendListingState({state: 'my listings'})">My
-            Listings</a>
+          <a routerLink="/marketplace/my-listings" routerLinkActive="active">
+          My Listings</a>
         </li>
         <li>
-          <a routerLink="/marketplace" (click)="this.listingService.sendListingState({state: 'ongoing listings'})">My
-            Ongoing Transactions</a>
+          <a routerLink="/marketplace/ongoing-listings" routerLinkActive="active">
+          My Ongoing Transactions</a>
         </li>
 
         <li>
-          <a routerLink="/marketplace"
-            (click)="this.listingService.sendListingState({state: 'completed listings'})">My Completed Listings</a>
+          <a routerLink="/marketplace/completed-listings" routerLinkActive="active">
+          Completed Listings</a>
         </li>
       </ul>
     </li>
 
     <!-- chat -->
     <li>
-      <a href="#">Chat</a>
+      <a (click)="incompleteFeatureAlert('chat')">Chat</a>
     </li>
 
     <!-- leaderboard -->
     <li>
-      <a routerLink="/leaderboard">Leaderboard</a>
+      <a (click)="incompleteFeatureAlert('leaderboard')">Leaderboard</a>
     </li>
+  </ul>
 
+  <ul class="list-unstyled components">
+    <div id="navigation" class="group-header">SETTINGS</div>
 
     <!-- push notifications toggle -->
     <li>
-      <a href="#">Push Notifications (Y/N?)</a>
-    </li>
-
-    <!-- log out -->
-    <li>
-      <a href="#">Log out</a>
+      <a (click)="incompleteFeatureAlert('notifications')">Push Notifications <i class="fa fa-toggle-on"></i></a>
     </li>
   </ul>
 

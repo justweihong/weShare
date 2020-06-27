@@ -64,11 +64,6 @@ export class ProfileComponent implements OnInit {
 
       $(".fade-right").animate({left:"-=20px", opacity:"show"}, 1000);
 
-
-      $('#sidebarCollapse').on('click', function () {
-          $('#sidebar').toggleClass('active');
-      });
-
   })
   }
 
