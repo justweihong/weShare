@@ -127,8 +127,13 @@ export class RequestListingComponent implements OnInit {
   timeLeft() {
     const timestamp = this.requestDetails['timeStamp'];
     const duration = this.requestDetails['duration'];
-    const expireTimestamp = timestamp + duration*60*60*1000;
-    return this.timeDifference(expireTimestamp, Date.now());
+    if (Number.isNaN(duration)) {
+      return "no limit";
+    } else {
+      const expireTimestamp = timestamp + duration*60*60*1000;
+      return this.timeDifference(expireTimestamp, Date.now());
+    }
+
   }
 
 

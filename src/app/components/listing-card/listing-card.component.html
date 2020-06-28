@@ -1,13 +1,18 @@
 <div class="listing-card" style="margin:0.5em;" (click)="open(listingDetailModal)">
 
+
   <img class="card-img-top" [src]="url" *ngIf="url" alt="Card image cap">
   <div class="card-body" style="padding:0em;">
 
-    <div class="listing-title"> {{this.listingDetails['title']}}</div>
+    <div class="listing-title" style="padding-bottom:0.2em;"> {{this.listingDetails['title']}}</div>
 
-    <div class="listing-desc word-break">
-      {{this.listingDetails['description']}}
+    <div id="price" style="font-size:1.1em; padding:0em">
+      {{this.formatCurrency(this.listingDetails['price'])}}
     </div>
+
+    <!-- <div class="listing-desc word-break">
+      {{this.listingDetails['description']}}
+    </div> -->
 
     <div id="time-ago" class="listing-side-desc">
       <img src="{{this.creatorImg}}" class="image-holder" style="width: 2em;height: 2em; margin: 0em 0.5em; ">
@@ -30,7 +35,7 @@
   <div class="modal-body listing-modal-body">
 
     <!-- creator details -->
-    <div id="creator-details" style="display:flex;padding: 1.5em 0.5em 0em;">
+    <!-- <div id="creator-details" style="display:flex;padding: 1.5em 0.5em 0em;">
       <div id="image-area" style="display:flex; align-items:center; justify-content:center; ">
         <img src="{{this.creatorDetails['profileImg']}}" class="image-holder" style="width: 3em;height: 3em;" >
       </div>
@@ -39,29 +44,37 @@
         <div style="font-size:1.5em;">{{ this.creatorDetails["displayName"] }}</div>
         <div style="font-size:0.9em; color:grey;"> {{this.timeAgo(this.listingDetails['timeStamp'])}} </div>
       </div>
-    </div>
+    </div> -->
 
 
 
 
-    <!-- name and image -->
-    <div id="name-and-image" class="listing-modal-item" >
-      <div class="modal-title listing-title" style="display:flex; justify-content:center;" id="modal-basic-title">{{this.listingDetails['title']}}</div>
-      <div id="image" style="display:flex; justify-content:center;">
-        <img class="modal-card-img-top"  [src]="url" *ngIf="url" alt="Card image cap">
-      </div>
-    </div>
+    <!-- image -->
+    <img class="modal-image"  [src]="url" *ngIf="url" alt="Card image cap">
 
-    <!-- price and description -->
-    <div id="price-and-description">
 
-      <div id="price" class="listing-modal-item" style="font-size:1.5em; padding:0em 0.3em;">
+
+    <!-- title, price and description -->
+    <div id="title-price-and-description">
+
+      <div class="modal-title listing-modal-item" style="font-size:1.2em; padding:0em 0.3em;">{{this.listingDetails['title']}}</div>
+
+      <div id="price" class="listing-modal-item" style="font-size:1.2em; padding:0em 0.3em;font-weight:bold;">
         {{this.formatCurrency(this.listingDetails['price'])}}
+      </div>
+
+      <div id="time-ago" class="modal-side-desc listing-modal-item">
+        <i class="fa fa-clock-o" style="padding-right: 0.5em;" aria-hidden="true"></i>
+        {{this.timeAgo(this.listingDetails['timeStamp'])}} by
+        <span class="username">{{this.creatorDisplayName}}</span>
+        <img src="{{this.creatorImg}}" class="image-holder" style="width: 1.5em;height: 1.5em; ">
       </div>
 
       <div id="description" class="listing-modal-item">
         {{this.listingDetails['description']}}
       </div>
+
+
     </div>
 
     <!-- creator additional details -->
@@ -134,8 +147,8 @@
   </div>
 
   <!-- Completed view -->
-  <div id="completedListing">
-    <div *ngIf="this.listingDetails['status'] == 'completed'">
+  <div id="completedListing" class="listing-modal-body">
+    <div *ngIf="this.listingDetails['status'] == 'completed'" style="padding:0em 1em;">
       <h3 class="badge badge-success"> Accepted by {{this.listingDetails['acceptedBy']}} at
         ${{this.listingDetails['acceptedPrice']}}</h3>
     </div>
