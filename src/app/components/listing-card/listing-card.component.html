@@ -1,17 +1,23 @@
 <div class="listing-card" style="margin:0.5em;" (click)="open(listingDetailModal)">
-  <div class="time-ago">
-    {{this.displayName}} / {{this.timeAgo()}}
-  </div>
+
+
   <img class="card-img-top" [src]="url" *ngIf="url" alt="Card image cap">
-  <div class="card-body">
+  <div class="card-body" style="padding:0em;">
 
-    <div class="listing-title"> {{this.listingDetails['title']}}</div>
+    <div class="listing-title" style="padding-bottom:0.2em;"> {{this.listingDetails['title']}}</div>
 
-    <div class="listing-desc">
-      {{this.listingDetails['description']}}
+    <div id="price" style="font-size:1.1em; padding:0em">
+      {{this.formatCurrency(this.listingDetails['price'])}}
     </div>
 
+    <!-- <div class="listing-desc word-break">
+      {{this.listingDetails['description']}}
+    </div> -->
 
+    <div id="time-ago" class="listing-side-desc">
+      <img src="{{this.creatorImg}}" class="image-holder" style="width: 2em;height: 2em; margin: 0em 0.5em; ">
+      {{this.creatorDisplayName}} / {{this.timeAgo(this.listingDetails['timeStamp'])}}
+    </div>
 
   </div>
 </div>
@@ -20,46 +26,77 @@
 
 <!-- Modal details-->
 <ng-template #listingDetailModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{this.listingDetails['title']}}</h4>
+  <div class="modal-header listing-modal-header">
+    <div class="modal-title" id="modal-basic-title">Listing</div>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <!-- <div *ngIf="downloadURL | async; let url"> -->
-    <img class="card-img-top" [src]="url" *ngIf="url" alt="Card image cap">
-    <!-- </div> -->
-    <div id="description">
-      Description: {{this.listingDetails['description']}}
+  <div class="modal-body listing-modal-body">
+
+    <!-- creator details -->
+    <!-- <div id="creator-details" style="display:flex;padding: 1.5em 0.5em 0em;">
+      <div id="image-area" style="display:flex; align-items:center; justify-content:center; ">
+        <img src="{{this.creatorDetails['profileImg']}}" class="image-holder" style="width: 3em;height: 3em;" >
+      </div>
+
+      <div id="username-and-time" style="padding:0em 1em;">
+        <div style="font-size:1.5em;">{{ this.creatorDetails["displayName"] }}</div>
+        <div style="font-size:0.9em; color:grey;"> {{this.timeAgo(this.listingDetails['timeStamp'])}} </div>
+      </div>
+    </div> -->
+
+
+
+
+    <!-- image -->
+    <img class="modal-image"  [src]="url" *ngIf="url" alt="Card image cap">
+
+
+
+    <!-- title, price and description -->
+    <div id="title-price-and-description">
+
+      <div class="modal-title listing-modal-item" style="font-size:1.2em; padding:0em 0.3em;">{{this.listingDetails['title']}}</div>
+
+      <div id="price" class="listing-modal-item" style="font-size:1.2em; padding:0em 0.3em;font-weight:bold;">
+        {{this.formatCurrency(this.listingDetails['price'])}}
+      </div>
+
+      <div id="time-ago" class="modal-side-desc listing-modal-item">
+        <i class="fa fa-clock-o" style="padding-right: 0.5em;" aria-hidden="true"></i>
+        {{this.timeAgo(this.listingDetails['timeStamp'])}} by
+        <span class="username">{{this.creatorDisplayName}}</span>
+        <img src="{{this.creatorImg}}" class="image-holder" style="width: 1.5em;height: 1.5em; ">
+      </div>
+
+      <div id="description" class="listing-modal-item">
+        {{this.listingDetails['description']}}
+      </div>
+
+
     </div>
 
-    <br>
+    <!-- creator additional details -->
+    <div id="creator-add-details" style="display:flex;">
+      <div id="room-details" class="listing-modal-item item-top-border" style="width:50%;">
+        <i class="fa fa-home" aria-hidden="true" style="padding-right:0.5em;"></i> {{ this.creatorDetails["roomDetails"] }}
+      </div>
 
-    <div id="duration">
-      Price (SGD): {{this.listingDetails['price']}}
+      <div id="contact-details" class="listing-modal-item item-top-border" style="width:50%;">
+        <i class="fa fa-phone" aria-hidden="true" style="padding-right:0.5em;"></i> {{this.creatorDetails["userContact"] }}
+      </div>
+
     </div>
 
-    <br>
-
-    <div id="contact">
-      Contact: {{this.listingDetails['contact']}}
-    </div>
-
-    <br>
-
-    <div id="creator">
-      Posted By: {{this.displayName}}
-    </div>
-
-    <br>
 
     <!-- creator view for current offers-->
-    <div id="offers">
+    <div id="offers" class="listing-modal-item item-top-border">
       <div *ngIf="this.offers && this.userID == this.creatorID && this.listingDetails['status'] != 'completed'">
-        Current offers below - click to accept!
+        <div style="padding:0.5em 0em;">Current offers below - click to accept!</div>
+
         <div *ngFor="let offer of this.offers">
-          <button (click)="open(acceptOfferModal)">${{offer["price"]}} by {{offer["offererName"]}}</button>
+          <div class="main-button" (click)="open(acceptOfferModal)">${{offer["price"]}} by {{offer["offererName"]}}</div>
 
           <!-- Accept Offer confirmation -->
           <ng-template #acceptOfferModal let-modal>
@@ -76,7 +113,7 @@
 
             <div class="modal-footer">
               This listing will be marked as completed!
-              <button type="button" class="btn btn-primary" (click)="acceptOffer(offer)">Accept Offer</button>
+              <div class="main-button" (click)="acceptOffer(offer)">Accept Offer</div>
 
             </div>
           </ng-template>
@@ -85,19 +122,33 @@
     </div>
 
     <!-- non creator view for current offers -->
-    <div id="offers">
+    <div id="offers"  class="listing-modal-item">
       <div *ngIf="this.offers && this.userID != this.creatorID && this.listingDetails['status'] != 'completed'">
-        Current offers:
+        <div id="current-offers" style="font-weight: 560;font-size: 1.2em;">Current offers:</div>
+
         <div *ngFor="let offer of this.offers">
-          ${{offer["price"]}} by {{offer["offererName"]}}
+          <div style="display:flex;padding:0.5em 0em;">
+
+            <div id="image-area" style="display:flex; align-items:center; justify-content:center">
+              <img *ngIf="offer['offererProfileImg']" src="{{offer['offererProfileImg']}}" class="image-holder" style="width: 2em;height: 2em;" >
+            </div>
+
+            <div id="offer-desc" style="display:flex; align-items:center;">
+              <span style="padding:0em 0.5em;">{{offer["offererName"] }} offers </span>
+              <span style="font-weight: bold;">{{ this.formatCurrency(offer["price"])}}</span>
+            </div>
+
+
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 
   <!-- Completed view -->
-  <div id="completedListing">
-    <div *ngIf="this.listingDetails['status'] == 'completed'">
+  <div id="completedListing" class="listing-modal-body">
+    <div *ngIf="this.listingDetails['status'] == 'completed'" style="padding:0em 1em;">
       <h3 class="badge badge-success"> Accepted by {{this.listingDetails['acceptedBy']}} at
         ${{this.listingDetails['acceptedPrice']}}</h3>
     </div>
@@ -105,13 +156,13 @@
   <!-- end of completed view -->
 
 
-  <div id="possible-actions" class="modal-footer">
+  <div id="possible-actions" class="modal-footer listing-modal-footer">
     <div *ngIf="this.userID == this.creatorID && this.listingDetails['status'] != 'completed'">
-      <button type="button" class="btn btn-primary" (click)="open(deleteListingModal)">Delete</button>
+      <div class="main-button" (click)="open(deleteListingModal)">Delete</div>
     </div>
 
     <div *ngIf="this.userID != this.creatorID && this.listingDetails['status'] != 'completed'">
-      <button type="button" class="btn btn-primary" (click)="open(makeOfferModal)">Make Offer</button>
+      <div class="main-button" (click)="open(makeOfferModal)">Make Offer</div>
     </div>
   </div>
 </ng-template>
@@ -119,13 +170,13 @@
 
 <!-- Make Offer details-->
 <ng-template #makeOfferModal let-modal>
-  <div class="modal-header">
+  <div class="modal-header listing-modal-header">
     <h4 class="modal-title" id="modal-basic-title">Make Offer Confirmation</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
+  <div class="modal-body listing-modal-body">
 
     <div id="offers">
       Current offers:
@@ -150,29 +201,29 @@
 
   </div>
 
-  <div class="modal-footer">
+  <div class="modal-footer listing-modal-footer">
     This will be added to your Ongoing transactions.
-    <button type="button" class="btn btn-primary" (click)="makeOffer()">Confirm Offer</button>
+    <div class="main-button" (click)="makeOffer()">Confirm Offer</div>
 
   </div>
 </ng-template>
 
 <!-- Make Offer details-->
 <ng-template #deleteListingModal let-modal>
-  <div class="modal-header">
+  <div class="modal-header listing-modal-header">
     Confirm deletion
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
+  <div class="modal-body listing-modal-body">
 
     Your existing listing will be deleted from the marketplace.
   </div>
 
-  <div class="modal-footer">
+  <div class="modal-footer listing-modal-footer">
 
-    <button type="button" class="btn btn-primary" (click)="deleteListing()">Delete Listing</button>
+    <div class="main-button" (click)="deleteListing()">Delete Listing</div>
 
   </div>
 </ng-template>

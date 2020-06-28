@@ -19,7 +19,7 @@ export class ListingService {
 
   getListings() {
     // console.log(this.db.collection(`listings`));
-    return this.db.collection(`listings`).valueChanges();
+    return this.db.collection(`listings`, ref => ref.orderBy('timeStamp', 'desc')).valueChanges();
   }
 
   deleteListing(listingDetails) {
@@ -50,9 +50,9 @@ export class ListingService {
     });
   }
 
-  addOffer(offererName, offererID, listingDetails, price) {
+  addOffer(offererName, offererID, listingDetails, price, offererProfileImg) {
     this.db.doc(`listings/${listingDetails['ID']}`).set({ hasOffers: true }, { merge: true });
-    this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").doc(offererID).set({ offererName, offererID, price })
+    this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").doc(offererID).set({ offererName, offererID, price, offererProfileImg })
   }
 
   getListingOffers(listingDetails) {
