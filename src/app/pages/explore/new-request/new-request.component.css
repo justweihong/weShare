@@ -40,3 +40,8 @@ textarea {
 
   resize: none; /*remove the resize handle on the bottom right*/
 }
+
+.alert {
+  color: red;
+  padding: 0%;
+}

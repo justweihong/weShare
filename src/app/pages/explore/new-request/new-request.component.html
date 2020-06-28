@@ -1,11 +1,13 @@
-<div id="new-request" >
-    <!-- Button trigger modal -->
-    <div  id = "modal-button" class="main-button" data-toggle="modal" style="font-size: 18px;" data-target="#newRequestModal">
+<div id="new-request">
+  <!-- Button trigger modal -->
+  <div id="modal-button" class="main-button" data-toggle="modal" style="font-size: 18px;"
+    data-target="#newRequestModal">
     + New
-    </div>
+  </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="newRequestModal" tabindex="-1" role="dialog" aria-labelledby="newRequestLabel" aria-hidden="true">
+  <div class="modal fade" id="newRequestModal" tabindex="-1" role="dialog" aria-labelledby="newRequestLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
 
@@ -22,39 +24,53 @@
         <div class="modal-body new-req-body" style="font-size:0.5em; width: inherit;">
 
           <!-- Start of form -->
-          <form [formGroup]="requestForm" >
+          <form [formGroup]="requestForm">
             <div class="form-group row">
-              <label  class="col-sm-2 col-form-label">Title</label>
+              <label class="col-sm-2 col-form-label">Title
+                <div *ngIf="requestForm.controls['title'].invalid">
+                  <span class="alert">*5-50 chars</span>
+                </div></label>
               <div class="col-sm-8">
-              <textarea id="title" rows = "2" cols = "40"  formControlName="title" >
+                <textarea id="title" rows="2" cols="40" formControlName="title">
               </textarea>
-            </div>
+              </div>
 
             </div>
 
             <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Description <div
+                  *ngIf="requestForm.controls['description'].invalid">
+                  <span class="alert">*20-500 chars</span>
+                </div></label>
               <div class="col-sm-8">
-              <textarea id="description" rows = "4" cols = "40" formControlName="description" placeholder="describe in detail how can other residents in the community can help you." >
+                <textarea id="description" rows="4" cols="40" formControlName="description"
+                  placeholder="describe in detail how can other residents in the community can help you.">
               </textarea>
-            </div>
+              </div>
 
             </div>
 
             <fieldset class="form-group">
               <div class="row">
-                <legend class="col-form-label col-sm-2 pt-0">Urgency</legend>
+                <legend class="col-form-label col-sm-2 pt-0">Urgency <div
+                    *ngIf="requestForm.controls['urgency'].invalid">
+                    <span class="alert">*required</span>
+                  </div>
+                </legend>
                 <div class="col-sm-8">
-                  <div class="custom-control custom-radio custom-control-inline" >
-                    <input type="radio" id="customRadioInline1" name="urgency" class="custom-control-input" formControlName="urgency" value = "High">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" name="urgency" class="custom-control-input"
+                      formControlName="urgency" value="High">
                     <label class="custom-control-label" for="customRadioInline1">High</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline2" name="urgency" class="custom-control-input" formControlName="urgency" value = "Medium">
+                    <input type="radio" id="customRadioInline2" name="urgency" class="custom-control-input"
+                      formControlName="urgency" value="Medium">
                     <label class="custom-control-label" for="customRadioInline2">Medium</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline3" name="urgency" class="custom-control-input" formControlName="urgency" value = "Low">
+                    <input type="radio" id="customRadioInline3" name="urgency" class="custom-control-input"
+                      formControlName="urgency" value="Low">
                     <label class="custom-control-label" for="customRadioInline3">Low</label>
                   </div>
                 </div>
@@ -63,38 +79,48 @@
 
 
             </fieldset>
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Duration</label>
-                <div class="col-sm-4">
-                    <select class="custom-select" formControlName="duration">
-                        <option selected="1">1 Hour</option>
-                        <option value="2">2 Hours</option>
-                        <option value="3">3 Hours</option>
-                        <option value="5">5 Hours</option>
-                        <option value="10">10 Hours</option>
-                        <option value="15">15 Hours</option>
-                        <option value="24">1 day</option>
-                        <option value="72">3 days</option>
-                        <option value="168">1 week</option>
-                        <option value="no limit">no limit</option>
-                      </select>
-                    </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Duration 
+                <div *ngIf="requestForm.controls['duration'].invalid">
+                  <span class="alert">*required</span>
+                </div>
+              </label>
+              <div class="col-sm-4">
+                <select class="custom-select" formControlName="duration">
+                  <option selected="1">1 Hour</option>
+                  <option value="2">2 Hours</option>
+                  <option value="3">3 Hours</option>
+                  <option value="5">5 Hours</option>
+                  <option value="10">10 Hours</option>
+                  <option value="15">15 Hours</option>
+                  <option value="24">1 day</option>
+                  <option value="72">3 days</option>
+                  <option value="168">1 week</option>
+                  <option value="no limit">no limit</option>
+                </select>
               </div>
+            </div>
 
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Incentive</label>
-                <div class="col-sm-4">
-                    <textarea rows = "2" cols = "40" formControlName="incentive" placeholder="offers to incentivise people to help you." >
+              <label class="col-sm-2 col-form-label">Incentive
+                <div *ngIf="requestForm.controls['incentive'].invalid">
+                  <span class="alert">*max 200 chars</span>
+                </div>
+              </label>
+              <div class="col-sm-4">
+                <textarea rows="2" cols="40" formControlName="incentive"
+                  placeholder="offers to incentivise people to help you.">
                     </textarea>
-                  </div>
               </div>
+            </div>
           </form>
 
         </div>
 
 
         <div class="modal-footer new-req-footer">
-          <div  class="main-button" (click)="submitRequest()" data-dismiss="modal" style="font-size: 18px;"> Add Request </div>
+          <div class="main-button" (click)="submitRequest()" data-dismiss="modal" style="font-size: 18px;"> Add Request
+          </div>
         </div>
       </div>
     </div>
