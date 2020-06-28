@@ -26,24 +26,25 @@
           <!-- Start of form -->
           <form [formGroup]="requestForm">
             <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Title
+              <label class="col-sm-3 col-form-label">Title
                 <div *ngIf="requestForm.controls['title'].invalid">
-                  <span class="alert">*5-50 chars</span>
-                </div></label>
+                  <span class="alert">*min 5 chars</span>
+                </div>
+              </label>
               <div class="col-sm-8">
-                <textarea id="title" rows="2" cols="40" formControlName="title">
+                <textarea maxlength="50" id="title" rows="2" cols="40" formControlName="title">
               </textarea>
               </div>
 
             </div>
 
             <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Description <div
+              <label for="inputEmail3" class="col-sm-3 col-form-label">Description <div
                   *ngIf="requestForm.controls['description'].invalid">
-                  <span class="alert">*20-500 chars</span>
+                  <span class="alert">*min 20 chars</span>
                 </div></label>
               <div class="col-sm-8">
-                <textarea id="description" rows="4" cols="40" formControlName="description"
+                <textarea maxlength="500" id="description" rows="4" cols="40" formControlName="description"
                   placeholder="describe in detail how can other residents in the community can help you.">
               </textarea>
               </div>
@@ -52,7 +53,7 @@
 
             <fieldset class="form-group">
               <div class="row">
-                <legend class="col-form-label col-sm-2 pt-0">Urgency <div
+                <legend class="col-form-label col-sm-3 pt-0">Urgency <div
                     *ngIf="requestForm.controls['urgency'].invalid">
                     <span class="alert">*required</span>
                   </div>
@@ -80,7 +81,7 @@
 
             </fieldset>
             <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Duration 
+              <label class="col-sm-3 col-form-label">Duration
                 <div *ngIf="requestForm.controls['duration'].invalid">
                   <span class="alert">*required</span>
                 </div>
@@ -102,13 +103,13 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Incentive
+              <label class="col-sm-3 col-form-label">Incentive
                 <div *ngIf="requestForm.controls['incentive'].invalid">
                   <span class="alert">*max 200 chars</span>
                 </div>
               </label>
               <div class="col-sm-4">
-                <textarea rows="2" cols="40" formControlName="incentive"
+                <textarea maxlength="200" rows="2" cols="40" formControlName="incentive"
                   placeholder="offers to incentivise people to help you.">
                     </textarea>
               </div>
