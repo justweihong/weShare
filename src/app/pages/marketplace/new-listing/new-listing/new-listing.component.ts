@@ -60,8 +60,7 @@ export class NewListingComponent implements OnInit {
     this.listingForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(500)]],
-      price: ['', Validators.required],
-      contact: ['', [Validators.required, Validators.maxLength(50)]],
+      price: ['', [Validators.min(0), Validators.max(100000), Validators.required]],
     })
   }
 
@@ -70,7 +69,6 @@ export class NewListingComponent implements OnInit {
   get title(): any { return this.listingForm.get('title') }
   get description(): any { return this.listingForm.get('description') }
   get price(): any { return this.listingForm.get('price') }
-  get contact(): any { return this.listingForm.get('contact') }
 
 
   //Update creator of this listing
@@ -86,7 +84,7 @@ export class NewListingComponent implements OnInit {
 
     //handle invalid form
     if (this.listingForm.controls['title'].invalid.valueOf() || this.listingForm.controls['price'].invalid.valueOf()
-      || this.listingForm.controls['description'].invalid.valueOf() || this.listingForm.controls['contact'].invalid.valueOf()) {
+      || this.listingForm.controls['description'].invalid.valueOf()) {
       alert("Incomplete Form!");
       this.modalService.dismissAll();
       return;
@@ -102,7 +100,6 @@ export class NewListingComponent implements OnInit {
         title: this.title.value,
         description: this.description.value,
         price: this.price.value,
-        contact: this.contact.value,
         path: path,
         createdBy: this.createdBy,
         status: "active",
@@ -139,7 +136,6 @@ export class NewListingComponent implements OnInit {
       title: this.title.value,
       description: this.description.value,
       price: this.price.value,
-      contact: this.contact.value,
       path: path,
       createdBy: this.createdBy,
       status: "active",

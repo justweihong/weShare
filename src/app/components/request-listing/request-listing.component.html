@@ -96,10 +96,20 @@
 
             <div id="duration" class="req-modal-item" style="width:50%;">
               <div id="duration-type">
+
+                <!-- no limit -->
+                <div *ngIf="this.timeLeft() == 'no limit'" >
+                  <i class="fa fa-clock-o" aria-hidden="true" style="padding-right:0.5em;"></i>{{this.timeLeft()}}</div>
+
+                <!-- hours left -->
                 <div *ngIf="this.timeLeft().split(' ')[1] == 'hours'" class="hours-left">
                   <i class="fa fa-clock-o" aria-hidden="true" style="padding-right:0.5em;"></i>{{this.timeLeft()}}</div>
+
+                <!-- minutes left -->
                 <div *ngIf="this.timeLeft().split(' ')[1] == 'mins'" class="mins-left">
                   <i class="fa fa-clock-o" aria-hidden="true" style="padding-right:0.5em;"></i>{{this.timeLeft()}}</div>
+
+                <!-- expired -->
                 <div *ngIf="this.timeLeft() == 'expired'" class="expired">
                   <i class="fa fa-clock-o" aria-hidden="true" style="padding-right:0.5em;"></i>{{this.timeLeft()}}</div>
               </div>
