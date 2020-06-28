@@ -16,3 +16,11 @@
       grid-template-columns: auto;
     }
   }
+
+  h3 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: powderblue;
+    border-style: ridge;
+    border-radius: 10px;
+    background-color: aliceblue;
+  }
