@@ -56,7 +56,7 @@ export class MarketplaceComponent implements OnInit {
     // Update the request state
     this.listingState = this.activatedRoute.snapshot.url[1].path;
     if (!this.listingState) {
-      this.listingState = "all listings";
+      this.listingState = "all-listings";
     }
 
     // this.subscriptions.push(this.navbarService.getState().pipe().subscribe(details => {

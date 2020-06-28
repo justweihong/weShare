@@ -75,7 +75,7 @@ export class RequestDetailsComponent implements OnInit {
 
   completeRequest() {
     if (confirm("Are you you have completed " + this.creatorDisplayName + "/'s request")) {
-        this.requestService.completeRequest(this.requestDetails["ID"]);
+        this.requestService.completeRequest(this.requestDetails["ID"], this.requestDetails['helper']);
     }
   }
 

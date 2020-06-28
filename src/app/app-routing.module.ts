@@ -7,6 +7,7 @@ import { MarketplaceComponent } from './pages/marketplace/marketplace.component'
 import { ExploreComponent } from './pages/explore/explore.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
+import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component';
 
 // Authentication
 import { AuthGuard } from './services/auth/auth.guard';
@@ -22,6 +23,7 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent},
     { path: 'login', component: LoginComponent },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+    { path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthGuard]},
 
     // requests
     { path: 'explore', redirectTo: 'explore/all'},
