@@ -1,0 +1,42 @@
+#new-request {
+  font-size:2em;
+}
+
+
+.new-req-header {
+  background-color:#328eb3;
+  color: white;
+  font-size: 0.9em;
+}
+.new-req-body {
+  background-color: #f3f3f3;
+}
+
+.new-req-item {
+  padding: 0.5em 0.5em;
+
+}
+.item-top-border {
+  border-top:solid;
+  /* border-bottom: solid; */
+  border-width: 1px;
+  /* border-bottom-width: 1px; */
+  border-color: #e3e1e1;
+}
+
+.new-req-footer {
+  background-color: #f3f3f3;
+}
+
+textarea {
+  border: none;
+  border-radius: 0.3em;
+  overflow: auto;
+  outline: none;
+
+  /* -webkit-box-shadow: none; */
+  /* -moz-box-shadow: none; */
+  box-shadow: none;
+
+  resize: none; /*remove the resize handle on the bottom right*/
+}

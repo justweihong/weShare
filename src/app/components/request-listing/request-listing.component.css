@@ -16,7 +16,7 @@
   cursor: pointer;
   padding: 1em;
   /* width: 15em; */
-  height: 10em;
+  /* height: 12em; */
 }
 .word-break {
   overflow: hidden;
@@ -28,9 +28,62 @@
 }
 
 .req-title {
+  width:70%;
   font-size: 1.5em;
-  margin-top:1em;
-  margin-bottom: 0.5em;
+  padding:0.5em 0em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  align-items: center;
+}
+
+.req-progress {
+  width: 6em;
+  margin: 0.5em;
+  color: white;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1em!important;
+}
+.progress-active {
+  /* background-color:rgb(73, 171, 98); */
+  animation: active-color 6s infinite;
+}
+.progress-ongoing {
+  /* background-color:rgb(255, 186, 40); */
+  animation: ongoing-color 6s infinite;
+}
+.progress-completed {
+  /* background-color:rgb(216, 120, 120); */
+  animation: completed-color 6s infinite;
+}
+.progress-expired {
+  background-color:rgb(160, 157, 157);
+}
+
+@keyframes active-color {
+  0% { background-color: rgb(73, 171, 98);}
+
+  50% { background-color: rgb(68, 158, 90);}
+
+  100% {background-color: rgb(73, 171, 98);}
+}
+@keyframes ongoing-color {
+  0% { background-color: rgb(255, 186, 40);}
+
+  50% { background-color: rgb(219, 159, 34);}
+
+  100% {background-color: rgb(255, 186, 40);}
+}
+@keyframes completed-color {
+  0% { background-color: rgb(216, 120, 120);}
+
+  50% { background-color: rgb(189, 105, 105);}
+
+  100% {background-color: rgb(216, 120, 120);}
 }
 
 .req-desc {
@@ -38,9 +91,33 @@
   flex: 1 1 auto;
   min-height: 1px;
   margin-bottom: 0.5em;
+  line-height: 1.5em;
+  height:4.5em;
+  display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
-.time-ago {
+.image-holder {
+  display: block;
+  position: relative;
+  z-index: 1;
+  background: center/cover no-repeat #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 1.5px 0.5px rgba(0,0,0,.24);
+  overflow: hidden;
+  /* -webkit-transition-duration: .22s;
+  transition-duration: .22s; */
+}
+
+img {
+  filter: grayscale(20%);
+}
+
+
+.req-side-desc {
+  display: flex;
+  align-self:flex-end;
   font-size: 0.7em;
   text-align: right;
 }
@@ -70,4 +147,59 @@ div.card-text {
 h5 {
   margin-top: 12px;
   margin-bottom: -2px;
+}
+
+.request-detail-modal {
+  /* max-height:70vh; */
+}
+
+.req-modal-header {
+  background-color:#328eb3;
+  color: white;
+  font-size: 1.5em;
+}
+.req-modal-body {
+  background-color: #f3f3f3;
+}
+
+.req-modal-item {
+  padding: 0.5em 0.5em;
+
+}
+.item-top-border {
+  border-top:solid;
+  /* border-bottom: solid; */
+  border-width: 1px;
+  /* border-bottom-width: 1px; */
+  border-color: #e3e1e1;
+}
+
+.low-urgency {
+  color:green;
+  font-weight:500;
+}
+.medium-urgency {
+  color:orange;
+  font-weight:600;
+}
+
+.high-urgency {
+  color:red;
+  font-weight:800;
+}
+
+.hours-left {
+  color:orange;
+  font-weight:500;
+}
+.mins-left {
+  color:red;
+  font-weight:800;
+}
+.expired {
+  color:grey;
+}
+
+.req-modal-footer {
+  background-color: #f3f3f3;
 }

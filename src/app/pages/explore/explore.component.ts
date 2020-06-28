@@ -42,6 +42,7 @@ export class ExploreComponent implements OnInit {
     myRequests:any;
     activeRequests:any;
     ongoingRequests:any;
+    acceptedRequests:any;
     completedRequests:any;
 
 
@@ -102,11 +103,14 @@ export class ExploreComponent implements OnInit {
           this.myRequests = [];
           this.activeRequests = [];
           this.ongoingRequests = [];
+          this.acceptedRequests = [];
           this.completedRequests = [];
           requests.forEach(request => {
               if (request['createdBy'] == this.userID) {
                   this.myRequests.push(request);
-                  // console.log("push");
+              }
+              if (request['helper'] == this.userID) {
+                this.acceptedRequests.push(request);
               }
               if (request['status'] == "active") {
                   this.activeRequests.push(request);
@@ -114,6 +118,7 @@ export class ExploreComponent implements OnInit {
                   this.ongoingRequests.push(request);
               } else if (request['status'] == "completed") {
                   this.completedRequests.push(request);
+
               } else {
                   console.error("request ID (" + request['ID'] + ") has invalid status.");
               }

@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { NgbModal, NgbModalOptions, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 // import * as $ from 'jquery';
 declare var $: any;
 
@@ -16,6 +17,11 @@ export class RequestListingComponent implements OnInit {
   subscriptions: Subscription[] = [];
   @Input() requestID: any;
   userID: any;
+  userImg: any;
+
+  //modal attributes
+  closeResult: string;
+  modalOptions: NgbModalOptions;
 
   // Initilised attributes.
   requestDetails: any;
@@ -23,6 +29,8 @@ export class RequestListingComponent implements OnInit {
   helperDetails: any;
 
   constructor(
+    private modalService: NgbModal,
+    // public activeModal: NgbActiveModal,
     public auth: AuthService,
     private requestService: RequestService,
     private userService: UserService,
@@ -31,15 +39,17 @@ export class RequestListingComponent implements OnInit {
 
   ngOnInit() {
     this.auth.getUser().pipe(take(1)).subscribe(user => {
-      this.userID = user.uid
+      this.userID = user.uid;
+      this.userImg = user.photoURL;
     })
 
     if (this.requestID) {
 
       // Get request details
-      this.subscriptions.push(this.requestService.getRequest(this.requestID).pipe((take(1))).subscribe(request => {
+      this.requestService.getRequest(this.requestID).pipe(take(1)).subscribe(request => {
         this.requestDetails = request;
-        console.log(this.requestDetails)
+        // console.log("card change")
+
 
         // Get creator data.
         var createdBy = this.requestDetails['createdBy'];
@@ -54,12 +64,11 @@ export class RequestListingComponent implements OnInit {
           });
         }
 
-      }));
+      });
     }
   }
 
-  timeAgo() {
-    var timestamp = this.requestDetails['timeStamp'];
+  timeAgo(timestamp) {
     var delta = Date.now() - timestamp;
     var days = Math.floor(delta / (1000 * 60 * 60 * 24));
     var hours = Math.floor(delta / (1000 * 60 * 60));
@@ -88,31 +97,131 @@ export class RequestListingComponent implements OnInit {
     }
   }
 
+  timeDifference(laterTimeStamp, earlierTimeStamp) {
+    var delta = laterTimeStamp - earlierTimeStamp;
+    var days = Math.floor(delta / (1000 * 60 * 60 * 24));
+    var hours = Math.floor(delta / (1000 * 60 * 60));
+    var min = Math.floor(delta / (1000 * 60));
+    var sec = Math.floor(delta / (1000));
+
+    if (days < 0) {
+      return `expired`;
+
+    } else if (days) {
+
+      return `${days} days left`;
+    } else if (hours) {
+
+      return `${hours} hours left`;
+    } else if (min) {
+
+      return `${min} mins left`;
+    } else if (sec) {
+
+      return ` secs left`;
+    } else {
+      return `expired`;
+    }
+  }
+
+  timeLeft() {
+    const timestamp = this.requestDetails['timeStamp'];
+    const duration = this.requestDetails['duration'];
+    const expireTimestamp = timestamp + duration*60*60*1000;
+    return this.timeDifference(expireTimestamp, Date.now());
+  }
+
+
+
+  /** Show the 24H time of the version made. */
+  datetime12H(timestamp) {
+    const day = new Date(timestamp).getDate();
+    const monthNo = new Date(timestamp).getMonth();
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"];
+    const month = months[monthNo];
+    var year = new Date(timestamp).getFullYear();
+    var hour24:any = new Date(timestamp).getHours();
+    var min:any = new Date(timestamp).getMinutes();
+
+    // Set to 12H timing.
+    var hour12 = hour24;
+    var ampm = "am";
+    if (hour24 > 12) {
+      hour12 = hour24 - 12;
+      ampm = "pm";
+    }
+    if (hour24 == 0 || hour24 == 24) {
+      hour12 = 12;
+      ampm = "am"
+    }
+
+    // Add 0 padding for single digits.
+    if (min < 10) {
+        min = "0" + min;
+    }
+    if (hour12 < 10) {
+        hour12 = "0" + hour12;
+    }
+
+    return day + " " + month + " " + year + ", " + hour12 + "." + min + " " +  ampm ;
+}
+
+  open(content) {
+     this.modalService.open(content, {windowClass: 'modal-holder', centered: true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  deleteRequest() {
+    if (confirm("Are you sure you want delete your request? This action cannot be undone.")) {
+      // this.closeDetailsModal();
+      this.modalService.dismissAll();
+      this.requestService.deleteRequest(this.requestDetails["ID"]);
+    }
+  }
+
   acceptRequest() {
     if (confirm("Are you sure you want to help " + this.creatorDetails['displayName'] + "?")) {
-      this.closeDetailsModal();
+      // this.closeDetailsModal();
+      this.modalService.dismissAll();
       this.requestService.acceptRequest(this.requestDetails["ID"], this.userID).then(() => {
+
       });
     }
   }
 
   unacceptRequest() {
     if (confirm("Are you sure you want to give up helping " + this.creatorDetails['displayName'] + "?")) {
-      this.closeDetailsModal();
+      // this.closeDetailsModal();
+      this.modalService.dismissAll();
       this.requestService.unacceptRequest(this.requestDetails["ID"]).then(() => {
+
       });
     }
   }
 
   completeRequest() {
     if (confirm("Are you you have completed " + this.creatorDetails['displayName'] + "/'s request")) {
-      this.closeDetailsModal();
-      this.requestService.completeRequest(this.requestDetails["ID"], this.requestDetails["helper"]).then(() => {
+      // this.closeDetailsModal();
+      this.modalService.dismissAll();
+      this.requestService.completeRequest(this.requestDetails["ID"]).then(() => {
       });
     }
   }
 
   openDetailsModal() {
+    console.log(this.requestDetails)
     $('#request-details-modal').modal('show')
   }
 

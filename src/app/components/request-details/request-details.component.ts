@@ -31,7 +31,7 @@ export class RequestDetailsComponent implements OnInit {
       public auth: AuthService,
       private requestService: RequestService,
       private userService: UserService,
-  ) { 
+  ) {
       // Reload details when a status is changed.
       this.requestService.getDetailUpdates().subscribe(() => {
           this.requestService.getRequest(this.requestDetails['ID']).pipe(take(1)).subscribe(request => {
@@ -75,11 +75,11 @@ export class RequestDetailsComponent implements OnInit {
 
   completeRequest() {
     if (confirm("Are you you have completed " + this.creatorDisplayName + "/'s request")) {
-        this.requestService.completeRequest(this.requestDetails["ID"], this.requestDetails['helper']);
+        this.requestService.completeRequest(this.requestDetails["ID"]);
     }
   }
 
-  
-  
+
+
 
 }

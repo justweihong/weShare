@@ -2,79 +2,183 @@
 
   <!-- request card -->
   <!-- <div id="req-card" class="req-card" style="margin:1em;" data-toggle="modal" data-target="#request-details-modal"> -->
-  <div id="req-card" class="req-card" style="margin:0.5em;" (click)="openDetailsModal()">
-    <div class="req-title"> {{this.requestDetails['title']}}</div>
+    <!-- <div id="req-card" class="req-card" style="margin:0.5em;" (click)="openDetailsModal()"> -->
+  <div id="req-card" class="req-card" style="margin:0.5em;" [ngStyle]="{'opacity': this.timeLeft() == 'expired' ? '0.5':'1'}" (click)="open(requestDetailModal)">
+    <div id="header" style="display:flex">
+      <div class="req-title"> {{this.requestDetails['title']}}</div>
+      <div style="width:30%; display: flex; justify-content:center;">
+        <div *ngIf="this.timeLeft() == 'expired'" class="req-progress progress-expired"> expired </div>
+        <div *ngIf="this.timeLeft() != 'expired' && this.requestDetails['status'] == 'active'" class="req-progress progress-active"> active </div>
+        <div *ngIf="this.timeLeft() != 'expired' && this.requestDetails['status'] == 'ongoing'" class="req-progress progress-ongoing"> ongoing </div>
+        <div *ngIf="this.timeLeft() != 'expired' &&this.requestDetails['status'] == 'completed'" class="req-progress progress-completed"> done  </div>
+      </div>
+
+    </div>
+
 
     <div class="req-desc word-break">
         {{this.requestDetails['description']}}
     </div>
 
-    <div id="time-ago" class="time-ago">
-        {{this.creatorDetails["displayName"]}} / {{this.timeAgo()}}
+    <div id="time-ago" class="req-side-desc">
+        <img src="{{this.creatorDetails['profileImg']}}" class="image-holder" style="width: 2em;height: 2em; margin: 0em 0.5em; " >
+        {{this.creatorDetails["displayName"]}} / {{this.timeAgo(this.requestDetails['timeStamp'])}}
     </div>
 
   </div>
 
   <!-- request details modal -->
-  <div id="request-details-modal" class="modal fade" tabindex="-1" role="dialog" style="display:none;">
-    <div  class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content" *ngIf="this.requestDetails && this.creatorDetails">
-        <div class="modal-header">
-          <h1>{{ this.requestDetails["title"] }}</h1>
-          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-          <button type="button" class="close"  (click)="closeDetailsModal()">
+  <ng-template #requestDetailModal let-modal>
+    <div class="request-detail-modal">
+
+        <!-- header -->
+        <div class="modal-header req-modal-header" *ngIf="this.requestDetails && this.creatorDetails">
+          {{ this.requestDetails["title"] }}
+          <button type="button" class="close" style="padding:0em;margin:0em;" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <div id="id">ID: {{ this.requestDetails["ID"] }}</div>
-          <div id="description">
-            Description: {{ this.requestDetails["description"] }}
-          </div>
-          <div id="urgency">Urgency: {{ this.requestDetails["urgency"] }}</div>
-          <div id="duration">Duration: {{ this.requestDetails["duration"] }}</div>
-          <div id="incentive">
-            Incentive: {{ this.requestDetails["incentive"] }}
-          </div>
-          <div id="status">Status: {{ this.requestDetails["status"] }}</div>
+
+        <div class="modal-body req-modal-body" style="padding:0em 0.5em;">
 
           <!-- creator details -->
-          <div id="creator">Created By: {{ this.creatorDetails["uid"] }}</div>
-          <div id="contact-details">Contact: {{ this.creatorDetails["userContact"] }}</div>
-          <div id="room-details">Room: {{ this.creatorDetails["roomDetails"] }}</div>
+          <div id="creator-details" style="display:flex;padding: 1.5em 0.5em 0em;">
+            <div id="image-area" style="display:flex; align-items:center; justify-content:center; width:15%;">
+              <img src="{{this.creatorDetails['profileImg']}}" class="image-holder" style="width: 3em;height: 3em;" >
+            </div>
+
+            <div id="username-and-time" style="padding:0em 1em; width:55%;">
+              <div style="font-size:1.5em;">{{ this.creatorDetails["displayName"] }}</div>
+              <div style="font-size:0.9em; color:grey;"> {{this.timeAgo(this.requestDetails['timeStamp'])}} </div>
+            </div>
+
+            <div style="width:30%; display: flex; justify-content:center;">
+              <div *ngIf="this.timeLeft() == 'expired'" class="req-progress progress-expired"> expired </div>
+              <div *ngIf="this.timeLeft() != 'expired' && this.requestDetails['status'] == 'active'" class="req-progress progress-active"> active </div>
+              <div *ngIf="this.timeLeft() != 'expired' && this.requestDetails['status'] == 'ongoing'" class="req-progress progress-ongoing"> ongoing </div>
+              <div *ngIf="this.timeLeft() != 'expired' &&this.requestDetails['status'] == 'completed'" class="req-progress progress-completed"> done  </div>
+            </div>
+
+          </div>
+
+          <!-- creator additional details -->
+          <div id="creator-add-details" style="display:flex;">
+            <div id="room-details" class="req-modal-item " style="width:50%;">
+              <i class="fa fa-home" aria-hidden="true" style="padding-right:0.5em;"></i> {{ this.creatorDetails["roomDetails"] }}
+            </div>
+
+            <div id="contact-details" class="req-modal-item " style="width:50%;">
+              <i class="fa fa-phone" aria-hidden="true" style="padding-right:0.5em;"></i> {{this.creatorDetails["userContact"] }}
+            </div>
+
+          </div>
+
+          <!-- description -->
+          <div id="description" class="req-modal-item item-top-border">
+            {{ this.requestDetails["description"] }}
+          </div>
+
+
+
+          <!-- urgency and duration -->
+          <div id="urgency-and-duration" style="display:flex;">
+            <div id="urgency" class="req-modal-item" style="width:50%; display:flex;">
+              <div id="urgency-type">
+                <div *ngIf="this.requestDetails['urgency'] == 'Low'" class="low-urgency">
+                  <i class="fa fa-exclamation" style="padding-right:0.5em;" aria-hidden="true"></i>Low </div>
+                <div *ngIf="this.requestDetails['urgency'] == 'Medium'" class="medium-urgency">
+                  <i class="fa fa-exclamation" style="padding-right:0.5em;" aria-hidden="true"></i>Medium </div>
+                <div *ngIf="this.requestDetails['urgency'] == 'High'" class="high-urgency">
+                  <i class="fa fa-exclamation" style="padding-right:0.5em;" aria-hidden="true"></i>High </div>
+
+              </div>
+            </div>
+
+            <div id="duration" class="req-modal-item" style="width:50%;">
+              <div id="duration-type">
+                <div *ngIf="this.timeLeft().split(' ')[1] == 'hours'" class="hours-left">
+                  <i class="fa fa-clock-o" aria-hidden="true" style="padding-right:0.5em;"></i>{{this.timeLeft()}}</div>
+                <div *ngIf="this.timeLeft().split(' ')[1] == 'mins'" class="mins-left">
+                  <i class="fa fa-clock-o" aria-hidden="true" style="padding-right:0.5em;"></i>{{this.timeLeft()}}</div>
+                <div *ngIf="this.timeLeft() == 'expired'" class="expired">
+                  <i class="fa fa-clock-o" aria-hidden="true" style="padding-right:0.5em;"></i>{{this.timeLeft()}}</div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- rewards -->
+          <div id="incentive" class="req-modal-item item-top-border">
+            <i class="fa fa-usd" aria-hidden="true"></i> {{ this.requestDetails["incentive"] }}
+          </div>
 
           <!-- helper details -->
-          <div *ngIf="this.helperDetails">Helper : {{ this.helperDetails["displayName"] }}</div>
-          <div *ngIf="!this.helperDetails">Helper : nil</div>
+          <div id="helper-details" class="req-modal-item item-top-border" >
+
+            <!-- have helper -->
+            <div *ngIf="this.helperDetails" style="display:flex;padding:0.5em 0em;">
+              <div id="image-area" style="display:flex; align-items:center; justify-content:center">
+                <img src="{{this.helperDetails['profileImg']}}" class="image-holder" style="width: 2em;height: 2em;" >
+              </div>
+
+              <!-- still helping -->
+              <div id="helper-desc" *ngIf="this.requestDetails['status'] == 'ongoing'" style="padding-left:0.5em;">
+                <span style="font-weight: bold;">{{ this.helperDetails["displayName"] }}</span>
+                decided to help {{this.timeAgo(this.requestDetails["helpTimeStamp"])}}.
+                <div style="color:grey;font-size:0.8em;">{{this.datetime12H(this.requestDetails["helpTimeStamp"])}}</div>
+              </div>
+
+              <!-- completed -->
+              <div id="helper-desc" *ngIf="this.requestDetails['status'] == 'completed'" style="padding-left:0.5em;">
+                <span style="font-weight: bold;">{{ this.helperDetails["displayName"] }}</span>
+                completed this request {{this.timeAgo(this.requestDetails["completeTimeStamp"])}}.
+                <div style="color:grey;font-size:0.8em;">{{this.datetime12H(this.requestDetails["completeTimeStamp"])}}</div>
+              </div>
+
+            </div>
+
+            <!-- no helper -->
+            <div *ngIf="!this.helperDetails">No one has helped {{this.creatorDetails["displayName"]}} yet. Be the first to help!</div>
+          </div>
 
         </div>
 
-        <div id="possible-actions" class="modal-footer">
-          <!-- <div *ngIf="this.userID == this.creatorID">
-                  <button  type="button" class="btn btn-primary" >Edit</button>
-                  <button  type="button" class="btn btn-primary" >Delete</button>
-              </div> -->
-          <div *ngIf="this.userID != this.creatorDetails['uid']">
-            <button *ngIf="this.requestDetails['status'] == 'active'" type="button" class="btn btn-primary"
-              (click)="acceptRequest()">
+        <div class="modal-footer req-modal-footer">
+
+          <!-- actions for my own cards -->
+          <div id="possible-actions-for-own-card" *ngIf="this.userID == this.creatorDetails['uid']" style="display:flex;">
+
+            <!-- delete  -->
+            <div class="main-button" (click)="deleteRequest()">
+              Delete
+            </div>
+          </div>
+
+          <!-- actions for other people cards if they are not expired yet -->
+          <div id="possible-actions-for-other-cards" *ngIf="this.userID != this.creatorDetails['uid'] && this.timeLeft() != 'expired'" style="display:flex;">
+
+            <!-- start helping -->
+            <div *ngIf="this.requestDetails['status'] == 'active'" class="main-button" (click)="acceptRequest()">
               Help {{ this.creatorDetails['displayName'] }}!
-            </button>
-            <button *ngIf="
-                this.requestDetails['status'] == 'ongoing' &&
-                this.requestDetails['helper'] == this.userID
-              " type="button" class="btn btn-primary" (click)="unacceptRequest()">
+            </div>
+
+            <!-- give up or complete -->
+            <div *ngIf="this.requestDetails['status'] == 'ongoing' && this.requestDetails['helper'] == this.userID"
+            class="main-button" style="margin:0em 0.3em;" (click)="unacceptRequest()">
               Give up
-            </button>
-            <button *ngIf="
-                this.requestDetails['status'] == 'ongoing' &&
-                this.requestDetails['helper'] == this.userID
-              " type="button" class="btn btn-primary" (click)="completeRequest()">
+            </div>
+
+            <div *ngIf="this.requestDetails['status'] == 'ongoing' &&this.requestDetails['helper'] == this.userID"
+            class="main-button" style="margin:0em 0.3em;" (click)="completeRequest()">
               I've finished!
-            </button>
+            </div>
+
+
           </div>
         </div>
-      </div>
     </div>
-  </div>
+</ng-template>
+
 
 </div>
+
