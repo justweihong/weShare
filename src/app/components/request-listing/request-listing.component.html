@@ -3,14 +3,14 @@
   <!-- request card -->
   <!-- <div id="req-card" class="req-card" style="margin:1em;" data-toggle="modal" data-target="#request-details-modal"> -->
     <!-- <div id="req-card" class="req-card" style="margin:0.5em;" (click)="openDetailsModal()"> -->
-  <div id="req-card" class="req-card" style="margin:0.5em;" (click)="open(requestDetailModal)">
+  <div id="req-card" class="req-card" style="margin:0.5em;" [ngStyle]="{'opacity': this.timeLeft() == 'expired' ? '0.5':'1'}" (click)="open(requestDetailModal)">
     <div id="header" style="display:flex">
       <div class="req-title"> {{this.requestDetails['title']}}</div>
       <div style="width:30%; display: flex; justify-content:center;">
-        <div *ngIf="this.requestDetails['status'] == 'active'" class="req-progress progress-active"> active </div>
-        <div *ngIf="this.requestDetails['status'] == 'ongoing'" class="req-progress progress-ongoing"> ongoing </div>
-        <div *ngIf="this.requestDetails['status'] == 'completed'" class="req-progress progress-completed"> done </div>
-        <div *ngIf="this.requestDetails['status'] == 'expired'" class="req-progress progress-expired"> expired </div>
+        <div *ngIf="this.timeLeft() == 'expired'" class="req-progress progress-expired"> expired </div>
+        <div *ngIf="this.timeLeft() != 'expired' && this.requestDetails['status'] == 'active'" class="req-progress progress-active"> active </div>
+        <div *ngIf="this.timeLeft() != 'expired' && this.requestDetails['status'] == 'ongoing'" class="req-progress progress-ongoing"> ongoing </div>
+        <div *ngIf="this.timeLeft() != 'expired' &&this.requestDetails['status'] == 'completed'" class="req-progress progress-completed"> done  </div>
       </div>
 
     </div>
@@ -53,10 +53,10 @@
             </div>
 
             <div style="width:30%; display: flex; justify-content:center;">
-              <div *ngIf="this.requestDetails['status'] == 'active'" class="req-progress progress-active"> active </div>
-              <div *ngIf="this.requestDetails['status'] == 'ongoing'" class="req-progress progress-ongoing"> ongoing </div>
-              <div *ngIf="this.requestDetails['status'] == 'completed'" class="req-progress progress-completed"> done </div>
-              <div *ngIf="this.requestDetails['status'] == 'expired'" class="req-progress progress-expired"> expired </div>
+              <div *ngIf="this.timeLeft() == 'expired'" class="req-progress progress-expired"> expired </div>
+              <div *ngIf="this.timeLeft() != 'expired' && this.requestDetails['status'] == 'active'" class="req-progress progress-active"> active </div>
+              <div *ngIf="this.timeLeft() != 'expired' && this.requestDetails['status'] == 'ongoing'" class="req-progress progress-ongoing"> ongoing </div>
+              <div *ngIf="this.timeLeft() != 'expired' &&this.requestDetails['status'] == 'completed'" class="req-progress progress-completed"> done  </div>
             </div>
 
           </div>
@@ -82,13 +82,27 @@
 
           <!-- urgency and duration -->
           <div id="urgency-and-duration" style="display:flex;">
-            <div id="urgency" class="req-modal-item" style="width:50%;">
-              Urgency: {{ this.requestDetails["urgency"] }}
+            <div id="urgency" class="req-modal-item" style="width:50%; display:flex;">
+              <div id="urgency-type">
+                <div *ngIf="this.requestDetails['urgency'] == 'Low'" class="low-urgency">
+                  <i class="fa fa-exclamation" style="padding-right:0.5em;" aria-hidden="true"></i>Low </div>
+                <div *ngIf="this.requestDetails['urgency'] == 'Medium'" class="medium-urgency">
+                  <i class="fa fa-exclamation" style="padding-right:0.5em;" aria-hidden="true"></i>Medium </div>
+                <div *ngIf="this.requestDetails['urgency'] == 'High'" class="high-urgency">
+                  <i class="fa fa-exclamation" style="padding-right:0.5em;" aria-hidden="true"></i>High </div>
+
+              </div>
             </div>
 
             <div id="duration" class="req-modal-item" style="width:50%;">
-              <i class="fa fa-clock-o" aria-hidden="true" style="padding-right:0.5em;"></i>
-              {{ this.requestDetails["duration"] }}
+              <div id="duration-type">
+                <div *ngIf="this.timeLeft().split(' ')[1] == 'hours'" class="hours-left">
+                  <i class="fa fa-clock-o" aria-hidden="true" style="padding-right:0.5em;"></i>{{this.timeLeft()}}</div>
+                <div *ngIf="this.timeLeft().split(' ')[1] == 'mins'" class="mins-left">
+                  <i class="fa fa-clock-o" aria-hidden="true" style="padding-right:0.5em;"></i>{{this.timeLeft()}}</div>
+                <div *ngIf="this.timeLeft() == 'expired'" class="expired">
+                  <i class="fa fa-clock-o" aria-hidden="true" style="padding-right:0.5em;"></i>{{this.timeLeft()}}</div>
+              </div>
             </div>
           </div>
 
@@ -98,27 +112,50 @@
             <i class="fa fa-usd" aria-hidden="true"></i> {{ this.requestDetails["incentive"] }}
           </div>
 
-          <!-- helper -->
+          <!-- helper details -->
           <div id="helper-details" class="req-modal-item item-top-border" >
-            <div *ngIf="this.helperDetails" style="display:flex;padding:0.5em 0em;">
 
+            <!-- have helper -->
+            <div *ngIf="this.helperDetails" style="display:flex;padding:0.5em 0em;">
               <div id="image-area" style="display:flex; align-items:center; justify-content:center">
                 <img src="{{this.helperDetails['profileImg']}}" class="image-holder" style="width: 2em;height: 2em;" >
               </div>
-              <div id="helper-desc" style="padding-left:0.5em;">
+
+              <!-- still helping -->
+              <div id="helper-desc" *ngIf="this.requestDetails['status'] == 'ongoing'" style="padding-left:0.5em;">
                 <span style="font-weight: bold;">{{ this.helperDetails["displayName"] }}</span>
-                decided to help at {{this.datetime12H(this.requestDetails["helpTimeStamp"])}} ({{this.timeAgo(this.requestDetails["helpTimeStamp"])}}).
+                decided to help {{this.timeAgo(this.requestDetails["helpTimeStamp"])}}.
+                <div style="color:grey;font-size:0.8em;">{{this.datetime12H(this.requestDetails["helpTimeStamp"])}}</div>
+              </div>
+
+              <!-- completed -->
+              <div id="helper-desc" *ngIf="this.requestDetails['status'] == 'completed'" style="padding-left:0.5em;">
+                <span style="font-weight: bold;">{{ this.helperDetails["displayName"] }}</span>
+                completed this request {{this.timeAgo(this.requestDetails["completeTimeStamp"])}}.
+                <div style="color:grey;font-size:0.8em;">{{this.datetime12H(this.requestDetails["completeTimeStamp"])}}</div>
               </div>
 
             </div>
 
+            <!-- no helper -->
             <div *ngIf="!this.helperDetails">No one has helped {{this.creatorDetails["displayName"]}} yet. Be the first to help!</div>
           </div>
 
         </div>
 
         <div class="modal-footer req-modal-footer">
-          <div id="possible-actions" *ngIf="this.userID != this.creatorDetails['uid']" style="display:flex;">
+
+          <!-- actions for my own cards -->
+          <div id="possible-actions-for-own-card" *ngIf="this.userID == this.creatorDetails['uid']" style="display:flex;">
+
+            <!-- delete  -->
+            <div class="main-button" (click)="deleteRequest()">
+              Delete
+            </div>
+          </div>
+
+          <!-- actions for other people cards if they are not expired yet -->
+          <div id="possible-actions-for-other-cards" *ngIf="this.userID != this.creatorDetails['uid'] && this.timeLeft() != 'expired'" style="display:flex;">
 
             <!-- start helping -->
             <div *ngIf="this.requestDetails['status'] == 'active'" class="main-button" (click)="acceptRequest()">

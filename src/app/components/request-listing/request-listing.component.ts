@@ -97,6 +97,42 @@ export class RequestListingComponent implements OnInit {
     }
   }
 
+  timeDifference(laterTimeStamp, earlierTimeStamp) {
+    var delta = laterTimeStamp - earlierTimeStamp;
+    var days = Math.floor(delta / (1000 * 60 * 60 * 24));
+    var hours = Math.floor(delta / (1000 * 60 * 60));
+    var min = Math.floor(delta / (1000 * 60));
+    var sec = Math.floor(delta / (1000));
+
+    if (days < 0) {
+      return `expired`;
+
+    } else if (days) {
+
+      return `${days} days left`;
+    } else if (hours) {
+
+      return `${hours} hours left`;
+    } else if (min) {
+
+      return `${min} mins left`;
+    } else if (sec) {
+
+      return ` secs left`;
+    } else {
+      return `expired`;
+    }
+  }
+
+  timeLeft() {
+    const timestamp = this.requestDetails['timeStamp'];
+    const duration = this.requestDetails['duration'];
+    const expireTimestamp = timestamp + duration*60*60*1000;
+    return this.timeDifference(expireTimestamp, Date.now());
+  }
+
+
+
   /** Show the 24H time of the version made. */
   datetime12H(timestamp) {
     const day = new Date(timestamp).getDate();
@@ -144,6 +180,14 @@ export class RequestListingComponent implements OnInit {
       return 'by clicking on a backdrop';
     } else {
       return `with: ${reason}`;
+    }
+  }
+
+  deleteRequest() {
+    if (confirm("Are you sure you want delete your request? This action cannot be undone.")) {
+      // this.closeDetailsModal();
+      this.modalService.dismissAll();
+      this.requestService.deleteRequest(this.requestDetails["ID"]);
     }
   }
 

@@ -67,7 +67,7 @@ export class NewRequestComponent implements OnInit {
         this.requestService.addRequest(formDetails).then(() => {
             alert("Request successfully added!");
             this.requestForm.reset();
-            location.reload();
+            // location.reload();
         });
 
 

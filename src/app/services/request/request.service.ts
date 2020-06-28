@@ -33,6 +33,10 @@ export class RequestService {
         }
     }
 
+    deleteRequest(requestID) {
+      this.afs.doc(`requests/${requestID}`).delete();
+    }
+
     // Update status on Firebase then allow subject2 to detect change for subscription in explore & request-detail.
     acceptRequest(requestID, helperID) {
         var dataToChange = {
