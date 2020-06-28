@@ -1,17 +1,19 @@
-<div style="overflow: hidden;">
+<div class="page-height" style="overflow: hidden;">
     <header>
-        <h1><span>Hello {{this.displayName}}, Welcome to the Marketplace!</span></h1>
 
-        <div id = 'submit-listing'><app-new-listing></app-new-listing></div>
+      <div id="search-and-new-request" style="padding:1em 0.5em; display:flex;">
 
-        <!-- search bar -->
-        <form id="search-bar" class="form-inline my-2 my-lg-0">
-            <span>
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
-                    [(ngModel)]="searchBox" name="searchBox">
-            </span>
-        </form>
+          <!-- search bar -->
+          <form id="search-bar" class="form-inline my-2 my-lg-0">
+              <span>
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                      [(ngModel)]="searchBox" name="searchBox">
+              </span>
+          </form>
 
+          <!-- new listing -->
+          <app-new-listing></app-new-listing>
+        </div>
 
     </header>
 
@@ -63,7 +65,7 @@
             <div class="listings" *ngIf="this.ongoingListings">
                 <div *ngFor="let listing of this.filteredOngoingListings">
                     <app-listing-card [listingDetails]="listing"></app-listing-card>
-                </div>  
+                </div>
             </div>
         </div>
 
