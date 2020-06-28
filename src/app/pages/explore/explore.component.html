@@ -1,33 +1,35 @@
 <div class="page-height" style="overflow: hidden;">
-  <img id="loading-header" src="../../../assets/loading.gif" style="display: none;"/>
+  <img id="loading-header" src="../../../assets/loading.gif" style="display: none;" />
   <div id="content" class="fade-right" style="display:none; padding-left: 0px;position:relative">
 
     <div id="search-and-new-request" style="padding:1em 0.5em; display:flex;align-items: center;">
       <!-- Search form -->
-      <div class="md-form active-cyan-2 mb-3">
-        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+      <div class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+          [(ngModel)]="searchBox" name="searchBox">
       </div>
 
       <!-- new request button -->
       <app-new-request style="margin:0em 1em;"></app-new-request>
     </div>
 
-    <div id="requests" >
+    <div id="requests">
 
       <div class="grid request-list page-height" *ngIf="this.requestState == 'all-requests' && this.allRequests">
-        <ng-container *ngFor="let request of this.allRequests">
+        <ng-container *ngFor="let request of this.filteredAllRequests">
           <app-request-listing [requestID]="request['ID']"></app-request-listing>
         </ng-container>
       </div>
 
-      <div class="grid request-list page-height"  *ngIf="this.requestState == 'my-requests' && this.myRequests">
-        <ng-container *ngFor="let request of this.myRequests" class="request-area">
+      <div class="grid request-list page-height" *ngIf="this.requestState == 'my-requests' && this.myRequests">
+        <ng-container *ngFor="let request of this.filteredMyRequests" class="request-area">
           <app-request-listing [requestID]="request['ID']"></app-request-listing>
         </ng-container>
       </div>
 
-      <div class="grid request-list page-height"  *ngIf="this.requestState == 'accepted-requests' && this.acceptedRequests">
-        <ng-container *ngFor="let request of this.acceptedRequests" class="request-area">
+      <div class="grid request-list page-height"
+        *ngIf="this.requestState == 'accepted-requests' && this.acceptedRequests">
+        <ng-container *ngFor="let request of this.filteredAcceptedRequests" class="request-area">
           <app-request-listing [requestID]="request['ID']"></app-request-listing>
         </ng-container>
       </div>
