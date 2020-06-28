@@ -50,15 +50,15 @@
 }
 .progress-active {
   /* background-color:rgb(73, 171, 98); */
-  animation: active-color 8s infinite;
+  animation: active-color 6s infinite;
 }
 .progress-ongoing {
   /* background-color:rgb(255, 186, 40); */
-  animation: ongoing-color 8s infinite;
+  animation: ongoing-color 6s infinite;
 }
 .progress-completed {
   /* background-color:rgb(216, 120, 120); */
-  animation: completed-color 8s infinite;
+  animation: completed-color 6s infinite;
 }
 .progress-expired {
   background-color:rgb(160, 157, 157);
@@ -109,6 +109,11 @@
   /* -webkit-transition-duration: .22s;
   transition-duration: .22s; */
 }
+
+img {
+  filter: grayscale(20%);
+}
+
 
 .req-side-desc {
   display: flex;
@@ -167,6 +172,32 @@ h5 {
   border-width: 1px;
   /* border-bottom-width: 1px; */
   border-color: #e3e1e1;
+}
+
+.low-urgency {
+  color:green;
+  font-weight:500;
+}
+.medium-urgency {
+  color:orange;
+  font-weight:600;
+}
+
+.high-urgency {
+  color:red;
+  font-weight:800;
+}
+
+.hours-left {
+  color:orange;
+  font-weight:500;
+}
+.mins-left {
+  color:red;
+  font-weight:800;
+}
+.expired {
+  color:grey;
 }
 
 .req-modal-footer {
