@@ -110,7 +110,7 @@
 
 
 }
-.modal-image {
+/* .modal-image { */
   /* display: flex; */
   /* justify-content: center; */
   /* background: #eaeaea;
@@ -120,9 +120,11 @@
   border-radius: 0.5em;
   margin:0.5em 0em; */
 
-}
+/* } */
 .listing-modal-item {
   padding: 0.5em 0.5em;
+  font-size: 1.5em;
+  overflow-wrap: anywhere;
 }
 .item-top-border {
   border-top:solid;

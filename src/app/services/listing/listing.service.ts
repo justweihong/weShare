@@ -19,7 +19,7 @@ export class ListingService {
 
   getListings() {
     // console.log(this.db.collection(`listings`));
-    return this.db.collection(`listings`).valueChanges();
+    return this.db.collection(`listings`, ref => ref.orderBy('timeStamp', 'desc')).valueChanges();
   }
 
   deleteListing(listingDetails) {

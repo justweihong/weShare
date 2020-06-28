@@ -41,13 +41,13 @@
           </div>
 
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Title
+            <label class="col-sm-3 col-form-label">Title
               <div *ngIf="listingForm.controls['title'].invalid">
-                <span class="alert">*required, 5-50 chars</span>
+                <span class="alert">*min 5 chars</span>
               </div>
             </label>
             <div class="col-sm-8">
-              <textarea class="formControl" id="title" rows="2" cols="40" formControlName="title">
+              <textarea maxlength="50" class="formControl" id="title" rows="2" cols="40" formControlName="title">
               </textarea>
 
             </div>
@@ -55,13 +55,13 @@
 
 
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Description
+            <label class="col-sm-3 col-form-label">Description
               <div *ngIf="listingForm.controls['description'].invalid">
-                <span class="alert">*required, 20-500 chars</span>
+                <span class="alert">*min 20 chars</span>
               </div>
             </label>
             <div class="col-sm-8">
-              <textarea id="description" rows="4" cols="40" formControlName="description"
+              <textarea maxlength="500" id="description" rows="4" cols="40" formControlName="description"
                 placeholder="describe in detail what items you wish to sell. Please also include if its new or used.">
               </textarea>
 
@@ -71,30 +71,19 @@
 
 
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Price(SGD)
+            <label class="col-sm-3 col-form-label">Price(SGD)
               <div *ngIf="listingForm.controls['price'].invalid">
-                <span class="alert">*required</span>
+                <span class="alert">*0-100,000</span>
               </div></label>
             <div class="col-sm-4">
-              <input id="price-input" type="number" step='0.05' rows="2" cols="40" formControlName="price">
+              <input id="price-input" type="number" step='0.05' rows="2" cols="40"
+                formControlName="price">
 
 
             </div>
           </div>
 
 
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Contact Details
-              <div *ngIf="listingForm.controls['contact'].invalid">
-                <span class="alert">*required, max 50 chars</span>
-              </div>
-            </label>
-            <div class="col-sm-8">
-              <textarea rows="2" cols="40" formControlName="contact">
-                        </textarea>
-
-            </div>
-          </div>
         </form>
 
       </div>
