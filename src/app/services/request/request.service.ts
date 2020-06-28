@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subscription, merge, Subject, Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { UserService } from '../user/user.service';
 
 @Injectable({
     providedIn: 'root'
@@ -13,9 +14,11 @@ export class RequestService {
 
     constructor(
         private afs: AngularFirestore,
+        private userService: UserService
     ) { }
 
     getRequests() {
+
         return this.afs.collection(`requests`, ref => ref.orderBy('timeStamp', 'desc')).valueChanges();
     }
     getRequest(requestID) {
@@ -68,6 +71,19 @@ export class RequestService {
             completeTimeStamp: Date.now(),
             status: "completed",
         }
+
+        //increase completed request for helper
+        // this.userService.increaseCompletedRequest(requestHelper);
+
+        // var tempSub = this.getRequest(requestID).subscribe(req => {
+        //     if (req['helper'] != "nil") {
+        //         console.log(req['helper']);
+        //         this.userService.increaseCompletedRequest(req['helper']);
+
+        //     }
+        // })
+        // tempSub.unsubscribe();
+
         return this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
             // this.subject2.next();
         });

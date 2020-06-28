@@ -1,4 +1,4 @@
-<div class="listing-card"  style="margin:0.5em;"  (click)="open(listingDetailModal)">
+<div class="listing-card" style="margin:0.5em;" (click)="open(listingDetailModal)">
   <div class="time-ago">
     {{this.displayName}} / {{this.timeAgo()}}
   </div>
@@ -28,7 +28,7 @@
   </div>
   <div class="modal-body">
     <!-- <div *ngIf="downloadURL | async; let url"> -->
-      <img class="card-img-top" [src]="url" *ngIf="url" alt="Card image cap">
+    <img class="card-img-top" [src]="url" *ngIf="url" alt="Card image cap">
     <!-- </div> -->
     <div id="description">
       Description: {{this.listingDetails['description']}}
@@ -106,8 +106,8 @@
 
 
   <div id="possible-actions" class="modal-footer">
-    <div *ngIf="this.userID == this.creatorID ">
-      <button type="button" class="btn btn-primary" (click)="deleteListing()">Delete</button>
+    <div *ngIf="this.userID == this.creatorID && this.listingDetails['status'] != 'completed'">
+      <button type="button" class="btn btn-primary" (click)="open(deleteListingModal)">Delete</button>
     </div>
 
     <div *ngIf="this.userID != this.creatorID && this.listingDetails['status'] != 'completed'">
@@ -153,6 +153,26 @@
   <div class="modal-footer">
     This will be added to your Ongoing transactions.
     <button type="button" class="btn btn-primary" (click)="makeOffer()">Confirm Offer</button>
+
+  </div>
+</ng-template>
+
+<!-- Make Offer details-->
+<ng-template #deleteListingModal let-modal>
+  <div class="modal-header">
+    Confirm deletion
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    Your existing listing will be deleted from the marketplace.
+  </div>
+
+  <div class="modal-footer">
+
+    <button type="button" class="btn btn-primary" (click)="deleteListing()">Delete Listing</button>
 
   </div>
 </ng-template>

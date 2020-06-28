@@ -58,10 +58,10 @@ export class NewListingComponent implements OnInit {
     private modalService: NgbModal,) {
     this.imgURL = "./assets/no-preview-available.png";
     this.listingForm = this.fb.group({
-      title: ['', Validators.required],
-      description: ['', [Validators.required, Validators.maxLength(400)]],
+      title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(500)]],
       price: ['', Validators.required],
-      contact: ['', Validators.required],
+      contact: ['', [Validators.required, Validators.maxLength(50)]],
     })
   }
 
@@ -116,7 +116,6 @@ export class NewListingComponent implements OnInit {
       $('#listingModal').modal('hide');
       this.listingForm.reset();
       this.modalService.dismissAll();
-      this.userService.increaseListingCount(this.createdBy);
       return;
     }
     /*************** End of handle no image ***************/
@@ -166,7 +165,6 @@ export class NewListingComponent implements OnInit {
       );
     })
 
-    this.userService.increaseListingCount(this.createdBy);
 
     
     //Reset listing form

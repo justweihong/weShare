@@ -1,0 +1,26 @@
+@media(min-width:1025px) {
+    .container-fluid {
+      grid-template-columns: 1fr 1fr 1fr;
+      
+    }
+  }
+  
+  @media screen and (max-width:1024px) {
+    .container-fluid {
+      grid-template-columns: auto auto;
+    }
+  }
+  
+  @media screen and (max-width:480px) {
+    .container-fluid {
+      grid-template-columns: auto;
+    }
+  }
+
+  h3 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: powderblue;
+    border-style: ridge;
+    border-radius: 10px;
+    background-color: aliceblue;
+  }

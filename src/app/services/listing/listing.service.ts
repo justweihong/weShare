@@ -38,9 +38,9 @@ export class ListingService {
     }
 
     //reduce count of user if listing not completed
-    if (listingDetails['status'] === "active") {
-      this.userService.reduceListingCount(listingDetails['createdBy']);
-    }
+    // if (listingDetails['status'] === "active") {
+    //   this.userService.decreaseListingCount(listingDetails['createdBy']);
+    // }
 
     //delete document
     this.db.doc(`listings/${listingDetails['ID']}`).delete().then(function () {
@@ -70,8 +70,8 @@ export class ListingService {
       acceptedPrice: offer["price"]
     }
     //increase completed listing count for both users
-    this.userService.increaseCompletedListingCount(offer['offererID']);
-    this.userService.increaseCompletedListingCount(listingDetails['createdBy']);
+    // this.userService.increaseCompletedListingCount(offer['offererID']);
+    // this.userService.increaseCompletedListingCount(listingDetails['createdBy']);
 
     //change status to completed
     this.db.doc(`listings/${listingDetails['ID']}`).set(dataToChange, { merge: true });

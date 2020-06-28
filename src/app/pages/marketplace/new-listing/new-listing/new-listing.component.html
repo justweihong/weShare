@@ -43,9 +43,7 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Title
               <div *ngIf="listingForm.controls['title'].invalid">
-                <div *ngIf="listingForm.controls['title'].errors.required">
-                  <span class="alert">*required</span>
-                </div>
+                <span class="alert">*required, 5-50 chars</span>
               </div>
             </label>
             <div class="col-sm-8">
@@ -60,7 +58,7 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Description
               <div *ngIf="listingForm.controls['description'].invalid">
-                <span class="alert">*required, max 400chars</span>
+                <span class="alert">*required, 20-500 chars</span>
               </div>
             </label>
             <div class="col-sm-8">
@@ -89,9 +87,7 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Contact Details
               <div *ngIf="listingForm.controls['contact'].invalid">
-                <div *ngIf="listingForm.controls['contact'].errors.required">
-                  <span class="alert">*required</span>
-                </div>
+                <span class="alert">*required, max 50 chars</span>
               </div>
             </label>
             <div class="col-sm-8">
