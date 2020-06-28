@@ -23,10 +23,13 @@ export class ListingCardComponent implements OnInit {
   modalOptions: NgbModalOptions;
   @Input() listingDetails: any;
   url: any;
-  displayName: any;
+  creatorDetails:any;
+  creatorDisplayName: any;
+  creatorImg: any;
   creatorID: any;
   userID: any;
   userName: any;
+  userImg: any;
   offerForm: FormGroup;
   offers: any;
   // downloadURL:any;
@@ -59,6 +62,7 @@ export class ListingCardComponent implements OnInit {
       // Get user details.
       this.userID = user.uid;
       this.userName = user.displayName;
+      this.userImg = user.photoURL;
     }));
 
     if (this.listingDetails['path']) {
@@ -69,7 +73,9 @@ export class ListingCardComponent implements OnInit {
     if (this.listingDetails) {
       this.creatorID = this.listingDetails['createdBy'];
       this.userService.getUser(this.creatorID).pipe(take(1)).subscribe(user => {
-        this.displayName = user['displayName'];
+        this.creatorDetails = user;
+        this.creatorDisplayName = user['displayName'];
+        this.creatorImg = user['profileImg'];
       });
 
 
@@ -86,8 +92,7 @@ export class ListingCardComponent implements OnInit {
   }
 
 
-  timeAgo() {
-    var timestamp = this.listingDetails['timeStamp'];
+  timeAgo(timestamp) {
     var delta = Date.now() - timestamp;
     var days = Math.floor(delta / (1000 * 60 * 60 * 24));
     var hours = Math.floor(delta / (1000 * 60 * 60));
@@ -125,9 +130,17 @@ export class ListingCardComponent implements OnInit {
       alert("This listing has incomplete details!");
     }
   }
+  formatCurrency(price) {
+    var formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'SGD',
+    });
+    return formatter.format(price);
+  }
 
   open(content) {
-    this.modalService.open(content, this.modalOptions).result.then((result) => {
+    // this.modalService.open(content, this.modalOptions).result.then((result) => {
+    this.modalService.open(content, {windowClass: 'modal-holder', centered: true}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -155,7 +168,7 @@ export class ListingCardComponent implements OnInit {
       return;
     }
 
-    this.listingService.addOffer(this.userName, this.userID, this.listingDetails, this.price.value);
+    this.listingService.addOffer(this.userName, this.userID, this.listingDetails, this.price.value, this.userImg);
     this.offerForm.reset();
     this.modalService.dismissAll();
     // location.reload();
@@ -163,8 +176,10 @@ export class ListingCardComponent implements OnInit {
 
 
   acceptOffer(offer) {
-    this.listingService.acceptOffer(offer, this.listingDetails);
-    this.modalService.dismissAll();
+    if (confirm("are you sure you want to accept offer? This listing will be marked as sold.")) {
+      this.listingService.acceptOffer(offer, this.listingDetails);
+      this.modalService.dismissAll();
+    }
   }
 
 

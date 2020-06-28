@@ -50,9 +50,9 @@ export class ListingService {
     });
   }
 
-  addOffer(offererName, offererID, listingDetails, price) {
+  addOffer(offererName, offererID, listingDetails, price, offererProfileImg) {
     this.db.doc(`listings/${listingDetails['ID']}`).set({ hasOffers: true }, { merge: true });
-    this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").doc(offererID).set({ offererName, offererID, price })
+    this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").doc(offererID).set({ offererName, offererID, price, offererProfileImg })
   }
 
   getListingOffers(listingDetails) {

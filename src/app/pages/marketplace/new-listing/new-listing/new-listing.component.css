@@ -1,3 +1,42 @@
+.new-listing-header {
+  background-color:#328eb3;
+  color: white;
+  font-size: 0.9em;
+}
+.new-listing-body {
+  background-color: #f3f3f3;
+}
+
+.new-listing-item {
+  padding: 0.5em 0.5em;
+
+}
+.item-top-border {
+  border-top:solid;
+  /* border-bottom: solid; */
+  border-width: 1px;
+  /* border-bottom-width: 1px; */
+  border-color: #e3e1e1;
+}
+
+.new-listing-footer {
+  background-color: #f3f3f3;
+}
+
+textarea {
+  border: none;
+  border-radius: 0.3em;
+  overflow: auto;
+  outline: none;
+
+  /* -webkit-box-shadow: none; */
+  /* -moz-box-shadow: none; */
+  box-shadow: none;
+
+  resize: none; /*remove the resize handle on the bottom right*/
+}
+
+
 #price-input {
     margin-top: 10px;
 }
@@ -10,7 +49,7 @@ progress::-webkit-progress-value {
     transition: width 0.1s ease;
   }
 
-#drop-area { 
+#drop-area {
     display: flex;
     align-items: center;
     /* justify-content: center; */
@@ -25,7 +64,7 @@ progress::-webkit-progress-value {
     padding: 10px 100px;
 }
 
-  
+
 #drop-area:hover {
     border: 2px solid #f16624;
 }
@@ -33,7 +72,7 @@ progress::-webkit-progress-value {
 .file-label {
     font-size: 1.2em;
 }
- 
+
 img {
     /* border: solid; */
     object-fit: contain;

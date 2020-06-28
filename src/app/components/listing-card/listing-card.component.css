@@ -17,44 +17,106 @@
 }
 
 .listing-title {
-    font-size: 1.5em;
-    margin-bottom: 0.5em;
+  font-size: 1.5em;
+  padding:0.5em 0em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
 }
 
+.word-break {
+  overflow: hidden;
+  word-break: break-word;
+  width: 100%;
+}
 .listing-desc {
-    font-size: 1em;
-    flex: 1 1 auto;
-    min-height: 1px;
-    margin-bottom: 0.5em;
+  font-size: 1em;
+  flex: 1 1 auto;
+  min-height: 1px;
+  margin-bottom: 0.5em;
+  line-height: 1.5em;
+  height:3em;
+  display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.listing-side-desc {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.7em;
+  text-align: right;
+}
+
+.image-holder {
+  display: block;
+  position: relative;
+  z-index: 1;
+  background: center/cover no-repeat #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 1.5px 0.5px rgba(0,0,0,.24);
+  overflow: hidden;
+  /* -webkit-transition-duration: .22s;
+  transition-duration: .22s; */
 }
 
 
 
-div.card-body {
+/* div.card-body {
     height: 8rem;
     overflow: hidden;
     white-space: pre-wrap;
     -webkit-mask-image: linear-gradient(
-      to bottom, 
-      black 70%, 
+      to bottom,
+      black 70%,
       transparent 93.33333%
     );
     mask-image: linear-gradient(
-      to bottom, 
-      black 70%, 
+      to bottom,
+      black 70%,
       transparent 93.33333%
     );
 
 
-    
-}
+
+} */
 
 .card-img-top {
-    height: 9rem;
-    object-fit: contain;
+  height: 9rem;
+  object-fit: contain;
+  border-radius: 1em;
+}
+.modal-card-img-top {
+  height: 12rem;
+  /* object-fit: contain; */
+  border: solid;
+  border-color: white;
+  border-radius: 1em;
+}
+.listing-modal-item {
+  padding: 0.5em 0.5em;
+}
+.item-top-border {
+  border-top:solid;
+  /* border-bottom: solid; */
+  border-width: 1px;
+  /* border-bottom-width: 1px; */
+  border-color: #e3e1e1;
 }
 
 .alert {
     color: red;
     padding: 0%;
+}
+
+.listing-modal-header {
+  background-color:#328eb3;
+  color: white;
+  font-size: 1.5em;
+}
+.listing-modal-body {
+  background-color: #f3f3f3;
+}
+.listing-modal-footer {
+  background-color: #f3f3f3;
 }

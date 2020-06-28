@@ -1,20 +1,20 @@
 <!-- Button trigger modal -->
-<button type="button" id="modal-button" class="btn btn-primary" data-toggle="modal" data-target="#listingModal">
-  + Submit Listing
-</button>
+<div id="modal-button" class="main-button" data-toggle="modal" data-target="#listingModal">
+  + Listing
+</div>
 
 <!-- Modal -->
 <div #listingModal class="modal fade" id="listingModal" tabindex="-1" role="dialog" aria-labelledby="listingModalLabel"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header new-listing-header">
         <h3 class="modal-title" id="listingModalLabel">New Listing</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body new-listing-body">
 
 
 
@@ -26,7 +26,7 @@
 
               <label>Drag and Drop or Select a file: </label>
               <span style="color:red;" *ngIf="message">{{message}}</span>
-              <input #dropArea id="drop-area" name="drop-area" #file type="file" accept='image/*'
+              <input #dropArea id="drop-area" name="drop-area" #file type="file" accept='image/*' style="width: 100%;"
                 (change)="preview(file.files)">
 
 
@@ -47,8 +47,7 @@
               </div>
             </label>
             <div class="col-sm-8">
-              <textarea class="formControl" id="title" rows="2" cols="40" formControlName="title"
-                placeholder="input title">
+              <textarea class="formControl" id="title" rows="2" cols="40" formControlName="title">
               </textarea>
 
             </div>
@@ -63,7 +62,7 @@
             </label>
             <div class="col-sm-8">
               <textarea id="description" rows="4" cols="40" formControlName="description"
-                placeholder="describe your request bro.">
+                placeholder="describe in detail what items you wish to sell. Please also include if its new or used.">
               </textarea>
 
             </div>
@@ -99,9 +98,9 @@
         </form>
 
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="open(progressBar)" (click)="startUpload(imagePath)"> Post
-          Listing </button>
+      <div class="modal-footer new-listing-footer">
+        <div class="main-button" (click)="open(progressBar)" (click)="startUpload(imagePath)"> Post
+          Listing </div>
       </div>
 
       <ng-template #progressBar id="progressBar" let-modal>
