@@ -21,6 +21,10 @@ export class HomeComponent implements OnInit {
           $('#sidebar').toggleClass('active');
       });
   })
+  }
+
+  playVid() {
+    var vid = document.getElementById("walkthrough-video");
 
   }
 }
