@@ -31,19 +31,19 @@ a[data-toggle="collapse"] {
   transform: translateY(-50%);
 }
 
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
   #sidebar {
       margin-left: -250px;
   }
   #sidebar.active {
       margin-left: 0;
   }
-} */
-
-
-.hello.active {
-  color:green;
 }
+
+
+/* .hello.active {
+  color:green;
+} */
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -100,7 +100,7 @@ a, a:hover, a:focus {
     color: #043245;
     background: #fff;
 }
-.active {
+.active-select {
   color: #043245!important;
   background: #fff!important;
 }

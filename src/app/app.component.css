@@ -4,12 +4,12 @@
   align-items: stretch;
 }
 
-#sidebar {
+/* #sidebar {
   transition: all 0.3s;
 }
 
 #sidebar.active ~ .page-width {
   width:100%;
-}
+} */
 
 
