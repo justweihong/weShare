@@ -20,7 +20,15 @@
 .listing-list::-webkit-scrollbar {
 display: none;
 }
-
+.search-bar {
+  width: -webkit-fill-available;
+  background: #f3f3f3;
+  border: none;
+  border-bottom: solid;
+  border-width: 1px;
+  border-radius: 0em;
+  border-color: #e3dada;
+}
 .grid {
   display:grid;
   grid-auto-rows: min-content;

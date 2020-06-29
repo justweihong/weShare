@@ -32,7 +32,7 @@
     <div class="request-detail-modal">
 
         <!-- header -->
-        <div class="modal-header req-modal-header" *ngIf="this.requestDetails && this.creatorDetails">
+        <div class="modal-header req-modal-item req-modal-header" *ngIf="this.requestDetails && this.creatorDetails">
           {{ this.requestDetails["title"] }}
           <button type="button" class="close" style="padding:0em;margin:0em;" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
