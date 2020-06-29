@@ -49,7 +49,7 @@ export class ListingCardComponent implements OnInit {
       backdropClass: 'customBackdrop'
     }
 
-    this.offerForm = this.fb.group({ price: ['', Validators.required] });
+    this.offerForm = this.fb.group({ price: ['',[Validators.min(0), Validators.max(100000), Validators.required]]});
   }
 
   get price(): any { return this.offerForm.get('price') }
@@ -164,7 +164,7 @@ export class ListingCardComponent implements OnInit {
 
   makeOffer() {
     if (this.offerForm.controls['price'].invalid.valueOf()) {
-      alert("Please fill in a price!");
+      alert("Please fill in a valid price!");
       return;
     }
 

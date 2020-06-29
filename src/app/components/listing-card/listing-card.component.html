@@ -189,9 +189,9 @@
 
     <div>
       <form [formGroup]="offerForm">
-        <label class="col-sm-4 col-form-label">Price (SGD)
+        <label class="col-sm-3 col-form-label">Price (SGD)
           <span *ngIf="offerForm.controls['price'].invalid">
-            <span class="alert">*</span>
+            <span class="alert">*0-100,000</span>
           </span>
         </label>
         <input type="number" step="0.05" placeholder="Price" formControlName="price">
