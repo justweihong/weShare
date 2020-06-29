@@ -1,19 +1,71 @@
-<div>
+<div class="page-height home-list">
+
   <div id="content">
-    <body class="page body">
-          <div class="home-background" style="align-items: center;">
-              <div class= "home-sub-header" style="padding-top:2em">
-                  <span >
-                      Seek Help. Give Back Later.
-                  </span>
-              </div>
-              <div class= "home-description">
-                  <span>
-                      Need to do your laundry or get lunch but your assignment by 2359? No worries! Post a request and get people to help you! Have extra magic clean wipes and want to sell them away? Sell it to your other hall mates!
-                  </span>
-              </div>
-              <button id="get-started" class="btn btn-lg btn-primary btn-block" style="width: 10em; margin-left: 17em; margin-top: 2em;" (click)="router.navigate(['/profile']);">Get Started!</button>
-          </div>
-    </body>
+    <!-- <video autoplay muted loop id="myVideo">
+      <source src="../../../assets/vid1.mp4" type="video/mp4">
+    </video> -->
+
+    <div id="section-1" class="home-section dark-background light-text" >
+      <span>
+
+        <div id="main-header" class="section-item" style="font-size:2em;">
+          Gather strength from your community.
+        </div>
+
+        <div id="sub-header" class="section-item" style="font-size: 1.2em;">
+          Need to do your laundry or get lunch but your assignment by 2359? No worries! Post a request and get people to help you! Have extra magic clean wipes and want to sell them away? Sell it to your other hall mates!
+        </div>
+
+        <div id="get-started" class="section-item">
+          <div class="get-started-button"  (click)="router.navigate(['/profile']);">Get Started!</div>
+        </div>
+
+      </span>
+    </div>
+
+
+    <div id="section-2" class="home-section light-background dark-text" >
+      <span>
+
+        <div id="main-title" class="section-item" style="font-size:2em;">
+          But first, let's have a walkthrough.
+        </div>
+
+        <div id="sub-header" class="section-item" >
+          <video id="walkthrough-video" width="30%" controls>
+            <source src="../../../assets/vid1.mp4" type="video/mp4">
+          </video>
+        </div>
+
+      </span>
+    </div>
+
+    <div id="section-3" class="home-section dark-background light-text" >
+      <span>
+
+        <div id="main-header" class="section-item" style="font-size:2em;">
+          Before you start using, please take note of the following:
+        </div>
+
+        <div id="sub-header" class="section-item" style="font-size: 1.2em; display:block;">
+
+          <div class="sub-line">Some of the features are still not up yet.</div>
+          <div class="sub-line">Also, the UI has not been finalised yet, so please give chance :')</div>
+          <div class="sub-line">We look forward to receive your feedback so we can improve on our product to become perfect.</div>
+          <div class="sub-line" style="margin-bottom:2em;">Remember, every extra feedback counts :)</div>
+
+          <div class="sub-line">Sincerely,</div>
+          <div class="sub-line">Wei Hong and Cheng Yap</div>
+          <div class="sub-line">the SplashBros</div>
+
+        </div>
+
+
+
+      </span>
+    </div>
+
+
   </div>
+
 </div>

@@ -1,16 +1,88 @@
-.home-background {
-    background-image: url("/../../assets/home-bg.gif");
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 600px;
-    width: auto;
-    position: relative;
-    font-size: 20px;
-    align-items: center;
+/* overall scroll */
+.home-list {
+  overflow: scroll;
+}
+.home-list::-webkit-scrollbar {
+display: none;
 }
 
-.body {
+
+.get-started-button {
+  padding:1em;
+  font-size:1.5em;
+  background-color: white;
+  color:#11264b;
+  transition:0.3s;
+  border-radius:0.5em;
+  border:solid;
+  border-color:#328eb3;
+  border-width:2px;
+  cursor: pointer;
+}
+
+.get-started-button:hover {
+  background-color: #328eb3;
+  color:white;
+  border:solid;
+  border-color:white;
+  border-width:2px;
+}
+
+.home-section {
+  display:flex;
+  align-items:center;
+  /* justify-content:center; */
+  height: 600px;
+  width: auto;
+}
+
+.section-item {
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  padding:1em 0.5em;
+  text-align: center;
+}
+
+.main-background {
+  background-image: url("/../../assets/home-bg.gif");
+  /* background-color:#328eb3; */
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.dark-background {
+  /* background-image: url("/../../assets/home-bg.gif"); */
+  /* background-image: url("/../../assets/vid1.mp4"); */
+  background-color:#328eb3;
+}
+
+.light-text {
+  color:white;
+  text-align:center;
+}
+
+.light-background {
+  background-color: aliceblue;
+
+}
+
+.sub-line {
+  text-align:center;
+}
+
+.dark-text {
+  color:#113844;
+  text-align:center;
+}
+
+
+
+
+
+/* .body {
     margin: 0;
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     font-size: 1rem;
@@ -18,8 +90,7 @@
     line-height: 1.5;
     color: #212529;
     text-align: left;
-    background-color: #fff;
-}
+} */
 
 .home-sub-header {
     text-align: center;
