@@ -10,8 +10,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component';
 
 // Authentication
-import { AuthGuard } from './services/auth/auth.guard';
+import { AuthGuard } from './guards/auth/auth.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ProfileGuard } from './guards/profile/profile.guard';
 
 
 
@@ -23,20 +24,20 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent},
     { path: 'login', component: LoginComponent },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-    { path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthGuard]},
+    { path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthGuard, ProfileGuard]},
 
     // requests
     { path: 'explore', redirectTo: 'explore/all'},
-    { path: 'explore/all-requests', component: ExploreComponent, canActivate: [AuthGuard]},
-    { path: 'explore/my-requests', component: ExploreComponent, canActivate: [AuthGuard]},
-    { path: 'explore/accepted-requests', component: ExploreComponent, canActivate: [AuthGuard]},
+    { path: 'explore/all-requests', component: ExploreComponent, canActivate: [AuthGuard, ProfileGuard]},
+    { path: 'explore/my-requests', component: ExploreComponent, canActivate: [AuthGuard, ProfileGuard]},
+    { path: 'explore/accepted-requests', component: ExploreComponent, canActivate: [AuthGuard, ProfileGuard]},
 
     // marketplace
     { path: 'marketplace', redirectTo: 'marketplace/all-listings'},
-    { path: 'marketplace/all-listings', component: MarketplaceComponent, canActivate: [AuthGuard]},
-    { path: 'marketplace/my-listings', component: MarketplaceComponent, canActivate: [AuthGuard]},
-    { path: 'marketplace/ongoing-listings', component: MarketplaceComponent, canActivate: [AuthGuard]},
-    { path: 'marketplace/completed-listings', component: MarketplaceComponent, canActivate: [AuthGuard]},
+    { path: 'marketplace/all-listings', component: MarketplaceComponent, canActivate: [AuthGuard, ProfileGuard]},
+    { path: 'marketplace/my-listings', component: MarketplaceComponent, canActivate: [AuthGuard, ProfileGuard]},
+    { path: 'marketplace/ongoing-listings', component: MarketplaceComponent, canActivate: [AuthGuard, ProfileGuard]},
+    { path: 'marketplace/completed-listings', component: MarketplaceComponent, canActivate: [AuthGuard, ProfileGuard]},
 
 
     { path: '**', redirectTo: 'home' } //wildcard

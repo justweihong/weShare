@@ -87,11 +87,15 @@ export class ProfileComponent implements OnInit {
 
 // User details update methods
 toggleUserDetailsDisplay() {
-    $('#user-contact-display').show();
-    $('#user-contact-edit').hide();
+
+    $('#contact-display').show();
+    $('#contact-edit').hide();
 
     $('#room-detail-display').show();
     $('#room-detail-edit').hide();
+
+    $('#room-display').show();
+    $('#room-edit').hide();
 
 
     $('#edit-icon').show();
@@ -100,13 +104,18 @@ toggleUserDetailsDisplay() {
 
 // User details update methods
 toggleUserDetailsEdit() {
-    $('#user-contact-display').hide();
-    $('#user-contact-edit').show();
-    $('#user-contact-textarea').val(this.userContact);
+
+    $('#contact-display').hide();
+    $('#contact-edit').show();
+    $('#contact-textarea').val(this.userContact);
 
     $('#room-detail-display').hide();
     $('#room-detail-edit').show();
     $('#room-detail-textarea').val(this.roomDetails);
+
+    $('#room-display').hide();
+    $('#room-edit').show();
+    $('#room-textarea').val(this.roomDetails);
 
 
     $('#edit-icon').hide();
