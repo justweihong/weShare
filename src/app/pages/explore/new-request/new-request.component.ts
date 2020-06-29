@@ -6,9 +6,9 @@ import { Router } from '@angular/router';
 import { NewListingComponent } from '../../marketplace/new-listing/new-listing/new-listing.component';
 
 @Component({
-  selector: 'app-new-request',
-  templateUrl: './new-request.component.html',
-  styleUrls: ['./new-request.component.css']
+    selector: 'app-new-request',
+    templateUrl: './new-request.component.html',
+    styleUrls: ['./new-request.component.css']
 })
 export class NewRequestComponent implements OnInit {
     displayName: any;
@@ -23,11 +23,11 @@ export class NewRequestComponent implements OnInit {
         public fb: FormBuilder,
     ) {
         this.requestForm = this.fb.group({
-            title: '',
-            description: '',
-            urgency: '',
-            duration: '',
-            incentive: '',
+            title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+            description: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(500)]],
+            urgency: ['', Validators.required],
+            duration: ['', Validators.required],
+            incentive: ['', Validators.maxLength(200)],
         })
     }
 
@@ -47,6 +47,14 @@ export class NewRequestComponent implements OnInit {
     get urgency() { return this.requestForm.get('urgency') }
 
     submitRequest() {
+
+        //handle invalid form
+        if (this.requestForm.controls['title'].invalid.valueOf() || this.requestForm.controls['incentive'].invalid.valueOf()
+            || this.requestForm.controls['description'].invalid.valueOf() || this.requestForm.controls['duration'].invalid.valueOf()
+            || this.requestForm.controls['urgency'].invalid.valueOf()) {
+            alert("Incomplete Form!");
+            return;
+        }
         var formDetails = {
 
             // Input details

@@ -1,3 +1,29 @@
+/* overall scroll */
+.profile-list {
+  overflow: scroll;
+}
+.profile-list::-webkit-scrollbar {
+display: none;
+}
+
+
+/* header */
+
+.header-item {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.profile-name {
+  font-weight: 500;
+  font-size: 1.5em;
+  padding: 0.5em;
+}
+.side-header-text {
+  font-weight: 400;
+  font-size: 1.2em;
+}
+
 .image-holder {
   display: block;
   position: relative;
@@ -12,23 +38,53 @@
   height: 10em;
 }
 
-.profile-header {
-  position: relative;
-  bottom: 2em;
-  margin-left: 6.25em;
-  display: flex;
-  justify-content: space-between;
-  font-size: 2em;
-  color: #000;
-}
-
-
-.profile-name {
-  align-self: center;
-}
-
-
 #modal-button {
 margin-top: -73px;
 margin-left: 780px;
 }
+
+/* profile section */
+.profile-section {
+  margin: 1.5em 0em 1.5em 1.5em;
+  background: white;
+  border-radius: 0.5em;
+  padding: 1em;
+}
+
+.section-title {
+  padding:0.5em;
+  font-size:1.4em;
+  font-weight:500;
+}
+
+.top-border {
+  border-top: solid;
+  border-color: #e6dddd;
+  border-width: 1px;
+}
+
+.bottom-border {
+  border-bottom: solid;
+  border-color: #e6dddd;
+  border-width: 1px;
+}
+
+.section-item {
+  display: flex;
+  align-items: center;
+  font-size: 1.1em;
+  margin: 0em 0.5em;
+  /* padding: 0.5em; */
+  height: 3.5em;
+}
+
+.button-area {
+  display:flex;
+  align-items:center;
+  justify-content: flex-end;
+}
+.profile-button {
+  padding:0.3em 0.5em;
+  margin-right:0.5em;
+}
+
