@@ -8,18 +8,8 @@
   transition: all 0.3s;
 }
 
-#sidebar.active  {
-  margin-left: -250px;
-}
 #sidebar.active ~ .page-width {
   width:100%;
 }
 
-@media (max-width: 768px) {
-  #sidebar {
-      margin-left: -250px;
-  }
-  #sidebar.active {
-      margin-left: 0px;
-  }
-}
+
