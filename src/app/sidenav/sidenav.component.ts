@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, SimpleChanges } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { UserService } from '../services/user/user.service';
 import { take } from 'rxjs/operators';
@@ -33,25 +33,50 @@ export class SidenavComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.auth.getUser().pipe(take(1)).subscribe(user => {
 
-      // Get user details.
-      this.userID = user.uid;
-      this.userService.getUser(this.userID).pipe(take(1)).subscribe(firebaseUser => {
-          // console.log(firebaseUser);
-          this.displayName = firebaseUser['displayName'];
-          this.userEmail = firebaseUser['email'];
-          this.userImg = firebaseUser['profileImg'];
+      this.auth.getUser().pipe(take(1)).subscribe(user => {
+        if (user) {
+          // Get user details.
+          this.userID = user.uid;
+          this.userService.getUser(this.userID).pipe(take(1)).subscribe(firebaseUser => {
+              // console.log(firebaseUser);
+              this.displayName = firebaseUser['displayName'];
+              this.userEmail = firebaseUser['email'];
+              this.userImg = firebaseUser['profileImg'];
+              // console.log(this.userImg);
+          })
+        }
       })
-    })
-    this.subscriptions.push(this.navbarService.getSidenavToggle().pipe().subscribe(() => {
-      $('#sidebar').toggleClass('active');
-    }));
+
+      this.subscriptions.push(this.navbarService.getSidenavToggle().pipe().subscribe(() => {
+        $('#sidebar').toggleClass('active');
+      }));
+
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+
+    if (!this.userID) {
+      this.auth.getUser().pipe(take(1)).subscribe(user => {
+        if (user) {
+          // Get user details.
+          this.userID = user.uid;
+          this.userService.getUser(this.userID).pipe(take(1)).subscribe(firebaseUser => {
+              // console.log(firebaseUser);
+              this.displayName = firebaseUser['displayName'];
+              this.userEmail = firebaseUser['email'];
+              this.userImg = firebaseUser['profileImg'];
+              console.log(this.userImg);
+          })
+        }
+      })
+    }
+
+}
 
   incompleteFeatureAlert(type) {
     alert(type + " feature has not been created yet!");
