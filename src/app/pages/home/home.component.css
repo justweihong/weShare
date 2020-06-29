@@ -31,9 +31,17 @@ display: none;
 .home-section {
   display:flex;
   align-items:center;
-  /* justify-content:center; */
+  justify-content:center;
   height: 600px;
   width: auto;
+}
+
+.walk-through-video {
+  border-radius: 2em;
+  background-color: white;
+  border: solid;
+  border-color: #1a5369;
+
 }
 
 .section-item {
