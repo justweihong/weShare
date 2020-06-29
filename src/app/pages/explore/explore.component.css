@@ -60,7 +60,15 @@
     border-block-end-color: #fbf7ec;
 }
 
-
+.search-bar {
+  width: -webkit-fill-available;
+  background: #f3f3f3;
+  border: none;
+  border-bottom: solid;
+  border-width: 1px;
+  border-radius: 0em;
+  border-color: #e3dada;
+}
 
 .grid {
   display:grid;

@@ -4,13 +4,16 @@
 
     <div id="search-and-new-request" style="padding:1em 0.5em; display:flex;align-items: center;">
       <!-- Search form -->
-      <div class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+      <div class="form-inline my-2 my-lg-0 " style="width:-webkit-fill-available;margin:0em 0.3em;">
+        <input class="form-control mr-sm-2 search-bar"  type="search" placeholder="search" aria-label="Search"
           [(ngModel)]="searchBox" name="searchBox">
       </div>
 
       <!-- new request button -->
-      <app-new-request style="margin:0em 1em;"></app-new-request>
+      <div id="new-req-area" style="width:45%;display:flex; flex-direction: row-reverse;">
+        <app-new-request style="margin:0em;"></app-new-request>
+      </div>
+
     </div>
 
     <div id="requests">
