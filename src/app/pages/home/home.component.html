@@ -1,4 +1,5 @@
-<div class="page-height home-list">
+<div class="page-height home-list" style="position:relative;">
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script> -->
 
   <div id="content">
     <!-- <video autoplay muted loop id="myVideo">
@@ -33,118 +34,188 @@
 
 
     <div id="feature-section" class="section-height light-background dark-text" >
+        <!-- <div class="sub-bg-overlay"></div>
+        <div class="top-wave-container">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="aliceblue" fill-opacity="1" d="M0,160L30,149.3C60,139,120,117,180,122.7C240,128,300,160,360,149.3C420,139,480,85,540,74.7C600,64,660,96,720,117.3C780,139,840,149,900,149.3C960,149,1020,139,1080,117.3C1140,96,1200,64,1260,58.7C1320,53,1380,75,1410,85.3L1440,96L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"></path>
+            </svg>
+        </div> -->
 
-      <div id="feature-header" class="head-text" style="height:8%;">
-        <b>FEATURES</b>
-      </div>
+        <div id="feature-section-details" class="dark-text" style="z-index: 1">
 
-      <div id="feature-desc-section" class="grid" style="height:80%;">
-
-
-        <div id="request-feature" class="feature-section">
-          <span id="feature-details">
-            <img class="feature-logo" src="../../../assets/request-logo.png">
-
-            <div class="feature-main-desc">
-              Seek Help
+            <div id="feature-header" class="head-text" style="height:8%;">
+                <b>FEATURES</b>
             </div>
-            <div class="feature-sub-desc">
-              Request help from your friends when you are busy.
+
+            <div id="feature-desc-section" class="grid" style="height:80%;">
+
+
+                <div id="request-feature" class="feature-section">
+                <span id="feature-details">
+                    <img class="feature-logo" src="../../../assets/request-logo.png">
+
+                    <div class="feature-main-desc">
+                    Seek Help
+                    </div>
+                    <div class="feature-sub-desc">
+                    Request help from your friends when you are busy.
+                    </div>
+                </span>
+                </div>
+
+                <div id="marketplace-feature" class="feature-section" (click)="scroll2()">
+                <span id="feature-details">
+                    <img class="feature-logo" src="../../../assets/marketplace-logo.png">
+
+                    <div class="feature-main-desc">
+                    Buy and Sell
+                    </div>
+                    <div class="feature-sub-desc">
+                    Get your daily hostel needs at ease.
+                    </div>
+                </span>
+                </div>
+
+                <div id="chat-feature" class="feature-section">
+                <span id="feature-details">
+                    <img class="feature-logo" src="../../../assets/no-preview-available.png">
+
+                    <div class="feature-main-desc">
+                    Connect Together
+                    </div>
+                    <div class="feature-sub-desc">
+                    Stike a convo with neighbours in real time.
+                    </div>
+                </span>
+                </div>
+
+                <div id="notification-feature" class="feature-section">
+                <span id="feature-details">
+                    <img class="feature-logo" src="../../../assets/no-preview-available.png">
+
+                    <div class="feature-main-desc">
+                    Get notified
+                    </div>
+                    <div class="feature-sub-desc">
+                    Instant updates will be reflected on your device.
+                    </div>
+                </span>
+                </div>
+
+                <div id="leaderboard-feature" class="feature-section">
+                <span id="feature-details">
+                    <img class="feature-logo" src="../../../assets/leaderboard-logo.png">
+
+                    <div class="feature-main-desc">
+                    Get recognised
+                    </div>
+                    <div class="feature-sub-desc">
+                    Be the top contributors of your community.
+                    </div>
+                </span>
+                </div>
+
+                <div id="mobile-feature" class="feature-section">
+                <span id="feature-details">
+                    <img class="feature-logo" src="../../../assets/no-preview-available.png">
+
+                    <div class="feature-main-desc">
+                    On the go?
+                    </div>
+                    <div class="feature-sub-desc">
+                    Our user-friendly interface supports mobile, tablet and laptop devices!
+                    </div>
+                </span>
+                </div>
+
+
             </div>
-          </span>
         </div>
-
-        <div id="marketplace-feature" class="feature-section">
-          <span id="feature-details">
-            <img class="feature-logo" src="../../../assets/marketplace-logo.png">
-
-            <div class="feature-main-desc">
-              Buy and Sell
-            </div>
-            <div class="feature-sub-desc">
-              Get your daily hostel needs at ease.
-            </div>
-          </span>
-        </div>
-
-        <div id="chat-feature" class="feature-section">
-          <span id="feature-details">
-            <img class="feature-logo" src="../../../assets/no-preview-available.png">
-
-            <div class="feature-main-desc">
-              Connect Together
-            </div>
-            <div class="feature-sub-desc">
-              Stike a convo with neighbours in real time.
-            </div>
-          </span>
-        </div>
-
-        <div id="notification-feature" class="feature-section">
-          <span id="feature-details">
-            <img class="feature-logo" src="../../../assets/no-preview-available.png">
-
-            <div class="feature-main-desc">
-              Get notified
-            </div>
-            <div class="feature-sub-desc">
-              Instant updates will be reflected on your device.
-            </div>
-          </span>
-        </div>
-
-        <div id="leaderboard-feature" class="feature-section">
-          <span id="feature-details">
-            <img class="feature-logo" src="../../../assets/leaderboard-logo.png">
-
-            <div class="feature-main-desc">
-              Get recognised
-            </div>
-            <div class="feature-sub-desc">
-              Be the top contributors of your community.
-            </div>
-          </span>
-        </div>
-
-        <div id="mobile-feature" class="feature-section">
-          <span id="feature-details">
-            <img class="feature-logo" src="../../../assets/no-preview-available.png">
-
-            <div class="feature-main-desc">
-              On the go?
-            </div>
-            <div class="feature-sub-desc">
-              Our user-friendly interface supports mobile, tablet and laptop devices!
-            </div>
-          </span>
-        </div>
-
-
-      </div>
 
     </div>
 
-    <div id="request-section" class="home-section section section-height dark-background" >
+    <div id="request-section2" class="home-section section section-height dark-background" style="align-items: unset;position:relative;" >
       <div class="sub-bg-overlay"></div>
-      <div class="top-wave-container">
+      <div class="bottom-wave-container">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-          <path fill="aliceblue" fill-opacity="1" d="M0,160L30,149.3C60,139,120,117,180,122.7C240,128,300,160,360,149.3C420,139,480,85,540,74.7C600,64,660,96,720,117.3C780,139,840,149,900,149.3C960,149,1020,139,1080,117.3C1140,96,1200,64,1260,58.7C1320,53,1380,75,1410,85.3L1440,96L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"></path>
+          <path fill="aliceblue" fill-opacity="1" d="M0,160L40,160C80,160,160,160,240,154.7C320,149,400,139,480,122.7C560,107,640,85,720,106.7C800,128,880,192,960,192C1040,192,1120,128,1200,96C1280,64,1360,64,1400,64L1440,64L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path>
         </svg>
       </div>
 
-      <div id="main-section-details" class="light-text" style="z-index: 1; display:flex;width: 100%;">
 
-        <div id="video-section" style="width:60%">
-          Request video
+
+      <div class="light-text" style="z-index: 1;width: 100%; height:inherit;">
+        <div id="request-section-title" class="indiv-feature-title head-text"> <b>Seek Help.</b></div>
+
+        <!-- fix height details to wave -->
+        <!-- <div id="request-section-details" style="display:flex;height:75%;">
+            <div class="indiv-video-section" style="width:60%">
+              <video id="walkthrough-video" class="indiv-feature-video" style="max-width:400px;" autoplay loop muted>
+                <source src="../../../assets/indiv-feature.mp4" type="video/mp4">
+              </video>
+            </div>
+
+            <div class="indiv-desc-section" style="width:60%">
+              Request description
+            </div>
+        </div> -->
+
+        <div id="request-section-details" class="feature-grid">
+          <div class="indiv-video-section">
+            <video id="walkthrough-video" class="indiv-feature-video" style="max-width:400px;" autoplay loop muted>
+              <source src="../../../assets/indiv-feature.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="indiv-desc-section">
+            <div class="sub-head-text" style="padding:0.5em 0em;">
+              <b>
+                Have many assignments due today at 2359?
+                No time to do your laundry or work?
+              </b>
+            </div>
+            <div class="sub-text">
+              <p>
+              Sometimes, getting help can be <b>difficult</b> when your group chats are <b>flooded</b> with other conversations.
+              What happens if your closer friends are <b>busy</b> and you are too <b>awkward</b> to ask others for help directly?
+              </p>
+              <p>
+              Fret no more!
+              Simply post your request with something to reward so that others will be incentivised to <b>do the job</b> for you!
+              </p>
+            </div>
+
+
+          </div>
         </div>
 
-        <div id="desc-section" style="width:60%">
-          Request description
-        </div>
+
 
       </div>
 
     </div>
+
+    <div id="marketplace-section" class="home-section section section-height light-background" >
+        <!-- <div class="sub-bg-overlay"></div> -->
+        <div class="bottom-wave-container">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#328eb3" fill-opacity="1" d="M0,192L34.3,170.7C68.6,149,137,107,206,117.3C274.3,128,343,192,411,229.3C480,267,549,277,617,272C685.7,267,754,245,823,234.7C891.4,224,960,224,1029,229.3C1097.1,235,1166,245,1234,229.3C1302.9,213,1371,171,1406,149.3L1440,128L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path>
+          </svg>
+        </div>
+
+        <div id="main-section-details" class="dark-text" style="z-index: 1; display:flex;width: 100%;">
+
+          <div id="video-section" style="width:60%">
+            Request video
+          </div>
+
+          <div id="desc-section" style="width:60%">
+            Request description
+          </div>
+
+        </div>
+
+      </div>
 
 
     <div id="section-2" class="home-section section-height light-background dark-text" >
@@ -155,7 +226,7 @@
         </div>
 
         <div id="sub-header" class="section-item" >
-          <video id="walkthrough-video" class="walk-through-video" width="85%" maxWidt controls>
+          <video id="walkthrough-video" class="walk-through-video" controls>
             <source src="../../../assets/walkthrough1.mp4" type="video/mp4">
           </video>
         </div>
