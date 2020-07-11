@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 // declare var $ : any;
 import * as $ from 'jquery';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -23,13 +22,19 @@ export class HomeComponent implements OnInit {
       //     $('#sidebar').toggleClass('active');
       // });
 
-      $("#request-feature").click(function (){
-        console.log("hello")
-        $('html, body').animate({
-            scrollTop: $("#chat-feature").offset().top
-        }, 2000);
-        // $('html, body').animate({ scrollTop: 0 }, 600);
-    });
+    //   $(function() {
+    //     $('a[href*=\\#]:not([href=\\#])').on('click', function() {
+    //         var target = $(this.hash);
+    //         target = target.length ? target : $('[name=' + this.hash.substr(1) +']');
+    //         if (target.length) {
+    //             $('html,body').animate({
+    //                 scrollTop: target.offset().top
+    //             }, 1000);
+    //             return false;
+    //         }
+    //     });
+    // });
+
 
   })
   }
@@ -39,11 +44,14 @@ export class HomeComponent implements OnInit {
 
   }
 
-  scroll2(){
-    console.log("hell2")
-    var target = $(`#request-section2`)
+  scrollDown(navlocation, offset){
+    console.log("scroll down")
+    var target = $(`#${navlocation}`);
+    var x = document.getElementById("myTopnav");
+    // $('#home').animate({
     $('html, body').animate({
-      scrollTop: target.offset().top - 50
+      scrollTop: target.offset().top - offset +1
     }, 1000);
+
   }
 }

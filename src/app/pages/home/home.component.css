@@ -1,15 +1,9 @@
 /* overall scroll */
 .home-list {
-  overflow: scroll;
+  /* overflow:scroll; */
 }
 .home-list::-webkit-scrollbar {
 display: none;
-}
-html {
-  position:relative;
-}
-body {
-  position:relative;
 }
 
 b {
