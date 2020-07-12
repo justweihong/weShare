@@ -42,7 +42,7 @@ b {
 }
 
 .walk-through-video {
-  width:85%;
+  width:100%;
   max-width:800px;
   border-radius: 2em;
   background-color: white;
@@ -63,7 +63,8 @@ b {
   position:relative;
 }
 .main-bg {
-  background-image: url("/../../assets/main-bg.gif");
+  background-image: url("/../../assets/landing-page-main.gif");
+  /* background-image: url("/../../assets/main-bg.gif"); */
   /* background-color:#328eb3; */
   /* background-position: top; */
   background-repeat: no-repeat;

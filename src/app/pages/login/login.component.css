@@ -40,10 +40,11 @@ body {
 }
 
 .app-logo {
-    width: 3.5em;
-    height: 3.5em;
+    width: 3em;
+    height: 3em;
 }
 .app-name {
+    padding-left:0.3em;
     font-size: 4em;
     color: #11264b;
     letter-spacing: 2px;
@@ -67,9 +68,9 @@ body {
 }
 
 .google-button:hover {
-    background-color: #DF4B3B;
+    background-color: #328eb3;
     color: white;
-    border: 1.5px solid #DF4B3B;
+    border: 1.5px solid #255b70;
 }
 .google-button:hover>.google-icon {
     filter: brightness(50);
