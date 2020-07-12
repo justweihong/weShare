@@ -6,7 +6,7 @@
       <source src="../../../assets/vid1.mp4" type="video/mp4">
     </video> -->
 
-    <div id="main-section" class="home-section section section-height main-bg" >
+    <div id="main-section" class="home-section section section-height main-bg" style="height:90vh;">
       <div class="main-bg-overlay"></div>
       <div class="bottom-wave-container">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -25,8 +25,11 @@
           Get you neighbours to do the work for you!</p>
         </div>
 
-        <div id="get-started" class="section-item">
-          <div class="get-started-button"  (click)="router.navigate(['/profile']);">Get Started!</div>
+        <div style="display:flex; justify-content:center; padding-top:2em;" (click)="scrollDown('feature-section', 60)">
+          <div class="main-indicator indicator ">
+            <span></span>
+            <span></span>
+          </div>
         </div>
       </div>
 
@@ -173,11 +176,18 @@
 
 
           </div>
+
         </div>
 
-
+        <div class='indicator-section' (click)="scrollDown('marketplace-section', 60)">
+          <div class="indicator">
+            <span></span>
+            <span></span>
+          </div>
+        </div>
 
       </div>
+
 
     </div>
 
@@ -198,17 +208,19 @@
           <div class="indiv-desc-section">
             <div class="sub-head-text" style="padding:0.5em 0em;">
               <b>
-                Want to sell your used fan or fridge when you move out?
+                Sell your used fan or fridge when you move out.
               </b>
             </div>
             <div class="sub-text">
               <p>
-              Want <b>difficult</b> fdafdsafdts are <b>flooded</b> wifdsafdsarsations.
-              Whafdsafdsaare <b>busy</b> and you are too <b>awkward</b> to ask ofdsafp directly?
+                Bring a <b>broke uni</b> student, sometimes you need some hostel supplies but you <b>can't afford a brand new one</b>.
+                Very often, you may have <b>extra supplies</b> and you want to earn some quick cash to fund yr BIAP.
               </p>
+
               <p>
-              Fret no more!
-              Simfdsafdsafdsaentifdsafdsafdsafu!
+                From magic cleans to fans and even to portable ACs, sometimes it's <b>hard to find</b> buyers and sellers on <b>Carousell</b>.
+                This is because the target audience is the <b>whole of singapore</b>, not people living in hostels!
+                With our <b>targeted marketplace</b>, simply post a listing here and soon you will have enough cash eat your favourite BIAP!
               </p>
             </div>
           </div>
@@ -217,6 +229,13 @@
             <video id="walkthrough-video" class="indiv-feature-video" style="max-width:400px;" autoplay loop muted>
               <source src="../../../assets/indiv-feature.mp4" type="video/mp4">
             </video>
+          </div>
+        </div>
+
+        <div class='indicator-section' (click)="scrollDown('chat-section', 60)">
+          <div class="indicator">
+            <span></span>
+            <span></span>
           </div>
         </div>
 
@@ -248,21 +267,28 @@
           <div class="indiv-desc-section">
             <div class="sub-head-text" style="padding:0.5em 0em;">
               <b>
-                Forget Telegram or WhatsApp, chat with your friends in real-time over HERE!
+                <div>Forget Telegram or WhatsApp, </div>
+                <div>chat with your friends in real-time over HERE!</div>
               </b>
             </div>
             <div class="sub-text">
               <p>
-              Want <b>difficult</b> fdafdsafdts are <b>flooded</b> wifdsafdsarsations.
-              Whafdsafdsaare <b>busy</b> and you are too <b>awkward</b> to ask ofdsafp directly?
+              If your group chats are <b>often bombarded</b> with a lot of conversations,
+              it is going to be <b>troublesome and tedious</b> to facilitate a transaction.
               </p>
               <p>
-              Fret no more!
-              Simfdsafdsafdsaentifdsafdsafdsafu!
+              With our <b>real-time chat function</b>, it reduces the hassle to toggle between application!
               </p>
             </div>
 
 
+          </div>
+        </div>
+
+        <div class='indicator-section' (click)="scrollDown('notification-section', 60)">
+          <div class="indicator">
+            <span></span>
+            <span></span>
           </div>
         </div>
 
@@ -289,17 +315,14 @@
           <div class="indiv-desc-section">
             <div class="sub-head-text" style="padding:0.5em 0em;">
               <b>
-                Get real time updates of your progress...
+                Get instant updates of your progress...
               </b>
             </div>
             <div class="sub-text">
               <p>
-              Want <b>difficult</b> fdafdsafdts are <b>flooded</b> wifdsafdsarsations.
-              Whafdsafdsaare <b>busy</b> and you are too <b>awkward</b> to ask ofdsafp directlsdsa
-              </p>
-              <p>
-              Fret no more!
-              Simfdsafdsafdsaentifdsafdsafdsafu!
+              We understand that you have <b>many work</b> to do as university students.
+              It is <b>difficult to remember</b> to keep track of your transactions if you are <b>constantly flooded</b> with assignments.
+              Get <b>notified instantly</b> on your devices when there are updates on your transactions!
               </p>
             </div>
           </div>
@@ -310,6 +333,13 @@
             </video>
           </div>
 
+        </div>
+
+        <div class='indicator-section' (click)="scrollDown('leaderboard-section', 60)">
+          <div class="indicator">
+            <span></span>
+            <span></span>
+          </div>
         </div>
 
 
@@ -358,6 +388,13 @@
           </div>
         </div>
 
+        <div class='indicator-section' (click)="scrollDown('mobile-section', 60)">
+          <div class="indicator">
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
 
 
       </div>
@@ -403,6 +440,13 @@
           </div>
         </div>
 
+        <div class='indicator-section' (click)="scrollDown('walkthrough-section', 60)">
+          <div class="indicator">
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
 
 
       </div>
@@ -412,11 +456,11 @@
 
 
 
-    <div id="walkthrough-section" class="home-section section-height dark-background light-text" >
+    <div id="walkthrough-section" class="home-section section-height darker-background light-text" >
       <span>
 
         <div id="main-title" class="section-item" style="font-size:2em;">
-          But first, let's have a walkthrough.
+          To be clear, let's have a detailed walkthrough.
         </div>
 
         <div id="sub-header" class="section-item" >
@@ -425,26 +469,91 @@
           </video>
         </div>
 
+        <div class='indicator-section' (click)="scrollDown('creator-section', 60)">
+          <div class="indicator">
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
       </span>
     </div>
 
-    <div id="section-3" class="home-section dark-background light-text" >
+    <div id="creator-section" class="home-section section-height light-background dark-text" >
       <span>
 
-        <div id="main-header" class="section-item" style="color: red;font-size:2em;">
-          Please take note of the following:
+        <div id="creator-title" class="section-item head-text" >
+          <b>THE SPLASHBROS TEAM</b>
         </div>
 
-        <div id="sub-header" class="section-item" style="font-size: 1.2em; display:block;">
+        <div id="creator-details" class="section-item feature-grid" style="padding:2em;">
+          <div id="weihong-section" class="creator-section">
+            <img class="creator-image-holder" src="../../../assets/weihong.jpg">
+            <div class="main-text"> <b>Ng Wei Hong</b></div>
+            <div class="sub-text"> Year 1, Computer Science</div>
+            <div class="social-media-section">
+              <img class="social-media-image-holder" src="../../../assets/instagram.svg" (click)="newTab('https://www.instagram.com/justweihong/')">
+              <img class="social-media-image-holder" src="../../../assets/linkedin.svg" (click)="newTab('https://www.linkedin.com/in/ng-wei-hong/')">
+            </div>
+          </div>
 
-          <div class="sub-line">Some of the features are still not up yet.</div>
-          <div class="sub-line">Also, the UI has not been finalised yet, so please give chance :')</div>
-          <div class="sub-line">We look forward to receive your feedback so we can improve on our product to become perfect.</div>
-          <div class="sub-line" style="margin-bottom:2em;">Remember, every extra feedback counts :)</div>
+          <div id="cody-section" class="creator-section">
+            <img class="creator-image-holder" src="../../../assets/cody.jpg">
+            <div class="main-text"> <b>Cody Chew</b></div>
+            <div class="sub-text"> Year 1, Computer Science</div>
+            <div class="social-media-section">
+              <img class="social-media-image-holder" src="../../../assets/instagram.svg" (click)="newTab('https://www.instagram.com/coodeyy/')">
+              <img class="social-media-image-holder" src="../../../assets/linkedin.svg" (click)="newTab('https://www.linkedin.com/in/cody-chew-7243941a4/')">
+            </div>
+          </div>
+        </div>
 
-          <div class="sub-line">Sincerely,</div>
-          <div class="sub-line">Wei Hong and Cheng Yap</div>
-          <div class="sub-line">the SplashBros</div>
+      </span>
+      <div class='indicator-section' (click)="scrollDown('disclaimer-section', 60)">
+        <div class="indicator">
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="disclaimer-section" class="home-section section-height dark-background light-text" >
+      <span>
+
+        <div id="main-header" class="section-item head-text" style="color: #c81313;">
+          <b>Please read before using our app:</b>
+        </div>
+
+        <div id="sub-header" class="section-item sub-head-text" >
+          <span>
+            <p>
+            Not all features are up yet, so please bear with us.
+            All of our features (including this landing page) are created <b>FROM SCRATCH</b>.
+            Website builders or templates are <b>NOT</b> used at all.
+            </p>
+
+            <p>
+              We are constantly seeking to improve our product.
+              We hope you can provide us with feedback here after using our app.
+              You may give your feedback <b class="survey-link" (click)="newTab('https://docs.google.com/forms/d/e/1FAIpQLSc5wIxyHz22rSdunTY6y3RuxklFDW684djRRZJfc0E0mPsH_w/viewform?usp=send_form')">here</b>.
+              Remember, every extra feedback counts :)
+            </p>
+
+            <div class="sub-line">Sincerely,</div>
+            <div class="sub-line">Wei Hong and Cheng Yap</div>
+            <div class="sub-line">
+              <b>SplashBros</b>
+              <img class="splash-holder" src="../../../assets/splash-symbol.png">
+              <img class="splash-holder" src="../../../assets/splash-symbol.png">
+            </div>
+
+            <div id="get-started" class="section-item" style="margin: 3em 0em;">
+              <div class="get-started-button"  (click)="router.navigate(['/profile']);">Get Started!</div>
+            </div>
+            <div class="copyright">© SplashBros 2020</div>
+          </span>
+
+
 
         </div>
 

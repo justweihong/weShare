@@ -44,6 +44,10 @@ export class HomeComponent implements OnInit {
 
   }
 
+  newTab(url) {
+    window.open(url,'_blank');
+  }
+
   scrollDown(navlocation, offset){
     console.log("scroll down")
     var target = $(`#${navlocation}`);
