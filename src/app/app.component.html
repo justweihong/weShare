@@ -1,7 +1,7 @@
 <div>
-  <app-navbar [navstate]="this.navstate"></app-navbar>
+  <app-navbar [navstate]="this.navstate" style="position:fixed; top:0;width: 100%;z-index: 999;"></app-navbar>
 
-  <div class="wrapper page-color page-height" >
+  <div class="wrapper page-color">
     <app-sidenav [navstate]="this.navstate" id="sidebar2"></app-sidenav>
     <div class="page-width">
       <router-outlet></router-outlet>
