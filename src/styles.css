@@ -4,6 +4,8 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 
+
+
 ::-webkit-scrollbar {
   background: transparent;
   -webkit-appearance: none;
@@ -38,6 +40,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 .page-width {
   /* width: calc(100% - 250px); */
   width: calc(100%);
+}
+
+.page-list {
+  overflow: scroll;
+  padding-top:60px;
+}
+.page-list::-webkit-scrollbar {
+/* display: none; */
 }
 
 .main-button {

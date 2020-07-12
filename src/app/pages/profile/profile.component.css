@@ -1,6 +1,7 @@
 /* overall scroll */
 .profile-list {
   overflow: scroll;
+  padding-top:60px;
 }
 .profile-list::-webkit-scrollbar {
 display: none;
