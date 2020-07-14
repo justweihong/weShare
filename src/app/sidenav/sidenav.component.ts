@@ -7,6 +7,7 @@ import { RequestService } from '../services/request/request.service';
 import { ListingService } from '../services/listing/listing.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { NavbarService } from '../services/navbar/navbar.service';
+import { NotificationService } from '../services/notification/notification.service';
 
 
 
@@ -18,10 +19,10 @@ import { NavbarService } from '../services/navbar/navbar.service';
 export class SidenavComponent implements OnInit {
   @Input() navstate: any;
   subscriptions: Subscription[] = [];
-  userID:any;
-  displayName:any;
-  userEmail:any;
-  userImg:any;
+  userID: any;
+  displayName: any;
+  userEmail: any;
+  userImg: any;
 
   constructor(
     public auth: AuthService,
@@ -29,28 +30,29 @@ export class SidenavComponent implements OnInit {
     private userService: UserService,
     public navbarService: NavbarService,
     public requestService: RequestService,
-    public listingService: ListingService
+    public listingService: ListingService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
 
-      this.auth.getUser().pipe(take(1)).subscribe(user => {
-        if (user) {
-          // Get user details.
-          this.userID = user.uid;
-          this.userService.getUser(this.userID).pipe(take(1)).subscribe(firebaseUser => {
-              // console.log(firebaseUser);
-              this.displayName = firebaseUser['displayName'];
-              this.userEmail = firebaseUser['email'];
-              this.userImg = firebaseUser['profileImg'];
-              // console.log(this.userImg);
-          })
-        }
-      })
+    this.auth.getUser().pipe(take(1)).subscribe(user => {
+      if (user) {
+        // Get user details.
+        this.userID = user.uid;
+        this.userService.getUser(this.userID).pipe(take(1)).subscribe(firebaseUser => {
+          // console.log(firebaseUser);
+          this.displayName = firebaseUser['displayName'];
+          this.userEmail = firebaseUser['email'];
+          this.userImg = firebaseUser['profileImg'];
+          // console.log(this.userImg);
+        })
+      }
+    })
 
-      this.subscriptions.push(this.navbarService.getSidenavToggle().pipe().subscribe(() => {
-        $('#sidebar').toggleClass('active');
-      }));
+    this.subscriptions.push(this.navbarService.getSidenavToggle().pipe().subscribe(() => {
+      $('#sidebar').toggleClass('active');
+    }));
 
   }
 
@@ -66,20 +68,26 @@ export class SidenavComponent implements OnInit {
           // Get user details.
           this.userID = user.uid;
           this.userService.getUser(this.userID).pipe(take(1)).subscribe(firebaseUser => {
-              // console.log(firebaseUser);
-              this.displayName = firebaseUser['displayName'];
-              this.userEmail = firebaseUser['email'];
-              this.userImg = firebaseUser['profileImg'];
-              console.log(this.userImg);
+            // console.log(firebaseUser);
+            this.displayName = firebaseUser['displayName'];
+            this.userEmail = firebaseUser['email'];
+            this.userImg = firebaseUser['profileImg'];
+            console.log(this.userImg);
           })
         }
       })
     }
 
-}
+  }
 
   incompleteFeatureAlert(type) {
     alert(type + " feature has not been created yet!");
   }
+
+  // enableNotification() {
+  //   console.log('req')
+  //   return this.notificationService.requestPermission();
+  // }
+
 
 }

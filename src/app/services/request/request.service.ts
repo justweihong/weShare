@@ -103,4 +103,8 @@ export class RequestService {
     getDetailUpdates(): Observable<any> {
         return this.subject2.asObservable();
     }
+
+    getSnap() {
+        return this.afs.collection('requests').snapshotChanges();
+      }
 }

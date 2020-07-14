@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth/auth.service';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { NotificationService } from './services/notification/notification.service';
+import { ListingService } from './services/listing/listing.service';
+import { AngularFirestore, docChanges } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-root',
@@ -8,15 +11,20 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  private NotificationTitle: string = 'Browser Push Notifications!';
   title = 'SplashBros';
   isAuthenticated: boolean;
   navstate: String = '';
-
+  listingCount: any;
   constructor(
-      public auth: AuthService,
-      private router: Router,
-      private activatedRoute: ActivatedRoute,
+    private db: AngularFirestore,
+    public auth: AuthService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private _notificationService: NotificationService,
+    private listingService: ListingService
   ) {
+    this._notificationService.requestPermission();
   }
 
   async ngOnInit() {
@@ -27,12 +35,17 @@ export class AppComponent implements OnInit {
       }
     })
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
       $('#sidebarCollapse').on('click', function () {
-          $('#sidebar').toggleClass('active');
+        $('#sidebar').toggleClass('active');
       });
 
-  })
+    })
+
+    this._notificationService.notifyNewListing();
+    this._notificationService.notifyNewRequest();
+    
   }
+
 }

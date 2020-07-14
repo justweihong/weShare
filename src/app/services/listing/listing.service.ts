@@ -77,4 +77,8 @@ export class ListingService {
     this.db.doc(`listings/${listingDetails['ID']}`).set(dataToChange, { merge: true });
   }
 
+  getSnap() {
+    return this.db.collection('listings').snapshotChanges();
+  }
+
 }

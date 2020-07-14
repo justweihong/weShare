@@ -32,6 +32,7 @@ import { RequestListingComponent } from './components/request-listing/request-li
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component';
+import { NotificationService } from './services/notification/notification.service';
 
 // My web app's Firebase configuration
 const firebaseConfig = {
@@ -76,7 +77,7 @@ const firebaseConfig = {
     NgbModule,
     FontAwesomeModule,
   ],
-  providers: [ListingService],
+  providers: [ListingService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
