@@ -18,7 +18,7 @@ export class UserService {
   }
 
   getUsers() {
-    return this.afs.collection(`user`).valueChanges();
+    return this.afs.collection(`user`, ref => ref.orderBy('displayName', 'asc')).valueChanges();
   }
   getUserDocFromList(arr){
     return this.afs.collection(`user` , ref => {return ref.where('uid', 'in', arr)}).valueChanges();

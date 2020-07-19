@@ -41,7 +41,8 @@ const routes: Routes = [
     { path: 'marketplace/completed-listings', component: MarketplaceComponent, canActivate: [AuthGuard, ProfileGuard]},
 
     // chat
-    { path: 'chat', component: ChatComponent, canActivate: [AuthGuard, ProfileGuard]},
+    // { path: 'chat', component: ChatComponent, canActivate: [AuthGuard, ProfileGuard]},
+    { path: 'chat', redirectTo: 'chat/find-users' , canActivate: [AuthGuard, ProfileGuard]},
     { path: 'chat/:id', component: ChatComponent, canActivate: [AuthGuard, ProfileGuard]},
 
     { path: '**', redirectTo: 'home' } //wildcard

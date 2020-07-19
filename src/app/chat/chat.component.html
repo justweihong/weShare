@@ -5,20 +5,20 @@
     <div class="user-sidenav">
 
       <!-- see all users -->
-      <div class="user-entry find-users">
+      <div class="user-entry find-users" routerLink="/chat/find-users" routerLinkActive="active-select">
         find users
       </div>
 
 
-      <div *ngFor="let user of chatUserData">
-        <div class="user-entry">
+      <div *ngFor="let chat of myChats">
+        <div class="user-entry" routerLink="/chat/{{chat['ID']}}" routerLinkActive="active-select">
           <div class="user-entry-image-section">
-            <img class="user-entry-image-holder" src="{{user['profileImg']}}">
+            <img class="user-entry-image-holder" src="{{chat['otherUserData']['profileImg']}}">
           </div>
 
           <div class="user-entry-desc">
             <span style="width:inherit;">
-              <div class="user-entry-username"> {{user['displayName']}}</div>
+              <div class="user-entry-username"> {{chat['otherUserData']['displayName']}}</div>
               <div class="user-entry-last-msg"> fdsafdsaf fdsa fdsa fdsa fds afdsa fdsag fds ghfdsg fds gfds g</div>
           </span>
           </div>
@@ -28,10 +28,10 @@
 
     </div>
 
-    <div class="main-chat">
+    <div class="main-chat" *ngIf="this.chatState && this.chatState != 'find-users' ">
 
       <div class="main-header">
-        <div class="main-username">Cody Chew</div>
+        <div class="main-username" (click)="this.checkIfChatExist('FYFKy8fDynVxQOm001P91kBIpJG23', '1grR7ziJIdTEp05Ph9pQn0LrBTh1')" >check exist</div>
         <div class="main-status">online</div>
       </div>
 
@@ -51,13 +51,74 @@
           <div class="message-time">Apr 17</div>
         </div>
 
+        <div class="message-row own-message" (click)="this.chatService.createNewChat('FYFKy8fDynVxQOm001P91kBIpJG2', '1grR7ziJIdTEp05Ph9pQn0LrBTh1')">
+          <div class="message-text">send messageee</div>
+          <div class="message-time">Apr 16</div>
+        </div>
+
+        <div class="message-row other-message">
+          <div class="message-text">
+            fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fsda gsfa fdsa fdsa fdsa
+            dsafdsafds avfds agfds gfds gfds gfds gfds gfsd
+             gfsd gfsd gfsd gfds gfds gsdf gsdf gfds gfds gfds gfds gsdf gfsd gsdf
+          </div>
+          <div class="message-time">Apr 17</div>
+        </div>
+
+        <div class="message-row own-message">
+          <div class="message-text">ok then</div>
+          <div class="message-time">Apr 16</div>
+        </div>
+
+        <div class="message-row other-message">
+          <div class="message-text">
+            fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fsda gsfa fdsa fdsa fdsa
+            dsafdsafds avfds agfds gfds gfds gfds gfds gfsd
+             gfsd gfsd gfsd gfds gfds gsdf gsdf gfds gfds gfds gfds gsdf gfsd gsdf
+          </div>
+          <div class="message-time">Apr 17</div>
+        </div>
+
+        <div class="message-row own-message">
+          <div class="message-text">ok then</div>
+          <div class="message-time">Apr 16</div>
+        </div>
+
+        <div class="message-row other-message">
+          <div class="message-text">
+            fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fsda gsfa fdsa fdsa fdsa
+            dsafdsafds avfds agfds gfds gfds gfds gfds gfsd
+             gfsd gfsd gfsd gfds gfds gsdf gsdf gfds gfds gfds gfds gsdf gfsd gsdf
+          </div>
+          <div class="message-time">Apr 17</div>
+        </div>
+
       </div>
 
       <div class="chat-form">
-        <img src="../../assets/chat-logo.svg" alt="chat">
-        <input type="text" placeholder="type a message ">
+        <i class="fa fa-paperclip fa-2x chat-form-logo" aria-hidden="true"></i>
+        <!-- <input class="chat-input" type="text" placeholder="type a message "> -->
+        <textarea placeholder="type a message..."  rows="1"></textarea>
+        <i class="fa fa-arrow-circle-up fa-2x chat-form-logo" aria-hidden="true"></i>
       </div>
 
+    </div>
+
+    <div class="main-chat find-user-list" *ngIf="this.chatState && this.chatState == 'find-users'">
+
+      <div *ngFor="let user of allUsers">
+        <div class="find-user-entry" (click)="startChat(user)">
+          <div class="find-user-image-section">
+            <img class="find-user-image-holder" src="{{user['profileImg']}}">
+          </div>
+          <div class="find-user-username">
+            {{user['displayName']}}
+          </div>
+
+        </div>
+
+
+      </div>
     </div>
   </div>
 

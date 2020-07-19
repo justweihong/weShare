@@ -62,7 +62,7 @@
   width:-webkit-fill-available;
 }
 .main-header {
-  background: #318199;
+  background: #cddbe1;
   padding:1em;
   height:5em;
 }
@@ -79,6 +79,8 @@
   display:flex;
   flex-direction: column-reverse;
   padding:0 20px;
+  height:calc(100vh - 60px - 5em - 5em);
+  overflow:scroll;
 }
 .message-row {
   margin-bottom:20px;
@@ -87,11 +89,12 @@
 }
 .message-text {
   padding:9px 14px;
-  font-size:1.6rem;
+  font-size:1em;
+  margin-top: 5px;
   margin-bottom: 5px;
 }
 .message-time {
-  font-size:1.3rem;
+  font-size:0.9em;
   color:#777;
 }
 .own-message {
@@ -108,22 +111,94 @@
   border-radius: 14px 14px 0 14px;
 }
 .other-message .message-text {
-  background:#eee;
+  background:white;
   color:black;
-  border: 1px solid #eee;
+  border: 1px solid white;
   border-radius: 14px 14px 14px 0;
 }
 
 
 .chat-form {
   display:grid;
-  grid: 51px / 32px 1fr;
+  /* display:flex; */
+  /* grid */
+  background:#cddbe1;
+  grid: 35px / 40px 1fr 40px;
+  height:5em;
   align-content: center;
   grid-gap:15px;
   grid-area:chat-form;
   border-radius:0 0 10px 0;
-  border-top: 1px solid rgba(0,0,0,0.25);
-  padding-left:42px;
-  padding-right:22px;
+  border-top: 1px solid #b2c2c9;
+  padding:0.5em 0.5em;
+  /* padding-left:42px; */
+  /* padding-right:22px; */
 }
+
+
+textarea {
+  width: 100%;
+  /* border: none; */
+  border-radius: 5px;
+  /* resize: none; */
+  border:solid;
+  border-color:#b2c2c9;
+  border-width:0.5px;
+  background:#cddbe1;
+  /* padding:0.5em; */
+}
+textarea:focus {
+  outline:none;
+}
+::placeholder {
+  color:grey;
+}
+::-webkit-input-placeholder {
+  /* text-align: center; */
+  align-items: center;
+}
+
+.chat-input:focus {
+  border:none;
+}
+
+.chat-form-logo {
+  cursor: pointer;
+  color:#318199;
+  align-self: center;
+  justify-self: center;
+}
+.chat-form-logo:hover {
+  color:#7fa4b1
+}
+
+/* find users */
+.find-user-list {
+  overflow:scroll;
+}
+.find-user-entry {
+  cursor: pointer;
+  height:5em;
+  display:flex;
+}
+.find-user-entry:hover {
+  background:#fff;
+}
+.find-user-image-section {
+  height:inherit;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.find-user-image-holder {
+  border-radius:50%;
+  width:3em;
+  height:3em;
+}
+.find-user-username {
+  display:flex;
+  align-items:center;
+  font-size:2em;
+}
+
 
