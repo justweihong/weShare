@@ -13,6 +13,7 @@ import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component'
 import { AuthGuard } from './guards/auth/auth.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProfileGuard } from './guards/profile/profile.guard';
+import { ChatComponent } from './chat/chat.component';
 
 
 
@@ -39,6 +40,9 @@ const routes: Routes = [
     { path: 'marketplace/ongoing-listings', component: MarketplaceComponent, canActivate: [AuthGuard, ProfileGuard]},
     { path: 'marketplace/completed-listings', component: MarketplaceComponent, canActivate: [AuthGuard, ProfileGuard]},
 
+    // chat
+    { path: 'chat', component: ChatComponent, canActivate: [AuthGuard, ProfileGuard]},
+    { path: 'chat/:id', component: ChatComponent, canActivate: [AuthGuard, ProfileGuard]},
 
     { path: '**', redirectTo: 'home' } //wildcard
 ];

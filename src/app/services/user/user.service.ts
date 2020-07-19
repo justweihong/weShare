@@ -20,6 +20,9 @@ export class UserService {
   getUsers() {
     return this.afs.collection(`user`).valueChanges();
   }
+  getUserDocFromList(arr){
+    return this.afs.collection(`user` , ref => {return ref.where('uid', 'in', arr)}).valueChanges();
+}
 
   updateDetails(userID, data) {
     return this.afs.doc(`user/${userID}`).set(data, { merge: true });

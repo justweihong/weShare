@@ -1,0 +1,129 @@
+.overall-chat-layout {
+  display:flex;
+}
+
+/* user sidenav */
+.user-sidenav {
+  background: #f3f3f3;
+  overflow:scroll;
+  width:250px;
+}
+.user-entry {
+  cursor: pointer;
+  height:5em;
+  /* padding:0.5em; */
+  display:flex;
+}
+.user-entry:hover {
+  background:#e3e6e9;
+}
+.find-users {
+  align-items: center;
+  font-size: 1em;
+  color:grey;
+}
+.user-entry-image-section {
+    display:flex;
+    height:inherit;
+    align-items:center;
+    padding: 0em 0.5em;
+}
+
+.user-entry-image-holder {
+  width:2.5em;
+  height:2.5em;
+  border-radius:50%;
+}
+.user-entry-desc {
+  height:inherit;
+  width: 100%;
+  display:flex;
+  align-items:center;
+}
+.user-entry-username {
+  color: #043245;
+  font-size:1.3em;
+  width: calc(100% - 5em);
+  overflow:hidden;
+}
+.user-entry-last-msg {
+  font-size:0.9em;
+  color:grey;
+  white-space: nowrap;
+  width: calc(100% - 5em);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* main chatroom */
+.main-chat {
+  background:#e3e6e9;
+  width:-webkit-fill-available;
+}
+.main-header {
+  background: #318199;
+  padding:1em;
+  height:5em;
+}
+.main-username {
+  font-size:1.4em;
+  color:#043245;
+}
+.main-status {
+  color:grey;
+}
+
+.chat-message-list {
+  grid-area: chat-message-list;
+  display:flex;
+  flex-direction: column-reverse;
+  padding:0 20px;
+}
+.message-row {
+  margin-bottom:20px;
+  display:grid;
+  grid-template-columns: 70%;
+}
+.message-text {
+  padding:9px 14px;
+  font-size:1.6rem;
+  margin-bottom: 5px;
+}
+.message-time {
+  font-size:1.3rem;
+  color:#777;
+}
+.own-message {
+  justify-content: end;
+  justify-items: end;
+}
+.other-message {
+  justify-content: start;
+}
+.own-message .message-text {
+  background:#318199;
+  color:white;
+  border: 1px solid #318199;
+  border-radius: 14px 14px 0 14px;
+}
+.other-message .message-text {
+  background:#eee;
+  color:black;
+  border: 1px solid #eee;
+  border-radius: 14px 14px 14px 0;
+}
+
+
+.chat-form {
+  display:grid;
+  grid: 51px / 32px 1fr;
+  align-content: center;
+  grid-gap:15px;
+  grid-area:chat-form;
+  border-radius:0 0 10px 0;
+  border-top: 1px solid rgba(0,0,0,0.25);
+  padding-left:42px;
+  padding-right:22px;
+}
+

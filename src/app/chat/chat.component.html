@@ -1,0 +1,65 @@
+<div class="page-list page-height" style="overflow:hidden;">
+
+  <div class="overall-chat-layout page-height">
+
+    <div class="user-sidenav">
+
+      <!-- see all users -->
+      <div class="user-entry find-users">
+        find users
+      </div>
+
+
+      <div *ngFor="let user of chatUserData">
+        <div class="user-entry">
+          <div class="user-entry-image-section">
+            <img class="user-entry-image-holder" src="{{user['profileImg']}}">
+          </div>
+
+          <div class="user-entry-desc">
+            <span style="width:inherit;">
+              <div class="user-entry-username"> {{user['displayName']}}</div>
+              <div class="user-entry-last-msg"> fdsafdsaf fdsa fdsa fdsa fds afdsa fdsag fds ghfdsg fds gfds g</div>
+          </span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="main-chat">
+
+      <div class="main-header">
+        <div class="main-username">Cody Chew</div>
+        <div class="main-status">online</div>
+      </div>
+
+      <div id="chat-message-list" class="chat-message-list">
+
+        <div class="message-row own-message">
+          <div class="message-text">ok then</div>
+          <div class="message-time">Apr 16</div>
+        </div>
+
+        <div class="message-row other-message">
+          <div class="message-text">
+            fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fsda gsfa fdsa fdsa fdsa
+            dsafdsafds avfds agfds gfds gfds gfds gfds gfsd
+             gfsd gfsd gfsd gfds gfds gsdf gsdf gfds gfds gfds gfds gsdf gfsd gsdf
+          </div>
+          <div class="message-time">Apr 17</div>
+        </div>
+
+      </div>
+
+      <div class="chat-form">
+        <img src="../../assets/chat-logo.svg" alt="chat">
+        <input type="text" placeholder="type a message ">
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
