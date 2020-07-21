@@ -55,11 +55,14 @@ export class ChatComponent implements OnInit, OnDestroy {
 
       //Get all users. //TODO: is this necessary??
       this.userService.getUsers().pipe(take(1)).subscribe(users => {
-        users.forEach(user => {
-          if (user != this.userID) {
-            this.allUsers.push(user);
-          }
-        })
+        this.allUsers = users;
+        // users.forEach(user => {
+        //   if (user != this.userID) {
+        //     this.allUsers.push(user);
+        //   } else {
+        //     this.allUsers.push(user);
+        //   }
+        // })
         console.log(this.allUsers);
       })
 
@@ -178,17 +181,20 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   startChat(user){
-    this.chatService.checkIfChatExist(this.userID, user['uid']).then(details => {
-      if (details['answer'] == true) {
-        this.router.navigate(["/chat/", details['chatID']])
+    if (user['uid'] == this.userID) {
+      alert("You can't start a chat with yourself!");
+    } else {
+      this.chatService.checkIfChatExist(this.userID, user['uid']).then(details => {
+        if (details['answer'] == true) {
+          this.router.navigate(["/chat/", details['chatID']])
 
-      } else {
-        if (confirm("Start chat with " + user["displayName"] + "?")) {
-          this.chatService.createNewChat(this.userID, user['uid']);
+        } else {
+          if (confirm("Start chat with " + user["displayName"] + "?")) {
+            this.chatService.createNewChat(this.userID, user['uid']);
+          }
         }
-      }
-    });
-
+      });
+    }
 
   }
 

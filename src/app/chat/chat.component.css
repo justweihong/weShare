@@ -47,12 +47,15 @@
   overflow:hidden;
 }
 .user-entry-last-msg {
-  font-size:0.9em;
+  font-size:0.75em;
   color:grey;
   white-space: nowrap;
   width: calc(100% - 5em);
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.active-select {
+  background:#e3e6e9!important;
 }
 
 
@@ -83,7 +86,7 @@
   overflow:scroll;
 }
 .message-row {
-  margin-bottom:20px;
+  /* margin-bottom:20px; */
   display:grid;
   grid-template-columns: 70%;
 }
@@ -123,14 +126,15 @@
   /* display:flex; */
   /* grid */
   background:#cddbe1;
-  grid: 35px / 40px 1fr 40px;
+  /* grid: 35px / 40px 1fr 40px; */
+  grid: 35px / 1fr 40px;
   height:5em;
   align-content: center;
   grid-gap:15px;
   grid-area:chat-form;
   border-radius:0 0 10px 0;
   border-top: 1px solid #b2c2c9;
-  padding:0.5em 0.5em;
+  padding:1em 1em;
   /* padding-left:42px; */
   /* padding-right:22px; */
 }
@@ -138,12 +142,12 @@
 
 textarea {
   width: 100%;
-  /* border: none; */
+  border: none;
   border-radius: 5px;
-  /* resize: none; */
-  border:solid;
+  resize: none;
+  /* border:solid;
   border-color:#b2c2c9;
-  border-width:0.5px;
+  border-width:0.5px; */
   background:#cddbe1;
   /* padding:0.5em; */
 }
@@ -167,6 +171,7 @@ textarea:focus {
   color:#318199;
   align-self: center;
   justify-self: center;
+  font-size:2em;
 }
 .chat-form-logo:hover {
   color:#7fa4b1

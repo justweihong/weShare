@@ -39,80 +39,24 @@
 
           <div *ngIf="message['senderID'] == this.userID" class="message-row own-message">
             <div class="message-text">{{message['text']}}</div>
-            <div class="message-time">{{this.datetime12H(message[['timeStamp']])}}</div>
+            <div class="message-time">{{this.datetime12H(message['timeStamp'])}}</div>
           </div>
 
           <div *ngIf="message['senderID'] != this.userID" class="message-row other-message">
             <div class="message-text">{{message['text']}}</div>
-            <div class="message-time">{{this.datetime12H(message[['timeStamp']])}}</div>
+            <div class="message-time">{{this.datetime12H(message['timeStamp'])}}</div>
           </div>
 
-        </div>
-
-        <div class="message-row own-message">
-          <div class="message-text">ok then</div>
-          <div class="message-time">Apr 16</div>
-        </div>
-
-        <div class="message-row other-message">
-          <div class="message-text">
-            fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fsda gsfa fdsa fdsa fdsa
-            dsafdsafds avfds agfds gfds gfds gfds gfds gfsd
-             gfsd gfsd gfsd gfds gfds gsdf gsdf gfds gfds gfds gfds gsdf gfsd gsdf
-          </div>
-          <div class="message-time">Apr 17</div>
-        </div>
-
-        <div class="message-row own-message" (click)="this.chatService.createNewChat('FYFKy8fDynVxQOm001P91kBIpJG2', '1grR7ziJIdTEp05Ph9pQn0LrBTh1')">
-          <div class="message-text">send messageee</div>
-          <div class="message-time">Apr 16</div>
-        </div>
-
-        <div class="message-row other-message">
-          <div class="message-text">
-            fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fsda gsfa fdsa fdsa fdsa
-            dsafdsafds avfds agfds gfds gfds gfds gfds gfsd
-             gfsd gfsd gfsd gfds gfds gsdf gsdf gfds gfds gfds gfds gsdf gfsd gsdf
-          </div>
-          <div class="message-time">Apr 17</div>
-        </div>
-
-        <div class="message-row own-message">
-          <div class="message-text">ok then</div>
-          <div class="message-time">Apr 16</div>
-        </div>
-
-        <div class="message-row other-message">
-          <div class="message-text">
-            fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fsda gsfa fdsa fdsa fdsa
-            dsafdsafds avfds agfds gfds gfds gfds gfds gfsd
-             gfsd gfsd gfsd gfds gfds gsdf gsdf gfds gfds gfds gfds gsdf gfsd gsdf
-          </div>
-          <div class="message-time">Apr 17</div>
-        </div>
-
-        <div class="message-row own-message">
-          <div class="message-text">ok then</div>
-          <div class="message-time">Apr 16</div>
-        </div>
-
-        <div class="message-row other-message">
-          <div class="message-text">
-            fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fsda gsfa fdsa fdsa fdsa
-            dsafdsafds avfds agfds gfds gfds gfds gfds gfsd
-             gfsd gfsd gfsd gfds gfds gsdf gsdf gfds gfds gfds gfds gsdf gfsd gsdf
-          </div>
-          <div class="message-time">Apr 17</div>
         </div>
 
       </div>
 
       <div >
         <form [formGroup]="newMessage" class="chat-form">
-          <i class="fa fa-paperclip fa-2x chat-form-logo" aria-hidden="true"></i>
+          <!-- <i class="fa fa-paperclip chat-form-logo" aria-hidden="true"></i> -->
           <!-- <input class="chat-input" type="text" placeholder="type a message "> -->
           <textarea formControlName="text" placeholder="type a message..."  rows="1"></textarea>
-          <i class="fa fa-arrow-circle-up fa-2x chat-form-logo" aria-hidden="true" (click)="sendMessage()"></i>
+          <i class="fa fa-arrow-circle-up chat-form-logo" aria-hidden="true" (click)="sendMessage()"></i>
         </form>
       </div>
 
