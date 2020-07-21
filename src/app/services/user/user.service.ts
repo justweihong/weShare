@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
 import * as firebase from 'firebase';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class UserService {
   updateDetails(userID, data) {
     return this.afs.doc(`user/${userID}`).set(data, { merge: true });
   }
+
+  
+
+  
 
   // increaseListingCount(userID) {
   //   const increment = firebase.firestore.FieldValue.increment(1);
@@ -53,6 +58,7 @@ export class UserService {
   // getListingCount() {
   //   return this.afs.collection(`user`, ref => ref.orderBy('listingCount', 'desc').limit(3)).valueChanges();
   // }
+
 
 
 

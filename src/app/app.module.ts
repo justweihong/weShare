@@ -77,7 +77,7 @@ const firebaseConfig = {
     NgbModule,
     FontAwesomeModule,
   ],
-  providers: [ListingService, NotificationService],
+  providers: [NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

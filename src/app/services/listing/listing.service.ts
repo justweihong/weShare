@@ -4,6 +4,7 @@ import { AngularFireStorage, AngularFireUploadTask, createStorageRef } from '@an
 import { Subject, Observable, from } from 'rxjs';
 import { tap, finalize } from 'rxjs/operators';
 import { UserService } from '../user/user.service';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ListingService {
   constructor(
     private db: AngularFirestore,
     private storage: AngularFireStorage,
-    private userService: UserService
+    private notificationService: NotificationService,
   ) { }
 
   getListings() {
@@ -23,6 +24,9 @@ export class ListingService {
   }
 
   deleteListing(listingDetails) {
+    //delete notifications for the listing
+    this.notificationService.removeNotifications(listingDetails['ID']);
+
     //delete picture
     if (listingDetails["path"] != "no-preview-available.png") {
       this.storage.ref(listingDetails["path"]).delete();
@@ -42,17 +46,31 @@ export class ListingService {
     //   this.userService.decreaseListingCount(listingDetails['createdBy']);
     // }
 
+
     //delete document
     this.db.doc(`listings/${listingDetails['ID']}`).delete().then(function () {
       console.log("Document successfully deleted!");
     }).catch(function (error) {
       console.error("Error removing document: ", error);
     });
+
+
+
   }
 
   addOffer(offererName, offererID, listingDetails, price, offererProfileImg) {
     this.db.doc(`listings/${listingDetails['ID']}`).set({ hasOffers: true }, { merge: true });
     this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").doc(offererID).set({ offererName, offererID, price, offererProfileImg })
+    
+    //notify the user on offer
+    var data = {
+      'title': 'New Offer',
+      'description': offererName + ' has offered you $' + price + ' for ' + listingDetails['title'],
+      'createdBy': offererID,
+      'status': 'new notification',
+      'ID' : listingDetails['ID'] + offererID
+    }
+    this.notificationService.notifyUser(listingDetails['createdBy'], listingDetails['ID'] + offererID, data);
   }
 
   getListingOffers(listingDetails) {
@@ -74,11 +92,27 @@ export class ListingService {
     // this.userService.increaseCompletedListingCount(listingDetails['createdBy']);
 
     //change status to completed
-    this.db.doc(`listings/${listingDetails['ID']}`).set(dataToChange, { merge: true });
+    this.db.doc(`listings/${listingDetails['ID']}`).set(dataToChange, { merge: true })
+    .then(() => {
+      //notify the user on accepted offer
+    var data = {
+      'title': 'Offer Accepted',
+      'description': 'Your offer of $'+ offer["price"] + ' for ' + listingDetails['title'] + ' has been accepted!',
+      'createdBy': offer["offererID"],
+      'status': 'new notification',
+      'ID': listingDetails['ID'] + offer["offererID"]
+    }
+    this.notificationService.notifyUser(offer["offererID"], listingDetails['ID'] + offer["offererID"], data);
+    });
   }
 
   getSnap() {
     return this.db.collection('listings').snapshotChanges();
   }
+
+  //in progress
+  // getOffersSnapshot(userID) {
+  //   return this.db.collection('listings').ref.where("createdBy", "==", userID).orderBy("createdBy")
+  // }
 
 }
