@@ -36,16 +36,24 @@ export class ListingService {
     if (listingDetails['hasOffers']) {
       this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").snapshotChanges().subscribe(offer => {
         offer.forEach(individualOffer => {
+          //notify all offerers that listing has been deleted
+          var data = {
+            'title': 'Listing Deleted',
+            'description': listingDetails['title'] + ' has been deleted from the marketplace!',
+            'createdBy': listingDetails['createdBy'],
+            'status': 'new notification',
+            'ID': listingDetails['ID'] + individualOffer["offererID"]
+          }
+          this.notificationService.notifyUser(individualOffer["offererID"], listingDetails['ID'] + individualOffer["offererID"], data);
+
+          //delete any existing offers notification for this listing
+          this.notificationService.removeNotificationForUser(listingDetails['createdBy'], listingDetails['ID'] + individualOffer['offererID']);
+
           this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").doc(individualOffer['offererID']).delete()
         })
+
       })
     }
-
-    //reduce count of user if listing not completed
-    // if (listingDetails['status'] === "active") {
-    //   this.userService.decreaseListingCount(listingDetails['createdBy']);
-    // }
-
 
     //delete document
     this.db.doc(`listings/${listingDetails['ID']}`).delete().then(function () {
@@ -61,15 +69,17 @@ export class ListingService {
   addOffer(offererName, offererID, listingDetails, price, offererProfileImg) {
     this.db.doc(`listings/${listingDetails['ID']}`).set({ hasOffers: true }, { merge: true });
     this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").doc(offererID).set({ offererName, offererID, price, offererProfileImg })
-    
+
     //notify the user on offer
     var data = {
       'title': 'New Offer',
       'description': offererName + ' has offered you $' + price + ' for ' + listingDetails['title'],
       'createdBy': offererID,
       'status': 'new notification',
-      'ID' : listingDetails['ID'] + offererID
+      'ID': listingDetails['ID'] + offererID
     }
+
+    //notify creator of listing; notificationID is "listingID + offererID" 
     this.notificationService.notifyUser(listingDetails['createdBy'], listingDetails['ID'] + offererID, data);
   }
 
@@ -87,23 +97,33 @@ export class ListingService {
       acceptedBy: offer["offererName"],
       acceptedPrice: offer["price"]
     }
-    //increase completed listing count for both users
-    // this.userService.increaseCompletedListingCount(offer['offererID']);
-    // this.userService.increaseCompletedListingCount(listingDetails['createdBy']);
+
+    //delete notifications for the listing
+    this.notificationService.removeNotifications(listingDetails['ID']);
+
+    //delete offer notifications for user
+    if (listingDetails['hasOffers']) {
+      this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").snapshotChanges().subscribe(offer => {
+        offer.forEach(individualOffer => {
+          this.notificationService.removeNotificationForUser(listingDetails['createdBy'], listingDetails['ID'] + individualOffer["offererID"]);
+        })
+      })
+    }
 
     //change status to completed
     this.db.doc(`listings/${listingDetails['ID']}`).set(dataToChange, { merge: true })
-    .then(() => {
-      //notify the user on accepted offer
-    var data = {
-      'title': 'Offer Accepted',
-      'description': 'Your offer of $'+ offer["price"] + ' for ' + listingDetails['title'] + ' has been accepted!',
-      'createdBy': offer["offererID"],
-      'status': 'new notification',
-      'ID': listingDetails['ID'] + offer["offererID"]
-    }
-    this.notificationService.notifyUser(offer["offererID"], listingDetails['ID'] + offer["offererID"], data);
-    });
+      .then(() => {
+        //notify the user on accepted offer
+        var data = {
+          'title': 'Offer Accepted',
+          'description': 'Your offer of $' + offer["price"] + ' for ' + listingDetails['title'] + ' has been accepted!',
+          'createdBy': offer["offererID"],
+          'status': 'new notification',
+          'ID': listingDetails['ID'] + offer["offererID"]
+        }
+        this.notificationService.notifyUser(offer["offererID"], listingDetails['ID'] + offer["offererID"], data);
+      
+      });
   }
 
   getSnap() {

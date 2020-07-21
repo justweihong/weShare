@@ -40,7 +40,7 @@ export class RequestService {
                         'description': 'New Request in the Community!',
                         'createdBy': requestData['createdBy'],
                         'status': 'new notification',
-                        'ID' : key.id
+                        'ID': key.id
                     }
                     this.notificationService.notifyAll(key.id, requestData['createdBy'], data);
                 }
@@ -64,30 +64,31 @@ export class RequestService {
         this.afs.doc(`requests/${requestID}`).valueChanges().pipe(take(1)).subscribe(req => {
             requestTitle = req['title'];
             notifyUser = req['createdBy'];
-        })
-        return this.afs.doc(`user/${helperID}`).valueChanges().pipe(take(1)).subscribe(user => {
-            helperName = user['displayName'];
-        }).add(() => {
-            var dataToChange = {
-                helper: helperID,
-                helpTimeStamp: Date.now(),
-                status: "ongoing",
-            }
-            this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
-                // this.subject2.next();
-                console.log("done")
-            })
-                .then(() => {
-                    var data = {
-                        'title': helperName + ' has helped you!',
-                        'description': requestTitle + ' has been accepted!',
-                        'createdBy': helperID,
-                        'status': 'new notification',
-                        'type': 'accepted request',
-                        'ID': requestID
-                    }
-                    this.notificationService.notifyUser(notifyUser, requestID, data);
+
+            this.afs.doc(`user/${helperID}`).valueChanges().pipe(take(1)).subscribe(user => {
+                helperName = user['displayName'];
+            }).add(() => {
+                var dataToChange = {
+                    helper: helperID,
+                    helpTimeStamp: Date.now(),
+                    status: "ongoing",
+                }
+                this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
+                    // this.subject2.next();
+                    console.log("done")
                 })
+                    .then(() => {
+                        var data = {
+                            'title': helperName + ' has helped you!',
+                            'description': requestTitle + ' has been accepted!',
+                            'createdBy': helperID,
+                            'status': 'new notification',
+                            'type': 'accepted request',
+                            'ID': requestID
+                        }
+                        this.notificationService.notifyUser(notifyUser, requestID, data);
+                    })
+            })
         })
 
 
@@ -117,7 +118,7 @@ export class RequestService {
 
     // Update status on Firebase then allow subject2 to detect change for subscription in explore & request-detail.
     completeRequest(requestID) {
-        
+
 
         //increase completed request for helper
         // this.userService.increaseCompletedRequest(requestHelper);
@@ -139,31 +140,32 @@ export class RequestService {
             requestTitle = req['title'];
             notifyUser = req['createdBy'];
             helperID = req['helper'];
-        })
-        return this.afs.doc(`user/${helperID}`).valueChanges().pipe(take(1)).subscribe(user => {
-            helperName = user['displayName'];  //bug here helperName undefined
-        })
-            .add(() => {
-                var dataToChange = {
-                    completeTimeStamp: Date.now(),
-                    status: "completed",
-                }
 
-                this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
-                    console.log('done');
-                })
-                    .then(() => {
-                        var data = {
-                            'title': helperName + ' has completed your request!',
-                            'description': requestTitle + ' has been completed!',
-                            'createdBy': helperID,
-                            'status': 'new notification',
-                            'type': 'accepted request',
-                            'ID' : requestID
-                        }
-                        this.notificationService.notifyUser(notifyUser, requestID, data);
-                    });
-            }).unsubscribe();
+            this.afs.doc(`user/${helperID}`).valueChanges().pipe(take(1)).subscribe(user => {
+                helperName = user['displayName'];  //bug here helperName undefined
+            })
+                .add(() => {
+                    var dataToChange = {
+                        completeTimeStamp: Date.now(),
+                        status: "completed",
+                    }
+
+                    this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
+                        console.log('done');
+                    })
+                        .then(() => {
+                            var data = {
+                                'title': helperName + ' has completed your request!',
+                                'description': requestTitle + ' has been completed!',
+                                'createdBy': helperID,
+                                'status': 'new notification',
+                                'type': 'accepted request',
+                                'ID': requestID
+                            }
+                            this.notificationService.notifyUser(notifyUser, requestID, data);
+                        });
+                }).unsubscribe();
+        })
 
     }
 

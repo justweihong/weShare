@@ -84,6 +84,9 @@ export class NewListingComponent implements OnInit {
   /****************** Upload Process ****************/
   startUpload(event: FileList) {
 
+    let titleHelper;
+    titleHelper = this.title.value;
+
     //handle invalid form
     if (this.listingForm.controls['title'].invalid.valueOf() || this.listingForm.controls['price'].invalid.valueOf()
       || this.listingForm.controls['description'].invalid.valueOf()) {
@@ -111,12 +114,15 @@ export class NewListingComponent implements OnInit {
         key => {
           this.db.collection('listings').doc(`${key.id}`).set({ ID: key.id }, { merge: true });
           var data = {
-            'title': 'New Listing',
-            'description': 'New Item in the marketplace!',
+            'title': 'New Listing in the marketplace!',
+            'description': 'New Item: ' + titleHelper,
             'createdBy': this.createdBy,
             'status': 'new notification',
             'ID': key.id
           }
+          
+          //notification id is listing id
+          //notify all except self
           this.notificationService.notifyAll(key.id, this.createdBy, data)
         }
       )
@@ -169,12 +175,15 @@ export class NewListingComponent implements OnInit {
           this.db.collection('listings').doc(`${key.id}`).set({ ID: key.id }, { merge: true });
           // this.db.collection('listings').doc(`${key.id}`).collection("offers").doc('creator').set({offererID: this.createdBy});            
           var data = {
-            'title': 'New Listing',
-            'description': 'New Item in the marketplace!',
+            'title': 'New Listing in the marketplace!',
+            'description': 'New Item: ' + titleHelper,
             'createdBy': this.createdBy,
             'status': 'new notification',
             'ID': key.id
           }
+
+          //notification id is listing id
+          //notify all except self
           this.notificationService.notifyAll(key.id, this.createdBy, data)
 
         }
