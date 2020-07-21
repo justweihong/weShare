@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../services/user/user.service';
-import { take } from 'rxjs/operators';
+import { take, timestamp } from 'rxjs/operators';
 import { ChatService } from '../services/chat/chat.service';
 import { AuthService } from '../services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { text } from '@fortawesome/fontawesome-svg-core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+// import { time } from 'console';
 
 @Component({
   selector: 'app-chat',
@@ -19,6 +21,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   chatState:any;
   navstate:any;
 
+  currentChat:any;
+  currentChatMessages:any;
+  newMessage: FormGroup;
+
   myChats:any;
   // chatUserIDs = ["1grR7ziJIdTEp05Ph9pQn0LrBTh1", "9bYI7XvokiNmGwqkmKOA6pxklLI3", "AvY3ySEvwEY2W1ZDqnp1alRzIMy2"];
   // chatUserData: any;
@@ -29,31 +35,33 @@ export class ChatComponent implements OnInit, OnDestroy {
     public chatService: ChatService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    public fb: FormBuilder,
   ) { }
 
   ngOnInit(): void {
-    // Update the request state
+
+    this.createEmptyForm();
+    
+    // Get the initial chat state.
     this.chatState = this.activatedRoute.snapshot.url[1].path;
     if (!this.chatState) {
         this.chatState = "nil";
     }
-    console.log(this.chatState)
-      this.subscriptions.push(this.router.events.subscribe(val => {
-        if (val instanceof NavigationEnd) {
-          this.chatState = val.url.slice(6);
-          // console.log(this.navstate);
-          // this.chatState = this.activatedRoute.snapshot.url[1].path;
-          // if (!this.chatState) {
-          //     this.chatState = "nil";
-          // }
-        }
-      }))
-
+    console.log("initial", this.chatState);
 
     // Get user details.
     this.auth.getUser().pipe(take(1)).subscribe(user => {
       this.userID = user.uid;
 
+      //Get all users. //TODO: is this necessary??
+      this.userService.getUsers().pipe(take(1)).subscribe(users => {
+        users.forEach(user => {
+          if (user != this.userID) {
+            this.allUsers.push(user);
+          }
+        })
+        console.log(this.allUsers);
+      })
 
       //get my chats
       this.subscriptions.push(this.chatService.getChats().pipe().subscribe(chats => {
@@ -74,7 +82,6 @@ export class ChatComponent implements OnInit, OnDestroy {
                 otherUserID = chat['user1'];
               }
 
-
                 this.userService.getUser(otherUserID).pipe(take(1)).subscribe(userdata => {
                   chat['otherUserData'] = userdata;
                   myChats.push(chat);
@@ -82,33 +89,90 @@ export class ChatComponent implements OnInit, OnDestroy {
               })
 
             }
-
           })
           getAllUserData.push(getUserData);
         })
 
         Promise.all(getAllUserData).then(() => {
           this.myChats = myChats;
-          console.log(this.myChats)
+          this.createEmptyForm();
+          this.getCurrentChatData();
         })
 
       }));
 
-      //Get all users.
-      this.userService.getUsers().pipe(take(1)).subscribe(users => {
-        users.forEach(user => {
-          if (user != this.userID) {
-            this.allUsers.push(user);
-          }
-        })
-      })
+      // Within same component route to different chats/find-users.
+      this.subscriptions.push(this.router.events.subscribe(val => {
+        if (val instanceof NavigationEnd) {
+          this.chatState = val.url.slice(6); //chatID
 
+          this.createEmptyForm();
+          this.getCurrentChatData();
+        }
+      }))
 
 
     })
-
-
   }
+
+  get text() { return this.newMessage.get('text') }
+
+  /**ngOnInit Helper methods START **/
+  createEmptyForm() {
+    this.newMessage = this.fb.group({
+      'text': '',
+    });
+  }
+  getCurrentChatData() {
+    if (this.chatState != 'find-users') {
+
+      // Get current chat.
+      for (let chat of this.myChats) {
+        if (chat['ID'] == this.chatState) {
+          this.currentChat = chat;
+        }
+      }
+
+      // Get chat messages.
+      this.subscriptions.push(this.chatService.getMessages(this.chatState).pipe().subscribe(messages => {
+        this.currentChatMessages = messages;
+      }));
+    }
+  }
+  /**ngOnInit Helper methods END **/
+
+  datetime12H(timestamp) {  
+    const day = new Date(timestamp).getDate();
+    const monthNo = new Date(timestamp).getMonth();
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"];
+    const month = months[monthNo];
+    var year = new Date(timestamp).getFullYear();
+    var hour24:any = new Date(timestamp).getHours();
+    var min:any = new Date(timestamp).getMinutes();
+
+    // Set to 12H timing.
+    var hour12 = hour24;
+    var ampm = "am";
+    if (hour24 > 12) {
+      hour12 = hour24 - 12;
+      ampm = "pm";
+    }
+    if (hour24 == 0 || hour24 == 24) {
+      hour12 = 12;
+      ampm = "am"
+    }
+
+    // Add 0 padding for single digits.
+    if (min < 10) {
+        min = "0" + min;
+    }
+    if (hour12 < 10) {
+        hour12 = "0" + hour12;
+    }
+
+    return day + " " + month + " " + year + ", " + hour12 + "." + min + " " +  ampm ;
+}
+
   checkIfChatExist(user1, user2) {
     this.chatService.checkIfChatExist(user1, user2).then(details => console.log(details['answer']));
   }
@@ -130,10 +194,14 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   sendMessage() {
     var messageDetails = {
-      text: "hello",
+      text: this.text.value,
+      senderID: this.userID,
       timeStamp: Date.now(),
     };
+    
     this.chatService.addMessage(this.chatState, messageDetails);
+    this.chatService.updateLatestChat(this.chatState, this.userID, this.text.value);
+    this.newMessage.reset();
   }
 
   ngOnDestroy(): void {

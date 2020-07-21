@@ -35,8 +35,8 @@ export class ChatService {
           hasRead: false,
           user1: user1,
           user2: user2,
-          latestChat: null,
-          latestChatSender: null,
+          latestChat: '',
+          latestChatSender: '',
         }
         if (navigator.onLine) {
           return collection.add(chatDetails).then(
@@ -67,7 +67,23 @@ export class ChatService {
     })
   }
 
+  getMessages(chatID) {
+    return this.afs.collection(`chat/${chatID}/messages`, ref => ref.orderBy('timeStamp', 'desc')).valueChanges();
+  }
+  getChat(chatID) {
+    return this.afs.collection(`chat/${chatID}`).valueChanges();
+  }
+
   getChats(){
     return this.afs.collection(`chat`).valueChanges();
+  }
+
+  updateLatestChat(chatID, senderID, senderText) {
+    const updateDetails = {
+      latestChat: senderText,
+      text2: senderText,
+      latestChatSender: senderID,
+    }
+    this.afs.doc(`chat/${chatID}`).set(updateDetails, {merge: true});
   }
 }

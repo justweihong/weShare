@@ -43,7 +43,7 @@
 .user-entry-username {
   color: #043245;
   font-size:1.3em;
-  width: calc(100% - 5em);
+  /* width: calc(100% - 5em); */
   overflow:hidden;
 }
 .user-entry-last-msg {

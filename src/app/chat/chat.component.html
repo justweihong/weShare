@@ -9,7 +9,6 @@
         find users
       </div>
 
-
       <div *ngFor="let chat of myChats">
         <div class="user-entry" routerLink="/chat/{{chat['ID']}}" routerLinkActive="active-select">
           <div class="user-entry-image-section">
@@ -19,7 +18,7 @@
           <div class="user-entry-desc">
             <span style="width:inherit;">
               <div class="user-entry-username"> {{chat['otherUserData']['displayName']}}</div>
-              <div class="user-entry-last-msg"> fdsafdsaf fdsa fdsa fdsa fds afdsa fdsag fds ghfdsg fds gfds g</div>
+              <div class="user-entry-last-msg"> {{chat['latestChat']}}</div>
           </span>
           </div>
 
@@ -31,11 +30,24 @@
     <div class="main-chat" *ngIf="this.chatState && this.chatState != 'find-users' ">
 
       <div class="main-header">
-        <div class="main-username" (click)="this.checkIfChatExist('FYFKy8fDynVxQOm001P91kBIpJG23', '1grR7ziJIdTEp05Ph9pQn0LrBTh1')" >check exist</div>
+        <div class="main-username" *ngIf="this.currentChat && this.currentChat['otherUserData']['displayName']">{{this.currentChat["otherUserData"]["displayName"]}} </div>
         <div class="main-status">online</div>
       </div>
 
       <div id="chat-message-list" class="chat-message-list">
+        <div *ngFor="let message of currentChatMessages">
+
+          <div *ngIf="message['senderID'] == this.userID" class="message-row own-message">
+            <div class="message-text">{{message['text']}}</div>
+            <div class="message-time">{{this.datetime12H(message[['timeStamp']])}}</div>
+          </div>
+
+          <div *ngIf="message['senderID'] != this.userID" class="message-row other-message">
+            <div class="message-text">{{message['text']}}</div>
+            <div class="message-time">{{this.datetime12H(message[['timeStamp']])}}</div>
+          </div>
+
+        </div>
 
         <div class="message-row own-message">
           <div class="message-text">ok then</div>
@@ -95,11 +107,13 @@
 
       </div>
 
-      <div class="chat-form">
-        <i class="fa fa-paperclip fa-2x chat-form-logo" aria-hidden="true"></i>
-        <!-- <input class="chat-input" type="text" placeholder="type a message "> -->
-        <textarea placeholder="type a message..."  rows="1"></textarea>
-        <i class="fa fa-arrow-circle-up fa-2x chat-form-logo" aria-hidden="true" (click)="sendMessage()"></i>
+      <div >
+        <form [formGroup]="newMessage" class="chat-form">
+          <i class="fa fa-paperclip fa-2x chat-form-logo" aria-hidden="true"></i>
+          <!-- <input class="chat-input" type="text" placeholder="type a message "> -->
+          <textarea formControlName="text" placeholder="type a message..."  rows="1"></textarea>
+          <i class="fa fa-arrow-circle-up fa-2x chat-form-logo" aria-hidden="true" (click)="sendMessage()"></i>
+        </form>
       </div>
 
     </div>
