@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireStorage, AngularFireUploadTask, createStorageRef } from '@angular/fire/storage';
 import { Subject, Observable, from } from 'rxjs';
-import { tap, finalize } from 'rxjs/operators';
+import { tap, finalize, take } from 'rxjs/operators';
 import { UserService } from '../user/user.service';
 import { NotificationService } from '../notification/notification.service';
 
@@ -34,7 +34,7 @@ export class ListingService {
 
     //delete offer collection
     if (listingDetails['hasOffers']) {
-      this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").snapshotChanges().subscribe(offer => {
+      this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").valueChanges().pipe(take(1)).subscribe(offer => {
         offer.forEach(individualOffer => {
           //notify all offerers that listing has been deleted
           var data = {
@@ -46,10 +46,10 @@ export class ListingService {
           }
           this.notificationService.notifyUser(individualOffer["offererID"], listingDetails['ID'] + individualOffer["offererID"], data);
 
-          //delete any existing offers notification for this listing
+          // //delete any existing offers notification for this listing
           this.notificationService.removeNotificationForUser(listingDetails['createdBy'], listingDetails['ID'] + individualOffer['offererID']);
 
-          this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").doc(individualOffer['offererID']).delete()
+          this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").doc(individualOffer['offererID']).delete();
         })
 
       })
@@ -122,7 +122,7 @@ export class ListingService {
           'ID': listingDetails['ID'] + offer["offererID"]
         }
         this.notificationService.notifyUser(offer["offererID"], listingDetails['ID'] + offer["offererID"], data);
-      
+
       });
   }
 
