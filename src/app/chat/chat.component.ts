@@ -5,6 +5,7 @@ import { ChatService } from '../services/chat/chat.service';
 import { AuthService } from '../services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { text } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-chat',
@@ -125,6 +126,14 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
 
 
+  }
+
+  sendMessage() {
+    var messageDetails = {
+      text: "hello",
+      timeStamp: Date.now(),
+    };
+    this.chatService.addMessage(this.chatState, messageDetails);
   }
 
   ngOnDestroy(): void {

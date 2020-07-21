@@ -12,10 +12,18 @@ export class ChatService {
   ) { }
 
 
-  sendMessage(){}
+  addMessage(chatID, messageDetails){
+    if (navigator.onLine) {
+      const collection = this.afs.collection(`chat/${chatID}/messages`)
+      collection.add(messageDetails).then(
+        key => {
+          collection.doc(`${key.id}`).set({ ID: key.id }, { merge: true });
+        }
+      )
+    }
+  }
 
   createNewChat(user1, user2) {
-
     this.checkIfChatExist(user1, user2).then(details => {
       if (details['answer'] == true) {
         alert("You already have an existing chat with this person!");
@@ -35,6 +43,7 @@ export class ChatService {
               key => {
                   collection.doc(`${key.id}`).set({ ID: key.id }, { merge: true });
               }
+              // create empty messages collection
           );
         }
 
