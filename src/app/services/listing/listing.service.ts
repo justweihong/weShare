@@ -46,8 +46,9 @@ export class ListingService {
           }
           this.notificationService.notifyUser(individualOffer["offererID"], listingDetails['ID'] + individualOffer["offererID"], data);
 
-          // //delete any existing offers notification for this listing
-          this.notificationService.removeNotificationForUser(listingDetails['createdBy'], listingDetails['ID'] + individualOffer['offererID']);
+          //delete any existing offers notification for this listing
+          console.log(listingDetails['ID'] + individualOffer['offererID'], listingDetails['createdBy'])
+          this.notificationService.removeNotificationForUser(listingDetails['ID'] + individualOffer['offererID'], listingDetails['createdBy']);
 
           this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").doc(individualOffer['offererID']).delete();
         })
@@ -103,9 +104,9 @@ export class ListingService {
 
     //delete offer notifications for user
     if (listingDetails['hasOffers']) {
-      this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").snapshotChanges().subscribe(offer => {
+      this.db.doc(`listings/${listingDetails['ID']}`).collection("offers").valueChanges().pipe(take(1)).subscribe(offer => {
         offer.forEach(individualOffer => {
-          this.notificationService.removeNotificationForUser(listingDetails['createdBy'], listingDetails['ID'] + individualOffer["offererID"]);
+          this.notificationService.removeNotificationForUser( listingDetails['ID'] + individualOffer["offererID"], listingDetails['createdBy']);
         })
       })
     }

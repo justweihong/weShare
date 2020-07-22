@@ -108,7 +108,7 @@ export class NotificationService {
 
   //notify 'userID' with 'data' and document ID is 'notificationID'
   //listing offers use "listingID + offererID" as notificationID
-  //requests use a common "requestID" as notificationID
+  //requests use a common "requestID + helperID" as notificationID
   notifyUser(userID, notificationID, data) {
     this.afs.collection('user').valueChanges().pipe(take(1)).subscribe(allUser => {
       allUser.forEach(user => {

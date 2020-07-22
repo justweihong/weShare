@@ -36,8 +36,8 @@ export class RequestService {
                 key => {
                     collection.doc(`${key.id}`).set({ ID: key.id }, { merge: true });
                     var data = {
-                        'title': 'New Request',
-                        'description': 'New Request in the Community!',
+                        'title': 'New Request in the Community!',
+                        'description': 'New Request: ' + requestData['title'],
                         'createdBy': requestData['createdBy'],
                         'status': 'new notification',
                         'ID': key.id
@@ -49,13 +49,42 @@ export class RequestService {
     }
 
     deleteRequest(requestID) {
+        //remove all new request notifications
         this.notificationService.removeNotifications(requestID);
+
+        //get request details
+        let status;
+        let requestCreator;
+        let helperID;
+        let requestTitle;
+        this.afs.doc(`requests/${requestID}`).valueChanges().pipe(take(1)).subscribe(req => {
+            status = req['status'];
+            requestCreator = req['createdBy'];
+            helperID = req['helper'];
+            requestTitle = req['title'];
+
+            if (status === "completed") {
+                //Notification of completion (if any) will be deleted (to declutter database)
+                this.notificationService.removeNotificationForUser(requestID + helperID, requestCreator);
+            } else if (status ==="ongoing") {
+                //New notification will be pushed to person (if any) who accepted the request
+                var data = {
+                    'title': 'Your accepted request have been deleted!',
+                    'description': requestTitle + ' has been deleted from the community!',
+                    'createdBy': requestCreator,
+                    'status': 'new notification',
+                    'type': 'deleted request',
+                    'ID': requestID + requestCreator
+                }
+                this.notificationService.notifyUser(helperID, requestID + requestCreator, data);
+            }
+        })
+
         this.afs.doc(`requests/${requestID}`).delete();
     }
 
     // Update status on Firebase then allow subject2 to detect change for subscription in explore & request-detail.
     acceptRequest(requestID, helperID) {
-
 
         //get request details
         let requestTitle;
@@ -84,9 +113,9 @@ export class RequestService {
                             'createdBy': helperID,
                             'status': 'new notification',
                             'type': 'accepted request',
-                            'ID': requestID
+                            'ID': requestID + helperID
                         }
-                        this.notificationService.notifyUser(notifyUser, requestID, data);
+                        this.notificationService.notifyUser(notifyUser, requestID + helperID, data);
                     })
             })
         })
@@ -105,10 +134,12 @@ export class RequestService {
             status: "active",
         }
         let userNotificationToDelete;
+        let helperID;
         this.afs.doc(`requests/${requestID}`).valueChanges().pipe(take(1)).subscribe(req => {
             userNotificationToDelete = req['createdBy'];
+            helperID = req['helper'];
         }).add(() => {
-            this.notificationService.removeNotificationForUser(requestID, userNotificationToDelete);
+            this.notificationService.removeNotificationForUser(requestID + helperID, userNotificationToDelete);
         })
 
         return this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
@@ -119,18 +150,8 @@ export class RequestService {
     // Update status on Firebase then allow subject2 to detect change for subscription in explore & request-detail.
     completeRequest(requestID) {
 
-
-        //increase completed request for helper
-        // this.userService.increaseCompletedRequest(requestHelper);
-
-        // var tempSub = this.getRequest(requestID).subscribe(req => {
-        //     if (req['helper'] != "nil") {
-        //         console.log(req['helper']);
-        //         this.userService.increaseCompletedRequest(req['helper']);
-
-        //     }
-        // })
-        // tempSub.unsubscribe();
+        //remove all new request notifications
+        this.notificationService.removeNotifications(requestID);
 
         let requestTitle;
         let notifyUser;
@@ -142,7 +163,7 @@ export class RequestService {
             helperID = req['helper'];
 
             this.afs.doc(`user/${helperID}`).valueChanges().pipe(take(1)).subscribe(user => {
-                helperName = user['displayName'];  //bug here helperName undefined
+                helperName = user['displayName'];  
             })
                 .add(() => {
                     var dataToChange = {
@@ -160,9 +181,9 @@ export class RequestService {
                                 'createdBy': helperID,
                                 'status': 'new notification',
                                 'type': 'accepted request',
-                                'ID': requestID
+                                'ID': requestID + helperID
                             }
-                            this.notificationService.notifyUser(notifyUser, requestID, data);
+                            this.notificationService.notifyUser(notifyUser, requestID + helperID, data);
                         });
                 }).unsubscribe();
         })
