@@ -164,7 +164,7 @@ export class NotificationService {
   }
 
   getNotificationsValueChanges(userID) {
-    return this.afs.doc(`user/${userID}`).collection(`notifications`, ref => ref.orderBy('timeStamp', 'desc')).valueChanges();
+    return this.afs.doc(`user/${userID}`).collection(`notifications`).valueChanges();
   }
 
 

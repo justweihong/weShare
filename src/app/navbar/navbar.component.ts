@@ -38,6 +38,7 @@ export class NavbarComponent implements OnInit {
         this.userImg = user.photoURL;
 
         this.notificationService.getNotificationsValueChanges(this.userID).subscribe(allNoti => {
+          // console.log('allNoti',allNoti);
           this.notifications = [];
           // console.log(allNoti)
           allNoti.forEach(noti => {
