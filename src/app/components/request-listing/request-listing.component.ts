@@ -5,6 +5,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { NgbModal, NgbModalOptions, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { ChatService } from 'src/app/services/chat/chat.service';
 // import * as $ from 'jquery';
 declare var $: any;
 
@@ -34,6 +35,7 @@ export class RequestListingComponent implements OnInit {
     public auth: AuthService,
     private requestService: RequestService,
     private userService: UserService,
+    public chatService: ChatService,
   ) {
   }
 
@@ -232,6 +234,10 @@ export class RequestListingComponent implements OnInit {
 
   closeDetailsModal() {
     $('#request-details-modal').modal('hide')
+  }
+  requestStartChat() {
+    this.chatService.startChat(this.userID, this.creatorDetails['uid']);
+    this.modalService.dismissAll();
   }
 
   ngOnDestroy() {

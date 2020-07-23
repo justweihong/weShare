@@ -125,6 +125,10 @@
   padding: 0.5em 0.5em;
   overflow-wrap: anywhere;
 }
+.chat-button {
+  width:2em;
+  padding:0.3em 0;
+}
 .item-top-border {
   border-top:solid;
   /* border-bottom: solid; */
