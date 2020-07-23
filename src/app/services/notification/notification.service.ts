@@ -92,7 +92,7 @@ export class NotificationService {
   }
 
   //notifies all users except 'creatorID' with 'data', notification doc ID ser as 'notificationID'
-  //requests use a common notificationID
+  //requests use a requestID notificationID
   //marketplace use the listingID as notificationID
   notifyAll(notificationID, creatorID, data) {
     this.afs.collection('user').valueChanges().pipe(take(1)).subscribe(allUser => {
@@ -108,7 +108,8 @@ export class NotificationService {
 
   //notify 'userID' with 'data' and document ID is 'notificationID'
   //listing offers use "listingID + offererID" as notificationID
-  //requests use a common "requestID + helperID" as notificationID
+  //requests use  "requestID + helperID" as notificationID for accepting/finished
+  //chats use user1 + user2 ID as notificationID
   notifyUser(userID, notificationID, data) {
     this.afs.collection('user').valueChanges().pipe(take(1)).subscribe(allUser => {
       allUser.forEach(user => {
