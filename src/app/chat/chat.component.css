@@ -161,10 +161,12 @@ textarea {
   border: none;
   border-radius: 5px;
   resize: none;
+  padding:0.5em;
   /* border:solid;
   border-color:#b2c2c9;
   border-width:0.5px; */
   background:#cddbe1;
+  max-height:10em;
   /* padding:0.5em; */
 }
 textarea:focus {

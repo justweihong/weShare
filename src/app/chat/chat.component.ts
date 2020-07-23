@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { text } from '@fortawesome/fontawesome-svg-core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import * as autosize from 'autosize';
 // import { time } from 'console';
 
 @Component({
@@ -41,7 +42,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.createEmptyForm();
-    //Get all users. //TODO: is this necessary??
+    autosize(document.querySelector('textarea'));
+
+
+
+    //Get all users.
     this.userService.getUsers().pipe(take(1)).subscribe(users => {
       this.allUsers = users;
       // users.forEach(user => {
@@ -51,7 +56,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       //     this.allUsers.push(user);
       //   }
       // })
-      console.log(this.allUsers);
+      // console.log(this.allUsers);
     })
 
     // Get the initial chat state.
@@ -214,15 +219,18 @@ export class ChatComponent implements OnInit, OnDestroy {
     console.log(this.currentChat['otherUserData']);
     this.checkIfChatExist(this.userID, this.currentChat['otherUserData']['uid']).then(answer => {
       if (answer == true) {
-        var messageDetails = {
-          text: this.text.value,
-          senderID: this.userID,
-          timeStamp: Date.now(),
-        };
+        if (this.text.value != "") { // don't send empty message
+          var messageDetails = {
+            text: this.text.value,
+            senderID: this.userID,
+            timeStamp: Date.now(),
+          };
 
-        this.chatService.addMessage(this.chatState, messageDetails);
-        this.chatService.updateLatestChat(this.chatState, this.userID, this.text.value);
-        this.newMessage.reset();
+          this.chatService.addMessage(this.chatState, messageDetails);
+          this.chatService.updateLatestChat(this.chatState, this.userID, this.text.value);
+          this.newMessage.reset();
+        }
+
       } else {
         alert("This chat does not exist anymore!");
         this.router.navigate(["/chat/find-users"]);
@@ -232,7 +240,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   deleteChat(currentChat) {
-    if(confirm("Are you sure you want to delete chat with " + currentChat['otherUserData']['displayName'])) {
+    if(confirm("Are you sure you want to delete chat with " + currentChat['otherUserData']['displayName'] + "? It will be deleted for both parties.")) {
       this.chatService.removeChat(currentChat['ID']);
       this.router.navigate(["/chat/find-users"]);
     }
