@@ -41,7 +41,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.createEmptyForm();
-    
+
     // Get the initial chat state.
     this.chatState = this.activatedRoute.snapshot.url[1].path;
     if (!this.chatState) {
@@ -144,7 +144,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
   /**ngOnInit Helper methods END **/
 
-  datetime12H(timestamp) {  
+  datetime12H(timestamp) {
     const day = new Date(timestamp).getDate();
     const monthNo = new Date(timestamp).getMonth();
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"];
@@ -190,7 +190,9 @@ export class ChatComponent implements OnInit, OnDestroy {
 
         } else {
           if (confirm("Start chat with " + user["displayName"] + "?")) {
-            this.chatService.createNewChat(this.userID, user['uid']);
+            this.chatService.createNewChat(this.userID, user['uid']).then(chatID => {
+              this.router.navigate(["/chat/", chatID])
+            });
           }
         }
       });
@@ -204,10 +206,17 @@ export class ChatComponent implements OnInit, OnDestroy {
       senderID: this.userID,
       timeStamp: Date.now(),
     };
-    
+
     this.chatService.addMessage(this.chatState, messageDetails);
     this.chatService.updateLatestChat(this.chatState, this.userID, this.text.value);
     this.newMessage.reset();
+  }
+
+  deleteChat(currentChat) {
+    if(confirm("Are you sure you want to delete chat with " + currentChat['otherUserData']['displayName'])) {
+      this.chatService.removeChat(currentChat['ID']);
+      this.router.navigate(["/chat/find-users"])
+    }
   }
 
   ngOnDestroy(): void {

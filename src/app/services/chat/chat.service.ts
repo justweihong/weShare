@@ -24,32 +24,41 @@ export class ChatService {
   }
 
   createNewChat(user1, user2) {
-    this.checkIfChatExist(user1, user2).then(details => {
-      if (details['answer'] == true) {
-        alert("You already have an existing chat with this person!");
-      } else {
-        //Create new chat
-        const collection = this.afs.collection(`chat`);
-        const chatDetails = {
-          timeStamp : Date.now(),
-          hasRead: false,
-          user1: user1,
-          user2: user2,
-          latestChat: '',
-          latestChatSender: '',
-        }
-        if (navigator.onLine) {
-          return collection.add(chatDetails).then(
-              key => {
-                  collection.doc(`${key.id}`).set({ ID: key.id }, { merge: true });
-              }
-              // create empty messages collection
-          );
-        }
+    return new Promise((resolve, reject) => {
+      this.checkIfChatExist(user1, user2).then(details => {
+        if (details['answer'] == true) {
+          alert("You already have an existing chat with this person!");
+          reject("existing quest");
+        } else {
+          //Create new chat
+          const collection = this.afs.collection(`chat`);
+          const chatDetails = {
+            timeStamp : Date.now(),
+            hasRead: false,
+            user1: user1,
+            user2: user2,
+            latestChat: '',
+            latestChatSender: '',
+          }
+          if (navigator.onLine) {
+            return collection.add(chatDetails).then(
+                key => {
+                    collection.doc(`${key.id}`).set({ ID: key.id }, { merge: true });
+                    resolve(key.id);
+                }
+                // create empty messages collection
+            );
+          }
 
-      }
-    });
+        }
+      });
+    })
 
+
+
+  }
+  removeChat(chatID) {
+    this.afs.doc(`chat/${chatID}`).delete();
   }
 
   checkIfChatExist(user1, user2) {
