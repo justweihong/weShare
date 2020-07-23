@@ -1,7 +1,9 @@
 <div class="container-fluid">
 
-    <div class="grid request-list page-height">
+    <div class="grid page-list page-height">
         <table class="table">
+
+            <!-- Header for leaderboard -->
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
@@ -10,6 +12,8 @@
                     <th scope="col">Good Samaritan <br>- Highest number of completed requests</th>
                 </tr>
             </thead>
+
+
             <tbody>
                 <tr>
                     <th scope="row">1</th>
@@ -39,6 +43,8 @@
                         {{this.completedRequestCountTop3[2][1]}}</td>
                 </tr>
             </tbody>
+
+            
         </table>
 
         <h3 *ngIf ="this.userListingCount; else noListing">Your number of listings is {{this.userListingCount}}</h3>
