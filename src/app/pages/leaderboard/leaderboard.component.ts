@@ -122,6 +122,7 @@ export class LeaderboardComponent implements OnInit {
       this.listingCountTop3.forEach(element => {
         this.userService.getUser(element[0]).pipe(take(1)).subscribe(usr => {
           element[2] = usr['displayName'];
+          element[3] = usr['profileImg'];
         })
       });
 
@@ -129,6 +130,7 @@ export class LeaderboardComponent implements OnInit {
       this.completedListingCountTop3.forEach(element => {
         this.userService.getUser(element[0]).pipe(take(1)).subscribe(usr => {
           element[2] = usr['displayName'];
+          element[3] = usr['profileImg'];
         })
       });
 
@@ -166,6 +168,7 @@ export class LeaderboardComponent implements OnInit {
       this.completedRequestCountTop3.forEach(element => {
         this.userService.getUser(element[0]).pipe(take(1)).subscribe(usr => {
           element[2] = usr['displayName'];
+          element[3] = usr['profileImg'];
         })
       });
       // console.log(this.completedRequestCountTop3);

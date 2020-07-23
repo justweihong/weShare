@@ -18,9 +18,35 @@
   }
 
   h3 {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    border: powderblue;
-    border-style: ridge;
-    border-radius: 10px;
-    background-color: aliceblue;
+    font-family: cursive;
+
   }
+
+  .table {
+    text-decoration: aliceblue;
+    font-family: cursive;
+    text-align: center;
+    display: inline-table;
+    margin-top: 1%;
+  }
+
+  .title {
+    color: rgb(250, 220, 121);
+    font-size: larger;
+  }
+
+  .subtitle {
+    font-size: small;
+    font-style: italic;
+    color: bisque;
+  }
+
+  .image-holder {
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+}
+
+.jumbotron {
+  text-align: center;
+}
