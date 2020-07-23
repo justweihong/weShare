@@ -17,10 +17,43 @@
     }
   }
 
-  h3 {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    border: powderblue;
-    border-style: ridge;
-    border-radius: 10px;
-    background-color: aliceblue;
+  
+
+  .table {
+    text-decoration: aliceblue;
+    font-family: cursive;
+    text-align: center;
+    display: inline-table;
+    margin-top: 1%;
   }
+
+  .title {
+    color: rgb(250, 220, 121);
+    font-size: large;
+  }
+
+  .subtitle {
+    font-size: small;
+    font-style: italic;
+    color: bisque;
+  }
+
+  .image-holder {
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+}
+
+.jumbotron {
+  text-align: center;
+  
+  background: linear-gradient(to bottom, #f1e2c5, #93e1ff);
+  opacity: 0.8;
+}
+
+h3 {
+  font-size: x-large;
+  font-family: cursive;
+  color: black;
+  font-style: italic;
+}
