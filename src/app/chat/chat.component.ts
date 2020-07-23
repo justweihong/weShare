@@ -211,7 +211,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   sendMessage() {
-    this.checkIfChatExist(this.userID, this.currentChat['otherUserData']['ID']).then(answer => {
+    console.log(this.currentChat['otherUserData']);
+    this.checkIfChatExist(this.userID, this.currentChat['otherUserData']['uid']).then(answer => {
       if (answer == true) {
         var messageDetails = {
           text: this.text.value,
