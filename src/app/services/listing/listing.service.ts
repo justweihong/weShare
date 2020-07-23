@@ -42,7 +42,8 @@ export class ListingService {
             'description': listingDetails['title'] + ' has been deleted from the marketplace!',
             'createdBy': listingDetails['createdBy'],
             'status': 'new notification',
-            'ID': listingDetails['ID'] + individualOffer["offererID"]
+            'ID': listingDetails['ID'] + individualOffer["offererID"],
+            'timeStamp': Date.now()
           }
           this.notificationService.notifyUser(individualOffer["offererID"], listingDetails['ID'] + individualOffer["offererID"], data);
 
@@ -77,7 +78,8 @@ export class ListingService {
       'description': offererName + ' has offered you $' + price + ' for ' + listingDetails['title'],
       'createdBy': offererID,
       'status': 'new notification',
-      'ID': listingDetails['ID'] + offererID
+      'ID': listingDetails['ID'] + offererID,
+      'timeStamp': Date.now()
     }
 
     //notify creator of listing; notificationID is "listingID + offererID" 
@@ -120,7 +122,8 @@ export class ListingService {
           'description': 'Your offer of $' + offer["price"] + ' for ' + listingDetails['title'] + ' has been accepted!',
           'createdBy': offer["offererID"],
           'status': 'new notification',
-          'ID': listingDetails['ID'] + offer["offererID"]
+          'ID': listingDetails['ID'] + offer["offererID"],
+          'timeStamp': Date.now()
         }
         this.notificationService.notifyUser(offer["offererID"], listingDetails['ID'] + offer["offererID"], data);
 
