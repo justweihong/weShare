@@ -1,59 +1,75 @@
 <nav class="navbar navbar-expand-lg bg" style="height:60px;padding:0.5em 1em;">
 
   <!-- left toggle sidenav -->
-  <div *ngIf="this.navstate != 'login' && this.navstate != 'home' && this.navstate != ''" >
+  <div *ngIf="this.navstate != 'login' && this.navstate != 'home' && this.navstate != ''">
     <i id="sidebarCollapse" class="fa fa-bars nav-link nav-text" style="cursor: pointer;" (click)="toggleSidenav()"></i>
     <!-- <button type="button" id="sidebarCollapse" class="btn btn-info" (click)="toggleSidenav()">
       <fa-icon id="toggle-sidebar" [icon]="faBars"></fa-icon>
     </button> -->
   </div>
 
-    <!-- middle logo -->
-    <div class="mx-auto order-0">
-      <a class="navbar-brand brand-title"  href="home">
-        <img src="../../assets/splash-symbol.png" width="25" height="25" class="d-inline-block" alt="">
-        weShare
-      </a>
-    </div>
+  <!-- middle logo -->
+  <div class="mx-auto order-0">
+    <a class="navbar-brand brand-title" href="home">
+      <img src="../../assets/splash-symbol.png" width="25" height="25" class="d-inline-block" alt="">
+      weShare
+    </a>
+  </div>
 
-    <!-- right items (logged in) -->
-    <div id="right-nav-items" *ngIf="isLogin">
-      <ul class="nav list-inline ml-auto">
+  <!-- right items (logged in) -->
+  <div id="right-nav-items" *ngIf="isLogin">
+    <ul class="nav list-inline ml-auto">
 
-        <!-- notification -->
-        <li class="list-inline-item">
-          <!-- TODO: replace with notification bell icon -->
-          <a class="nav-link nav-text" routerLinkActive="active" href="javascript:void(0);" (click)="showNotifications()">
-            <i class="fa fa-bell"></i>
+      <!-- notification -->
+      <li class="list-inline-item dropdown">
+        <!-- TODO: replace with notification bell icon -->
+        <a data-toggle="dropdown" class="nav-link nav-text dropdown-toggle" id="dropdownMenuButton"
+          routerLinkActive="active" href="javascript:void(0);">
+          <i class="fa fa-bell"></i> <span class="badge badge-warning">{{this.notificationCount}}</span>
+        </a>
+
+        <!-- Notifications -->
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" *ngFor="let notification of this.notifications">
+            <div id='noti'>
+              {{notification['description']}}
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="removeNotification(notification['ID'])">
+                <span aria-hidden="true">&times;</span>
+              </button>
           </a>
-        </li>
+        </div>
 
-        <!-- image dropdown -->
-        <li class="list-inline-item dropdown" style="position:relative;">
-          <a class="nav-link nav-text dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img src="{{this.userImg}}" class="image-holder">
-          </a>
+      </li>
 
-          <!-- dropdown menu -->
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="javascript:void(0);" (click)="auth.signOut()">Logout</a>
-          </div>
-        </li>
+      <!-- image dropdown -->
+      <li class="list-inline-item dropdown" style="position:relative;">
+        <a class="nav-link nav-text dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <img src="{{this.userImg}}" class="image-holder">
+        </a>
 
-      </ul>
+        <!-- dropdown menu -->
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="javascript:void(0);" (click)="auth.signOut()">Logout</a>
+        </div>
+      </li>
 
-    </div>
+    </ul>
 
-    <!-- right items (not logged in) -->
-    <div id="right-nav-items" *ngIf="!isLogin">
-      <ul class="nav list-inline ml-auto">
+  </div>
 
-        <!-- login -->
-        <li class="list-inline-item">
-          <a class="nav-link nav-text" routerLinkActive="active" routerLink="login">Login</a>
-        </li>
+  <!-- right items (not logged in) -->
+  <div id="right-nav-items" *ngIf="!isLogin">
+    <ul class="nav list-inline ml-auto">
 
-      </ul>
+      <!-- login -->
+      <li class="list-inline-item">
+        <a class="nav-link nav-text" routerLinkActive="active" routerLink="login">Login</a>
+      </li>
 
-    </div>
+    </ul>
+
+  </div>
 </nav>

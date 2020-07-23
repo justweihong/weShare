@@ -162,6 +162,9 @@ export class NotificationService {
     return this.afs.doc(`user/${userID}`).collection("notifications").snapshotChanges();
   }
 
+  getNotificationsValueChanges(userID) {
+    return this.afs.doc(`user/${userID}`).collection("notifications").valueChanges();
+  }
 
 
   // notifyNewListing() {
