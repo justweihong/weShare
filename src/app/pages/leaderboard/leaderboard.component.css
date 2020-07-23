@@ -17,10 +17,7 @@
     }
   }
 
-  h3 {
-    font-family: cursive;
-
-  }
+  
 
   .table {
     text-decoration: aliceblue;
@@ -32,7 +29,7 @@
 
   .title {
     color: rgb(250, 220, 121);
-    font-size: larger;
+    font-size: large;
   }
 
   .subtitle {
@@ -49,4 +46,14 @@
 
 .jumbotron {
   text-align: center;
+  
+  background: linear-gradient(to bottom, #f1e2c5, #93e1ff);
+  opacity: 0.8;
+}
+
+h3 {
+  font-size: x-large;
+  font-family: cursive;
+  color: black;
+  font-style: italic;
 }

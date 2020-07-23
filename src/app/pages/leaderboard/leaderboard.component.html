@@ -6,7 +6,7 @@
             <!-- Header for leaderboard -->
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col"><i class="fa fa-trophy fa-3x"></i></th>
+                    <th scope="col"><i class="fa fa-trophy fa-4x"></i></th>
                     <th scope="col"><span class='title'>Lobang King </span><i class="fa fa-shopping-cart fa-2x"></i>
                         <br><span class="subtitle">- Highest number of listings in marketplace</span></th>
                     <th scope="col"><span class='title'> Legendary Dealer </span><i class="fa fa-id-card-o fa-2x"></i>
@@ -65,15 +65,16 @@
 
         </table>
 
-        <div class="jumbotron jumbotron-fluid">
-            <h3 *ngIf="this.userListingCount; else noListing">Your number of listings is {{this.userListingCount}}</h3>
-            <h3 *ngIf="this.userCompletedListingCount; else noCompletedListing">Your number of completed listings is
+        <div class="jumbotron jumbotron-fluid" >
+            
+            <h3 *ngIf="this.userListingCount; else noListing"><i class="fa fa-shopping-cart fa-2x"></i> Your number of listings is {{this.userListingCount}}</h3>
+            <h3 *ngIf="this.userCompletedListingCount; else noCompletedListing"><i class="fa fa-id-card-o fa-2x"></i> Your number of completed listings is
                 {{this.userCompletedListingCount}}</h3>
-            <h3 *ngIf="this.userCompletedRequestCount; else noCompletedRequest">Your number of completed requests is
+            <h3 *ngIf="this.userCompletedRequestCount; else noCompletedRequest"><i class="fa fa-users fa-2x"></i> Your number of completed requests is
                 {{this.userCompletedRequestCount}}</h3>
-
+            
         </div>
-        
+
         <ng-template #notShow>
             <td>-</td>
         </ng-template>
