@@ -186,7 +186,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
 
     return day + " " + month + " " + year + ", " + hour12 + "." + min + " " +  ampm ;
-}
+ }
+
 
   checkIfChatExist(user1, user2) {
     return new Promise((resolve) => {
