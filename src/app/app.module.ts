@@ -33,6 +33,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component';
 import { NotificationService } from './services/notification/notification.service';
+import { ChatComponent } from './chat/chat.component';
 
 // My web app's Firebase configuration
 const firebaseConfig = {
@@ -64,6 +65,7 @@ const firebaseConfig = {
     SidenavComponent,
     ProfileComponent,
     LeaderboardComponent,
+    ChatComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),

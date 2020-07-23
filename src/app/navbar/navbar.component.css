@@ -82,6 +82,12 @@
     padding-right: .5rem;
     padding-left: .5rem;
 }
+
+@media (max-width: 360px) {
+  #main-logo {
+    display:none;
+  }
+}
 }
 
 #noti {
