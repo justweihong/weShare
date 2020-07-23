@@ -98,11 +98,11 @@ a, a:hover, a:focus {
 }
 #sidebar ul li a:hover {
     color: #043245;
-    background: #fff;
+    background: #f3f3f3;
 }
 .active-select {
   color: #043245!important;
-  background: #fff!important;
+  background: #f3f3f3!important;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
