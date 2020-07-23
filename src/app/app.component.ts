@@ -60,8 +60,9 @@ export class AppComponent implements OnInit {
               });
 
               //change status to pushed
-              this._notificationService.updateStatus(this.userID, data.payload.doc.data()['ID'], 'pushed');
               this._notificationService.generateNotification(noti);
+              this._notificationService.updateStatus(this.userID, data.payload.doc.data()['ID'], 'pushed');
+              
               
             }
           })

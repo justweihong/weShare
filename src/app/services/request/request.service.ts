@@ -40,7 +40,8 @@ export class RequestService {
                         'description': 'New Request: ' + requestData['title'],
                         'createdBy': requestData['createdBy'],
                         'status': 'new notification',
-                        'ID': key.id
+                        'ID': key.id,
+                        'timeStamp': Date.now(),
                     }
                     this.notificationService.notifyAll(key.id, requestData['createdBy'], data);
                 }
@@ -74,7 +75,8 @@ export class RequestService {
                     'createdBy': requestCreator,
                     'status': 'new notification',
                     'type': 'deleted request',
-                    'ID': requestID + requestCreator
+                    'ID': requestID + requestCreator,
+                    'timeStamp': Date.now(),
                 }
                 this.notificationService.notifyUser(helperID, requestID + requestCreator, data);
             }
@@ -113,7 +115,8 @@ export class RequestService {
                             'createdBy': helperID,
                             'status': 'new notification',
                             'type': 'accepted request',
-                            'ID': requestID + helperID
+                            'ID': requestID + helperID,
+                            'timeStamp': Date.now(),
                         }
                         this.notificationService.notifyUser(notifyUser, requestID + helperID, data);
                     })
@@ -181,7 +184,8 @@ export class RequestService {
                                 'createdBy': helperID,
                                 'status': 'new notification',
                                 'type': 'accepted request',
-                                'ID': requestID + helperID
+                                'ID': requestID + helperID,
+                                'timeStamp': Date.now(),
                             }
                             this.notificationService.notifyUser(notifyUser, requestID + helperID, data);
                         });

@@ -241,9 +241,11 @@ export class ChatComponent implements OnInit, OnDestroy {
             'description': this.displayName + ' has sent you a message!',
             'createdBy': this.userID,
             'status': 'new notification',
-            'ID': this.userID + this.currentChat['otherUserData']['uid']
+            'ID': this.userID + this.currentChat['otherUserData']['uid'],
+            'timeStamp': Date.now(),
           }
           this.notificationService.notifyUser(this.currentChat['otherUserData']['uid'], this.userID + this.currentChat['otherUserData']['uid'], data)
+          
         }
 
       } else {

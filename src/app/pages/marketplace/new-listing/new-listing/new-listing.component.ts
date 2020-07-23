@@ -118,7 +118,8 @@ export class NewListingComponent implements OnInit {
             'description': 'New Item: ' + titleHelper,
             'createdBy': this.createdBy,
             'status': 'new notification',
-            'ID': key.id
+            'ID': key.id,
+            'timeStamp': Date.now(),
           }
           
           //notification id is listing id
@@ -179,7 +180,8 @@ export class NewListingComponent implements OnInit {
             'description': 'New Item: ' + titleHelper,
             'createdBy': this.createdBy,
             'status': 'new notification',
-            'ID': key.id
+            'ID': key.id,
+            'timeStamp': Date.now(),
           }
 
           //notification id is listing id
