@@ -94,7 +94,7 @@ export class ExploreComponent implements OnInit {
     get newUserContact() { return this.userForm.get('userContact') }
 
     ngOnInit(): void {
-        console.log("hello")
+        // console.log("hello")
         // Update the request state
         this.requestState = this.activatedRoute.snapshot.url[1].path;
         if (!this.requestState) {
