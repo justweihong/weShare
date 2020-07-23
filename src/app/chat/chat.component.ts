@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ɵCompiler_compileModuleSync__POST_R3__ } from '@angular/core';
 import { UserService } from '../services/user/user.service';
 import { take, timestamp } from 'rxjs/operators';
 import { ChatService } from '../services/chat/chat.service';
@@ -69,10 +69,12 @@ export class ChatComponent implements OnInit, OnDestroy {
 
       //get my chats
       this.subscriptions.push(this.chatService.getChats().pipe().subscribe(chats => {
+        console.log("chat");
         var myChats = [];
 
         var getAllUserData = [];
         chats.forEach(chat => {
+          console.log(chat);
 
           var getUserData = new Promise((resolve) => {
             if (chat['user1'] == this.userID || chat['user2'] == this.userID) {
@@ -85,17 +87,21 @@ export class ChatComponent implements OnInit, OnDestroy {
                 // chatUserIDs.push(chat['user1']);
                 otherUserID = chat['user1'];
               }
-
                 this.userService.getUser(otherUserID).pipe(take(1)).subscribe(userdata => {
                   chat['otherUserData'] = userdata;
                   myChats.push(chat);
+
                   resolve("done!");
               })
 
+            } else {
+              resolve("not added.");
             }
           })
           getAllUserData.push(getUserData);
+
         })
+        console.log(getAllUserData)
 
         Promise.all(getAllUserData).then(() => {
           this.myChats = myChats;
