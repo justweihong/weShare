@@ -16,10 +16,13 @@ export class UserService {
   getUser(userID) {
     return this.afs.doc(`user/${userID}`).valueChanges();
   }
-
   getUsers() {
     return this.afs.collection(`user`, ref => ref.orderBy('displayName', 'asc')).valueChanges();
   }
+
+  // getUsers() {
+  //   return this.afs.collection(`user`, ref => ref.orderBy('displayName', 'asc')).valueChanges();
+  // }
   getUserDocFromList(arr){
     return this.afs.collection(`user` , ref => {return ref.where('uid', 'in', arr)}).valueChanges();
 }

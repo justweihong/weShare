@@ -41,6 +41,18 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.createEmptyForm();
+    //Get all users. //TODO: is this necessary??
+    this.userService.getUsers().pipe(take(1)).subscribe(users => {
+      this.allUsers = users;
+      // users.forEach(user => {
+      //   if (user != this.userID) {
+      //     this.allUsers.push(user);
+      //   } else {
+      //     this.allUsers.push(user);
+      //   }
+      // })
+      console.log(this.allUsers);
+    })
 
     // Get the initial chat state.
     this.chatState = this.activatedRoute.snapshot.url[1].path;
@@ -53,18 +65,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.auth.getUser().pipe(take(1)).subscribe(user => {
       this.userID = user.uid;
 
-      //Get all users. //TODO: is this necessary??
-      this.userService.getUsers().pipe(take(1)).subscribe(users => {
-        this.allUsers = users;
-        // users.forEach(user => {
-        //   if (user != this.userID) {
-        //     this.allUsers.push(user);
-        //   } else {
-        //     this.allUsers.push(user);
-        //   }
-        // })
-        console.log(this.allUsers);
-      })
+
 
       //get my chats
       this.subscriptions.push(this.chatService.getChats().pipe().subscribe(chats => {
