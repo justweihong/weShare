@@ -1,51 +1,80 @@
 <div class="container-fluid">
 
-    <div class="grid request-list page-height">
+    <div class="grid page-list page-height">
         <table class="table">
+
+            <!-- Header for leaderboard -->
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Lobang King <br>- Highest number of listings in marketplace</th>
-                    <th scope="col"> Legendary Dealer <br>- Highest number of completed listings</th>
-                    <th scope="col">Good Samaritan <br>- Highest number of completed requests</th>
+                    <th scope="col"><i class="fa fa-trophy fa-4x"></i></th>
+                    <th scope="col"><span class='title'>Lobang King </span><i class="fa fa-shopping-cart fa-2x"></i>
+                        <br><span class="subtitle">- Highest number of listings in marketplace</span></th>
+                    <th scope="col"><span class='title'> Legendary Dealer </span><i class="fa fa-id-card-o fa-2x"></i>
+                        <br><span class="subtitle">- Highest number of completed listings</span></th>
+                    <th scope="col"><span class='title'>Good Samaritan </span><i class="fa fa-users fa-2x"></i><br><span
+                            class="subtitle">- Highest number of completed requests</span></th>
                 </tr>
             </thead>
+
+
             <tbody>
                 <tr>
                     <th scope="row">1</th>
-                    <td *ngIf="this.listingCountTop3[0]; else notShow">{{this.listingCountTop3[0][2]}},
+                    <td *ngIf="this.listingCountTop3[0]; else notShow"><img src="{{this.listingCountTop3[0][3]}}"
+                            class="image-holder" /> {{this.listingCountTop3[0][2]}},
                         {{this.listingCountTop3[0][1]}}</td>
-                    <td *ngIf="this.completedListingCountTop3[0]; else notShow">{{this.completedListingCountTop3[0][2]}},
+                    <td *ngIf="this.completedListingCountTop3[0]; else notShow"><img
+                            src="{{this.completedListingCountTop3[0][3]}}" class="image-holder" />
+                        {{this.completedListingCountTop3[0][2]}},
                         {{this.completedListingCountTop3[0][1]}}</td>
-                    <td *ngIf="this.completedRequestCountTop3[0]; else notShow">{{this.completedRequestCountTop3[0][2]}},
+                    <td *ngIf="this.completedRequestCountTop3[0]; else notShow"><img
+                            src="{{this.completedRequestCountTop3[0][3]}}" class="image-holder" />
+                        {{this.completedRequestCountTop3[0][2]}},
                         {{this.completedRequestCountTop3[0][1]}}</td>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
-                    <td *ngIf="this.listingCountTop3[1]; else notShow">{{this.listingCountTop3[1][2]}},
+                    <td *ngIf="this.listingCountTop3[1]; else notShow"><img src="{{this.listingCountTop3[1][3]}}"
+                            class="image-holder" /> {{this.listingCountTop3[1][2]}},
                         {{this.listingCountTop3[1][1]}}</td>
-                    <td *ngIf="this.completedListingCountTop3[1]; else notShow">{{this.completedListingCountTop3[1][2]}},
+                    <td *ngIf="this.completedListingCountTop3[1]; else notShow"><img
+                            src="{{this.completedListingCountTop3[1][3]}}" class="image-holder" />
+                        {{this.completedListingCountTop3[1][2]}},
                         {{this.completedListingCountTop3[1][1]}}</td>
-                    <td *ngIf="this.completedRequestCountTop3[1]; else notShow">{{this.completedRequestCountTop3[1][2]}},
+                    <td *ngIf="this.completedRequestCountTop3[1]; else notShow"><img
+                            src="{{this.completedRequestCountTop3[1][3]}}" class="image-holder" />
+                        {{this.completedRequestCountTop3[1][2]}},
                         {{this.completedRequestCountTop3[1][1]}}</td>
                 </tr>
                 <tr>
                     <th scope="row">3</th>
-                    <td *ngIf="this.listingCountTop3[2]; else notShow">{{this.listingCountTop3[2][2]}},
+                    <td *ngIf="this.listingCountTop3[2]; else notShow"><img src="{{this.listingCountTop3[2][3]}}"
+                            class="image-holder" /> {{this.listingCountTop3[2][2]}},
                         {{this.listingCountTop3[2][1]}}</td>
-                    <td *ngIf="this.completedListingCountTop3[2]; else notShow">{{this.completedListingCountTop3[2][2]}},
+                    <td *ngIf="this.completedListingCountTop3[2]; else notShow"><img
+                            src="{{this.completedListingCountTop3[2][3]}}" class="image-holder" />
+                        {{this.completedListingCountTop3[2][2]}},
                         {{this.completedListingCountTop3[2][1]}}</td>
-                    <td *ngIf="this.completedRequestCountTop3[2]; else notShow">{{this.completedRequestCountTop3[2][2]}},
+                    <td *ngIf="this.completedRequestCountTop3[2]; else notShow"><img
+                            src="{{this.completedRequestCountTop3[2][3]}}" class="image-holder" />
+                        {{this.completedRequestCountTop3[2][2]}},
                         {{this.completedRequestCountTop3[2][1]}}</td>
                 </tr>
             </tbody>
+
+
         </table>
 
-        <h3 *ngIf ="this.userListingCount; else noListing">Your number of listings is {{this.userListingCount}}</h3>
-        <h3 *ngIf ="this.userCompletedListingCount; else noCompletedListing">Your number of completed listings is {{this.userCompletedListingCount}}</h3>
-        <h3 *ngIf ="this.userCompletedRequestCount; else noCompletedRequest">Your number of completed requests is {{this.userCompletedRequestCount}}</h3>
-    
-    
+        <div class="jumbotron jumbotron-fluid" >
+            
+            <h3 *ngIf="this.userListingCount; else noListing"><i class="fa fa-shopping-cart fa-2x"></i> Your number of listings is {{this.userListingCount}}</h3>
+            <h3 *ngIf="this.userCompletedListingCount; else noCompletedListing"><i class="fa fa-id-card-o fa-2x"></i> Your number of completed listings is
+                {{this.userCompletedListingCount}}</h3>
+            <h3 *ngIf="this.userCompletedRequestCount; else noCompletedRequest"><i class="fa fa-users fa-2x"></i> Your number of completed requests is
+                {{this.userCompletedRequestCount}}</h3>
+            
+        </div>
+
         <ng-template #notShow>
             <td>-</td>
         </ng-template>
@@ -57,9 +86,9 @@
             <h3>Your number of completed listings is 0</h3>
         </ng-template>
         <ng-template #noCompletedRequest>
-            <h3>Your number of completed requests is  0</h3>
+            <h3>Your number of completed requests is 0</h3>
         </ng-template>
 
-    
+
     </div>
 </div>

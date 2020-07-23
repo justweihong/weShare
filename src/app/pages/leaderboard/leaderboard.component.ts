@@ -74,6 +74,7 @@ export class LeaderboardComponent implements OnInit {
     this.listingService.getListings().subscribe(allListings => {
       this.listingCount = {};
       this.completedListingCount = {};
+      //increase each listing creator count by 1 in dictionary
       allListings.forEach(listing => {
         if (listing['createdBy'] in this.listingCount) {
           this.listingCount[listing['createdBy']] += 1
@@ -81,6 +82,7 @@ export class LeaderboardComponent implements OnInit {
           this.listingCount[listing['createdBy']] = 1
         }
 
+        //increase completed listing count for creator and acceptor
         if (listing['status'] === "completed") {
           if (listing['createdBy'] in this.completedListingCount) {
             this.completedListingCount[listing['createdBy']] += 1
@@ -109,30 +111,38 @@ export class LeaderboardComponent implements OnInit {
       // console.log(this.userListingCount);
       // console.log(this.userCompletedListingCount);
 
-      //get top 3
-      this.listingCountTop3 =  sortProperties(this.listingCount).slice(0,2)
-      this.completedListingCountTop3 =  sortProperties(this.completedListingCount).slice(0,2)
+
+      //get top 3 for listing & completed listing
+      this.listingCountTop3 =  sortProperties(this.listingCount).slice(0,3)
+      this.completedListingCountTop3 =  sortProperties(this.completedListingCount).slice(0,3)
       // console.log(this.listingCountTop3);
       // console.log(this.completedListingCountTop3);
       
-      
+      //set element 2 for each person array to be the display name
       this.listingCountTop3.forEach(element => {
         this.userService.getUser(element[0]).pipe(take(1)).subscribe(usr => {
           element[2] = usr['displayName'];
+          element[3] = usr['profileImg'];
         })
       });
 
+      //set element 2 for each person array to be the display name
       this.completedListingCountTop3.forEach(element => {
         this.userService.getUser(element[0]).pipe(take(1)).subscribe(usr => {
           element[2] = usr['displayName'];
+          element[3] = usr['profileImg'];
         })
       });
+
+      // console.log(this.completedListingCountTop3);
+      // console.log(this.listingCountTop3);
     })
 
+    
     this.requestService.getRequests().subscribe(allReq => {
       this.completedRequestCount = {};
       allReq.forEach(req => {
-
+        //get completed request count for all requests
         if (req['status'] === "completed") {
           if (req['createdBy'] in this.completedRequestCount) {
             this.completedRequestCount[req['createdBy']] += 1
@@ -148,16 +158,23 @@ export class LeaderboardComponent implements OnInit {
         }
       })
 
+      //get user count
       this.userCompletedRequestCount = this.completedRequestCount[this.userID];
 
-      this.completedRequestCountTop3 = sortProperties(this.completedRequestCountTop3).slice(0,2)
+      this.completedRequestCountTop3 = sortProperties(this.completedRequestCount).slice(0,3)
+      
+
+      //set element 2 for each person array to be the display name
       this.completedRequestCountTop3.forEach(element => {
         this.userService.getUser(element[0]).pipe(take(1)).subscribe(usr => {
           element[2] = usr['displayName'];
+          element[3] = usr['profileImg'];
         })
       });
-
+      // console.log(this.completedRequestCountTop3);
     })
+    
+    
     
   }
 
