@@ -10,6 +10,7 @@
   border-right: solid;
   border-color: #043245;
   border-width: 2px;
+  min-width: 13em;
 }
 .user-entry {
   cursor: pointer;
@@ -237,5 +238,8 @@ textarea:focus {
   }
   .user-entry-desc {
     display:none;
+  }
+  .user-sidenav {
+    min-width: unset;
   }
 }

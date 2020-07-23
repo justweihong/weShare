@@ -58,7 +58,21 @@ export class ChatService {
 
   }
   removeChat(chatID) {
-    this.afs.doc(`chat/${chatID}`).delete();
+    this.afs.collection(`chat/${chatID}/messages`).valueChanges().pipe(take(1)).subscribe(messages => {
+      var deleteMessages = [];
+      messages.forEach(message => {
+        var deleteMessage = new Promise((resolve) => {
+          const messageID = message['ID']
+          this.afs.doc(`chat/${chatID}/messages/${messageID}`).delete().then(() => {
+            resolve("deleted message");
+          });
+        })
+        deleteMessages.push(deleteMessage);
+      })
+      Promise.all(deleteMessages).then(() => {
+        this.afs.doc(`chat/${chatID}`).delete();
+      })
+    })
   }
 
   checkIfChatExist(user1, user2) {

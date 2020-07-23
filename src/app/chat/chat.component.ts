@@ -184,7 +184,10 @@ export class ChatComponent implements OnInit, OnDestroy {
 }
 
   checkIfChatExist(user1, user2) {
-    this.chatService.checkIfChatExist(user1, user2).then(details => console.log(details['answer']));
+    return new Promise((resolve) => {
+      this.chatService.checkIfChatExist(user1, user2).then(details => {resolve(details['answer'])});
+    })
+
   }
 
   startChat(user){
@@ -208,21 +211,29 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   sendMessage() {
-    var messageDetails = {
-      text: this.text.value,
-      senderID: this.userID,
-      timeStamp: Date.now(),
-    };
+    this.checkIfChatExist(this.userID, this.currentChat['otherUserData']['ID']).then(answer => {
+      if (answer == true) {
+        var messageDetails = {
+          text: this.text.value,
+          senderID: this.userID,
+          timeStamp: Date.now(),
+        };
 
-    this.chatService.addMessage(this.chatState, messageDetails);
-    this.chatService.updateLatestChat(this.chatState, this.userID, this.text.value);
-    this.newMessage.reset();
+        this.chatService.addMessage(this.chatState, messageDetails);
+        this.chatService.updateLatestChat(this.chatState, this.userID, this.text.value);
+        this.newMessage.reset();
+      } else {
+        alert("This chat does not exist anymore!");
+        this.router.navigate(["/chat/find-users"]);
+      }
+    })
+
   }
 
   deleteChat(currentChat) {
     if(confirm("Are you sure you want to delete chat with " + currentChat['otherUserData']['displayName'])) {
       this.chatService.removeChat(currentChat['ID']);
-      this.router.navigate(["/chat/find-users"])
+      this.router.navigate(["/chat/find-users"]);
     }
   }
 
