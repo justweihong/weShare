@@ -7,6 +7,7 @@ import { tap, finalize } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/services/user/user.service';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 
 // import { $ } from 'protractor';
 declare var $: any;
@@ -55,7 +56,8 @@ export class NewListingComponent implements OnInit {
     private storage: AngularFireStorage,
     private db: AngularFirestore,
     public fb: FormBuilder,
-    private modalService: NgbModal,) {
+    private modalService: NgbModal,
+    private notificationService: NotificationService) {
     this.imgURL = "./assets/no-preview-available.png";
     this.listingForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
@@ -82,6 +84,9 @@ export class NewListingComponent implements OnInit {
   /****************** Upload Process ****************/
   startUpload(event: FileList) {
 
+    let titleHelper;
+    titleHelper = this.title.value;
+
     //handle invalid form
     if (this.listingForm.controls['title'].invalid.valueOf() || this.listingForm.controls['price'].invalid.valueOf()
       || this.listingForm.controls['description'].invalid.valueOf()) {
@@ -92,7 +97,7 @@ export class NewListingComponent implements OnInit {
     //get TimeStamp of this listing
     const timeStamp = Date.now();
 
-    /***********8**** Handle no image ****************/
+    /*************** Handle no image ****************/
     if (event == null) {
       const path = `no-preview-available.png`
       var formDetails = {
@@ -108,8 +113,21 @@ export class NewListingComponent implements OnInit {
       this.db.collection('listings').add(formDetails).then(
         key => {
           this.db.collection('listings').doc(`${key.id}`).set({ ID: key.id }, { merge: true });
+          var data = {
+            'title': 'New Listing in the marketplace!',
+            'description': 'New Item: ' + titleHelper,
+            'createdBy': this.createdBy,
+            'status': 'new notification',
+            'ID': key.id,
+            'timeStamp': Date.now(),
+          }
+          
+          //notification id is listing id
+          //notify all except self
+          this.notificationService.notifyAll(key.id, this.createdBy, data)
         }
-      );
+      )
+
       $('#listingModal').modal('hide');
       this.listingForm.reset();
       this.modalService.dismissAll();
@@ -157,12 +175,25 @@ export class NewListingComponent implements OnInit {
         key => {
           this.db.collection('listings').doc(`${key.id}`).set({ ID: key.id }, { merge: true });
           // this.db.collection('listings').doc(`${key.id}`).collection("offers").doc('creator').set({offererID: this.createdBy});            
+          var data = {
+            'title': 'New Listing in the marketplace!',
+            'description': 'New Item: ' + titleHelper,
+            'createdBy': this.createdBy,
+            'status': 'new notification',
+            'ID': key.id,
+            'timeStamp': Date.now(),
+          }
+
+          //notification id is listing id
+          //notify all except self
+          this.notificationService.notifyAll(key.id, this.createdBy, data)
+
         }
-      );
+      )
     })
 
 
-    
+
     //Reset listing form
     $('#listingModal').modal('hide');
     this.clearImage();
