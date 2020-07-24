@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Subscription, merge, Subject, Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { UserService } from '../user/user.service';
+import { NotificationService } from '../notification/notification.service';
+// import { request } from 'http';
+import { take } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -10,10 +13,11 @@ export class RequestService {
     subject = new Subject<any>();
     subject2 = new Subject<any>();
     requestStates = new Subject<any>();
-
+    displayName: any;
 
     constructor(
         private afs: AngularFirestore,
+        private notificationService: NotificationService,
         private userService: UserService
     ) { }
 
@@ -31,26 +35,98 @@ export class RequestService {
             return collection.add(requestData).then(
                 key => {
                     collection.doc(`${key.id}`).set({ ID: key.id }, { merge: true });
+                    var data = {
+                        'title': 'New Request in the Community!',
+                        'description': 'New Request: ' + requestData['title'],
+                        'createdBy': requestData['createdBy'],
+                        'status': 'new notification',
+                        'ID': key.id,
+                        'timeStamp': Date.now(),
+                    }
+                    this.notificationService.notifyAll(key.id, requestData['createdBy'], data);
                 }
-            );
+            )
         }
     }
 
     deleteRequest(requestID) {
-      this.afs.doc(`requests/${requestID}`).delete();
+        //remove all new request notifications
+        this.notificationService.removeNotifications(requestID);
+
+        //get request details
+        let status;
+        let requestCreator;
+        let helperID;
+        let requestTitle;
+        this.afs.doc(`requests/${requestID}`).valueChanges().pipe(take(1)).subscribe(req => {
+            status = req['status'];
+            requestCreator = req['createdBy'];
+            helperID = req['helper'];
+            requestTitle = req['title'];
+
+            if (status === "completed") {
+                //Notification of completion (if any) will be deleted (to declutter database)
+                this.notificationService.removeNotificationForUser(requestID + helperID, requestCreator);
+            } else if (status ==="ongoing") {
+                //New notification will be pushed to person (if any) who accepted the request
+                var data = {
+                    'title': 'Your accepted request have been deleted!',
+                    'description': requestTitle + ' has been deleted from the community!',
+                    'createdBy': requestCreator,
+                    'status': 'new notification',
+                    'type': 'deleted request',
+                    'ID': requestID + requestCreator,
+                    'timeStamp': Date.now(),
+                }
+                this.notificationService.notifyUser(helperID, requestID + requestCreator, data);
+            }
+        })
+
+        this.afs.doc(`requests/${requestID}`).delete();
     }
 
     // Update status on Firebase then allow subject2 to detect change for subscription in explore & request-detail.
     acceptRequest(requestID, helperID) {
-        var dataToChange = {
-            helper: helperID,
-            helpTimeStamp: Date.now(),
-            status: "ongoing",
-        }
-        return this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
-            // this.subject2.next();
-            console.log("done")
+
+        //get request details
+        let requestTitle;
+        let notifyUser;
+        let helperName;
+        this.afs.doc(`requests/${requestID}`).valueChanges().pipe(take(1)).subscribe(req => {
+            requestTitle = req['title'];
+            notifyUser = req['createdBy'];
+
+            this.afs.doc(`user/${helperID}`).valueChanges().pipe(take(1)).subscribe(user => {
+                helperName = user['displayName'];
+            }).add(() => {
+                var dataToChange = {
+                    helper: helperID,
+                    helpTimeStamp: Date.now(),
+                    status: "ongoing",
+                }
+                this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
+                    // this.subject2.next();
+                    console.log("done")
+                })
+                    .then(() => {
+                        var data = {
+                            'title': helperName + ' has helped you!',
+                            'description': requestTitle + ' has been accepted!',
+                            'createdBy': helperID,
+                            'status': 'new notification',
+                            'type': 'accepted request',
+                            'ID': requestID + helperID,
+                            'timeStamp': Date.now(),
+                        }
+                        this.notificationService.notifyUser(notifyUser, requestID + helperID, data);
+                    })
+            })
         })
+
+
+
+
+
     }
 
     // Update status on Firebase then allow subject2 to detect change for subscription in explore & request-detail.
@@ -60,6 +136,15 @@ export class RequestService {
             helpTimeStamp: "nil",
             status: "active",
         }
+        let userNotificationToDelete;
+        let helperID;
+        this.afs.doc(`requests/${requestID}`).valueChanges().pipe(take(1)).subscribe(req => {
+            userNotificationToDelete = req['createdBy'];
+            helperID = req['helper'];
+        }).add(() => {
+            this.notificationService.removeNotificationForUser(requestID + helperID, userNotificationToDelete);
+        })
+
         return this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
             // this.subject2.next();
         });
@@ -67,26 +152,46 @@ export class RequestService {
 
     // Update status on Firebase then allow subject2 to detect change for subscription in explore & request-detail.
     completeRequest(requestID) {
-        var dataToChange = {
-            completeTimeStamp: Date.now(),
-            status: "completed",
-        }
 
-        //increase completed request for helper
-        // this.userService.increaseCompletedRequest(requestHelper);
+        //remove all new request notifications
+        this.notificationService.removeNotifications(requestID);
 
-        // var tempSub = this.getRequest(requestID).subscribe(req => {
-        //     if (req['helper'] != "nil") {
-        //         console.log(req['helper']);
-        //         this.userService.increaseCompletedRequest(req['helper']);
+        let requestTitle;
+        let notifyUser;
+        let helperName;
+        let helperID;
+        this.afs.doc(`requests/${requestID}`).valueChanges().pipe(take(1)).subscribe(req => {
+            requestTitle = req['title'];
+            notifyUser = req['createdBy'];
+            helperID = req['helper'];
 
-        //     }
-        // })
-        // tempSub.unsubscribe();
+            this.afs.doc(`user/${helperID}`).valueChanges().pipe(take(1)).subscribe(user => {
+                helperName = user['displayName'];  
+            })
+                .add(() => {
+                    var dataToChange = {
+                        completeTimeStamp: Date.now(),
+                        status: "completed",
+                    }
 
-        return this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
-            // this.subject2.next();
-        });
+                    this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
+                        console.log('done');
+                    })
+                        .then(() => {
+                            var data = {
+                                'title': helperName + ' has completed your request!',
+                                'description': requestTitle + ' has been completed!',
+                                'createdBy': helperID,
+                                'status': 'new notification',
+                                'type': 'accepted request',
+                                'ID': requestID + helperID,
+                                'timeStamp': Date.now(),
+                            }
+                            this.notificationService.notifyUser(notifyUser, requestID + helperID, data);
+                        });
+                }).unsubscribe();
+        })
+
     }
 
     // When listing card is clicked, this method sends the card details through this service.
@@ -102,5 +207,9 @@ export class RequestService {
     // Explore constructor take changes in request details.
     getDetailUpdates(): Observable<any> {
         return this.subject2.asObservable();
+    }
+
+    getSnap() {
+        return this.afs.collection('requests').snapshotChanges();
     }
 }

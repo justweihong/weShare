@@ -34,7 +34,10 @@
     <div class="main-chat" *ngIf="this.chatState && this.chatState != 'find-users' ">
 
       <div class="main-header">
-        <span style="width:80%">
+        <span style="width:80%;display:flex;" *ngIf="this.currentChat">
+          <div class="main-image-section">
+            <img class="main-image" src="{{this.currentChat['otherUserData']['profileImg']}}">
+          </div>
           <div class="main-username" *ngIf="this.currentChat && this.currentChat['otherUserData']['displayName']">
             {{this.currentChat["otherUserData"]["displayName"]}}
           </div>

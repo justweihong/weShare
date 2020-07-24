@@ -8,6 +8,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { text } from '@fortawesome/fontawesome-svg-core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import * as autosize from 'autosize';
+import { NotificationService } from '../services/notification/notification.service';
 // import { time } from 'console';
 
 @Component({
@@ -21,6 +22,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   allUsers:any = [];
   chatState:any;
   navstate:any;
+  displayName: any;
 
   currentChat:any;
   currentChatMessages:any;
@@ -37,6 +39,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     public fb: FormBuilder,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +48,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     // Chat textarea.
     var self = this;
+    $(".chat-message-list").css("height", 'calc( 100vh - 60px - 5em - ' + $(".chat-form2").height() + 'px' );
     $( document ).ready(function() {
       console.log( "document loaded" );
 
@@ -54,21 +58,21 @@ export class ChatComponent implements OnInit, OnDestroy {
 
       // Adjust chat message list height accordingly.
       $(".chat-message-list").css("height", 'calc( 100vh - 60px - 5em - ' + $(".chat-form2").height() + 'px' );
-      textarea.addEventListener('autosize:resized', function(){ 
+      textarea.addEventListener('autosize:resized', function(){
         $(".chat-message-list").css("height", 'calc( 100vh - 60px - 5em - ' + $(".chat-form2").height() + 'px');
       });
-     
+
       // 'Enter' to send mesasge.
       $('#textarea').keypress(function(e){
         if(e.keyCode == 13 && !e.shiftKey) {
-        e.preventDefault(); 
+        e.preventDefault();
         self.sendMessage();
         }
       });
-      
-      
+
+
   });
-    
+
 
 
 
@@ -95,7 +99,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     // Get user details.
     this.auth.getUser().pipe(take(1)).subscribe(user => {
       this.userID = user.uid;
-
+      this.displayName = user.displayName;
 
 
       //get my chats
@@ -256,6 +260,19 @@ export class ChatComponent implements OnInit, OnDestroy {
           this.chatService.addMessage(this.chatState, messageDetails);
           this.chatService.updateLatestChat(this.chatState, this.userID, this.text.value);
           this.newMessage.reset();
+
+          // console.log('targetID: ',this.currentChat['otherUserData']);
+
+          //send notification to user
+          var data = {
+            'title': 'New Message!',
+            'description': this.displayName + ' has sent you a message!',
+            'createdBy': this.userID,
+            'status': 'new notification',
+            'ID': this.userID + this.currentChat['otherUserData']['uid'],
+            'timeStamp': Date.now(),
+          }
+          this.notificationService.notifyUser(this.currentChat['otherUserData']['uid'], this.userID + this.currentChat['otherUserData']['uid'], data)
 
           //reset autosize
           autosize.destroy(document.querySelectorAll('textarea'));

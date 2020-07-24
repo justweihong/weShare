@@ -1,41 +1,50 @@
 @media(min-width:1025px) {
     .container-fluid {
       grid-template-columns: 1fr 1fr 1fr;
-      
+
     }
   }
-  
+
   @media screen and (max-width:1024px) {
     .container-fluid {
       grid-template-columns: auto auto;
     }
   }
-  
+
   @media screen and (max-width:480px) {
     .container-fluid {
       grid-template-columns: auto;
     }
   }
 
-  
+  .header-section {
+    background:#cfe1fae3!important;
+    color:#043245;
+
+  }
 
   .table {
     text-decoration: aliceblue;
-    font-family: cursive;
+    /* font-family: cursive; */
     text-align: center;
     display: inline-table;
     margin-top: 1%;
   }
+  .body-color {
+    background:linear-gradient(to bottom, #c3e7ff83, #ffffff);
+    font-weight: 500;
+  }
 
   .title {
-    color: rgb(250, 220, 121);
-    font-size: large;
+    color: #043245;
+    font-size: 1.2em;
   }
 
   .subtitle {
-    font-size: small;
-    font-style: italic;
-    color: bisque;
+    font-size: 1em;
+    font-weight: 400;
+    /* font-style: italic; */
+    color: #043245;
   }
 
   .image-holder {
@@ -46,14 +55,16 @@
 
 .jumbotron {
   text-align: center;
-  
-  background: linear-gradient(to bottom, #f1e2c5, #93e1ff);
+
+  background: linear-gradient(to bottom, #c3e7ff83, #ffffff);
   opacity: 0.8;
 }
 
 h3 {
   font-size: x-large;
-  font-family: cursive;
   color: black;
-  font-style: italic;
+}
+
+.personal-count {
+  background-color: rgba(255, 240, 174, 0.87);
 }
