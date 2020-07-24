@@ -61,7 +61,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       // 'Enter' to send mesasge.
       $('#textarea').keypress(function(e){
         if(e.keyCode == 13 && !e.shiftKey) {
-        e.preventDefault();
+        e.preventDefault(); 
         self.sendMessage();
         }
       });
