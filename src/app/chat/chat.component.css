@@ -92,6 +92,11 @@
   display: flex;
   justify-content: flex-end;
 }
+.dropdown-item.active, .dropdown-item:active {
+  /* color: #fff; */
+  text-decoration: none;
+  background-color: #cddbe1;
+}
 
 .chat-message-list {
   grid-area: chat-message-list;

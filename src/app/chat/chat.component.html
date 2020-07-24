@@ -38,13 +38,23 @@
           <div class="main-username" *ngIf="this.currentChat && this.currentChat['otherUserData']['displayName']">
             {{this.currentChat["otherUserData"]["displayName"]}}
           </div>
-          <div class="main-status">online</div>
+          <!-- <div class="main-status">online</div> -->
         </span>
-        <div class="delete-chat-section">
+        <!-- <div class="delete-chat-section">
           <div>
-            <i class="fa fa-trash chat-form-logo" style="font-size:1.5em;" (click)="deleteChat(currentChat)"></i>
+            <i class="fa fa-trash " style="font-size:1.5em;" (click)="deleteChat(currentChat)"></i>
           </div>
 
+        </div> -->
+        <div class="delete-chat-section dropdown" style="position:relative;">
+          <div  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-ellipsis-v chat-form-logo" style="font-size:2em;"></i>
+          </div>
+
+          <!-- dropdown menu -->
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" (click)="deleteChat(currentChat)" >Delete chat</a>
+          </div>
         </div>
       </div>
 
