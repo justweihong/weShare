@@ -1,25 +1,32 @@
-<div class="container-fluid">
+<div class="container-fluid page-list page-height">
 
-    <div class="grid page-list page-height">
-        <table class="table">
+    <div class="grid ">
+        <table class="table ">
 
             <!-- Header for leaderboard -->
             <thead class="header-section">
                 <tr>
                     <th scope="col"><i class="fa fa-trophy fa-4x"></i></th>
                     <th scope="col">
-                      <div>
-                        <i class="fa fa-shopping-cart fa-2x"></i>
-                      </div>
+                        <div>
+                            <i class="fa fa-shopping-cart fa-2x"></i>
+                        </div>
 
-                      <span class='title'>Lobang King </span>
-                      <br><span class="subtitle">Highest number of listings in marketplace</span>
+                        <span class='title'>Lobang King </span>
+                        <br><span class="subtitle">Highest number of listings in marketplace</span>
                     </th>
-
-                    <th scope="col"><span class='title'> Legendary Dealer </span><i class="fa fa-id-card-o fa-2x"></i>
-                        <br><span class="subtitle">Highest number of completed listings</span></th>
-                    <th scope="col"><span class='title'>Good Samaritan </span><i class="fa fa-users fa-2x"></i><br><span
-                            class="subtitle">Highest number of completed requests</span></th>
+                    <th scope="col">
+                        <div><i class="fa fa-id-card-o fa-2x"></i></div>
+                        <span class='title'> Legendary Dealer </span>
+                        <br><span class="subtitle">Highest number of completed listings</span>
+                    </th>
+                    <th scope="col">
+                        <div>
+                            <i class="fa fa-users fa-2x"></i>
+                        </div>
+                        <span class='title'>Good Samaritan </span>
+                        <br><span class="subtitle">Highest number of completed requests</span>
+                    </th>
                 </tr>
             </thead>
 
@@ -67,20 +74,33 @@
                         {{this.completedRequestCountTop3[2][2]}},
                         {{this.completedRequestCountTop3[2][1]}}</td>
                 </tr>
+
+                <tr class = "personal-count">
+                    <th scope="row">Your Count</th>
+                    <td><img src="{{this.imgProfile}}" class="image-holder" /> 
+                        {{this.displayName}}, {{this.userListingCount}} </td>
+                    <td><img src="{{this.imgProfile}}" class="image-holder" /> 
+                        {{this.displayName}}, {{this.userCompletedListingCount}}</td>
+                    <td><img src="{{this.imgProfile}}" class="image-holder" /> 
+                        {{this.displayName}}, {{this.userCompletedRequestCount}}</td>
+                </tr>
             </tbody>
 
 
         </table>
+<!-- 
+        <div class="jumbotron jumbotron-fluid page-list ">
 
-        <div class="jumbotron jumbotron-fluid" >
-
-            <h3 *ngIf="this.userListingCount; else noListing"><i class="fa fa-shopping-cart fa-2x"></i> Your number of listings is {{this.userListingCount}}</h3>
-            <h3 *ngIf="this.userCompletedListingCount; else noCompletedListing"><i class="fa fa-id-card-o fa-2x"></i> Your number of completed listings is
+            <h3 *ngIf="this.userListingCount; else noListing"><i class="fa fa-shopping-cart fa-2x"></i> Your number of
+                listings is {{this.userListingCount}}</h3>
+            <h3 *ngIf="this.userCompletedListingCount; else noCompletedListing"><i class="fa fa-id-card-o fa-2x"></i>
+                Your number of completed listings is
                 {{this.userCompletedListingCount}}</h3>
-            <h3 *ngIf="this.userCompletedRequestCount; else noCompletedRequest"><i class="fa fa-users fa-2x"></i> Your number of completed requests is
+            <h3 *ngIf="this.userCompletedRequestCount; else noCompletedRequest"><i class="fa fa-users fa-2x"></i> Your
+                number of completed requests is
                 {{this.userCompletedRequestCount}}</h3>
 
-        </div>
+        </div> -->
 
         <ng-template #notShow>
             <td>-</td>
