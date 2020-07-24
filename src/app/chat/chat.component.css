@@ -80,9 +80,22 @@
   height:5em;
   display:flex;
 }
+.main-image-section {
+  display:flex;
+  align-items: center;
+
+}
+.main-image {
+  border-radius:50%;
+  width:2.5em;
+  height:2.5em;
+}
 .main-username {
+  display:flex;
+  align-items: center;
   font-size:1.4em;
   color:#043245;
+  padding-left:0.5em;
 }
 .main-status {
   color:grey;
