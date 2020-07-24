@@ -1,5 +1,11 @@
 /* explore page */
 
+.search-and-new-request {
+  padding:1em 0.5em; 
+  display:flex;
+  align-items: center;
+  height: 6em;
+}
 .image-holder {
     display: block;
     position: relative;
@@ -47,7 +53,7 @@
     /* background-color: #f3f3f3; */
     /* min-height: 20em; */
     overflow: scroll;
-    /* max-width: 112em; */
+    height: calc(100vh - 60px - 6em);
 }
 .request-list::-webkit-scrollbar {
   /* display: none; */

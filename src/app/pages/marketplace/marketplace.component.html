@@ -1,7 +1,7 @@
 <div class="page-height page-list" style="overflow: hidden;">
     <header>
 
-      <div id="search-and-new-request" style="padding:1em 0.5em; display:flex;align-items: center;">
+      <div class="search-and-new-request">
 
           <!-- search bar -->
           <form id="search-bar" class="form-inline my-2 my-lg-0" style="width:-webkit-fill-available; margin:0em 0.3em;">
@@ -85,25 +85,25 @@
   </div> -->
 
     <!-- <div id="content" class="fade-right" style="display:none; padding-left: 0px;position:relative"> -->
-        <div class="grid listing-list page-height" *ngIf="this.listingState == 'all-listings' && this.allListings">
+        <div class="grid listing-list" *ngIf="this.listingState == 'all-listings' && this.allListings">
             <ng-container *ngFor="let listing of this.filteredAllListings">
                 <app-listing-card [listingDetails]="listing"></app-listing-card>
             </ng-container>
         </div>
 
-        <div class="grid listing-list page-height" *ngIf="this.listingState == 'my-listings' && this.myListings">
+        <div class="grid listing-list" *ngIf="this.listingState == 'my-listings' && this.myListings">
             <ng-container *ngFor="let listing of this.filteredMyListings">
                 <app-listing-card [listingDetails]="listing"></app-listing-card>
             </ng-container>
         </div>
 
-        <div class="grid listing-list page-height" *ngIf="this.listingState == 'ongoing-listings' && this.ongoingListings">
+        <div class="grid listing-list" *ngIf="this.listingState == 'ongoing-listings' && this.ongoingListings">
             <ng-container *ngFor="let listing of this.filteredOngoingListings">
                 <app-listing-card [listingDetails]="listing"></app-listing-card>
             </ng-container>
         </div>
 
-        <div class="grid listing-list page-height" *ngIf="this.listingState == 'completed-listings' && this.completedListings">
+        <div class="grid listing-list" *ngIf="this.listingState == 'completed-listings' && this.completedListings">
             <ng-container *ngFor="let listing of this.filteredCompletedListings">
                 <app-listing-card [listingDetails]="listing"></app-listing-card>
             </ng-container>
