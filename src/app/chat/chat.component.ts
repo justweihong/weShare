@@ -45,6 +45,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     // Chat textarea.
     var self = this;
+    $(".chat-message-list").css("height", 'calc( 100vh - 60px - 5em - ' + $(".chat-form2").height() + 'px' );
     $( document ).ready(function() {
       console.log( "document loaded" );
 
