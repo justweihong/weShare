@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { RequestListingCardComponent } from '../../components/request-listing-card/request-listing-card.component';
 import { RequestService } from '../../services/request/request.service';
 import { UserService } from '../../services/user/user.service';
@@ -12,6 +12,7 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 // declare var $: any;
 import * as $ from 'jquery';
 import { NavbarService } from 'src/app/services/navbar/navbar.service';
+import { ArrayType } from '@angular/compiler';
 // import { request } from 'http';
 
 @Component({
@@ -23,6 +24,7 @@ export class ExploreComponent implements OnInit {
     subscriptions: Subscription[] = [];
     requestState: any = '';
     navstate: any;
+
 
     private _searchBox: string;
     get searchBox(): string {
@@ -68,6 +70,7 @@ export class ExploreComponent implements OnInit {
     filteredCompletedRequests: any;
 
 
+
     p: number = 1;
 
 
@@ -94,6 +97,9 @@ export class ExploreComponent implements OnInit {
     get newUserContact() { return this.userForm.get('userContact') }
 
     ngOnInit(): void {
+
+        // this.activeCheck = true;
+
         // console.log("hello")
         // Update the request state
         this.requestState = this.activatedRoute.snapshot.url[1].path;
@@ -128,6 +134,9 @@ export class ExploreComponent implements OnInit {
             this.acceptedRequests = [];
             this.completedRequests = [];
             requests.forEach(request => {
+                // if (this.activeCheck) {
+                //     if (request['status'] == 'active') 
+                // }
                 if (request['createdBy'] == this.userID) {
                     this.myRequests.push(request);
                 }
@@ -146,6 +155,7 @@ export class ExploreComponent implements OnInit {
                 }
             })
 
+            //set for first time
             this.filteredAllRequests = this.allRequests;
             this.filteredMyRequests = this.myRequests;
             this.filteredActiveRequests = this.activeRequests;
@@ -157,31 +167,99 @@ export class ExploreComponent implements OnInit {
     }
 
     //TODO: remove??
-    reloadRequests() {
-        this.myRequests = [];
-        this.activeRequests = [];
-        this.ongoingRequests = [];
-        this.completedRequests = [];
+    reloadRequests(active, ongoing, done, expired) {
+        // this.myRequests = [];
+        // this.activeRequests = [];
+        // this.ongoingRequests = [];
+        // this.completedRequests = [];
 
-        // Get requests.
         this.requestService.getRequests().pipe(take(1)).subscribe(requests => {
-            this.allRequests = requests;
+            this.allRequests = [];
+            this.myRequests = [];
+            this.activeRequests = [];
+            this.ongoingRequests = [];
+            this.acceptedRequests = [];
+            this.completedRequests = [];
             requests.forEach(request => {
-                if (request['createdBy'] == this.userID) {
-                    this.myRequests.push(request);
-                    console.log("push");
+
+                if (((active && request['status'] == "active") && (this.timeLeft(request['timeStamp'], request['duration']) != "expired"))
+                    || ((ongoing && request['status'] == "ongoing") && (this.timeLeft(request['timeStamp'], request['duration']) != "expired"))
+                    || ((done && request['status'] == "completed") && (this.timeLeft(request['timeStamp'], request['duration']) != "expired"))
+                    || (expired && this.timeLeft(request['timeStamp'], request['duration']) == "expired")) {
+
+                    this.allRequests.push(request);
+
+
+                    if (request['createdBy'] == this.userID) {
+                        this.myRequests.push(request);
+                    }
+                    if (request['helper'] == this.userID) {
+                        this.acceptedRequests.push(request);
+                    }
+                    if (request['status'] == "active") {
+                        this.activeRequests.push(request);
+                    } else if (request['status'] == "ongoing") {
+                        this.ongoingRequests.push(request);
+                    } else if (request['status'] == "completed") {
+                        this.completedRequests.push(request);
+
+                    } else {
+                        console.error("request ID (" + request['ID'] + ") has invalid status.");
+                    }
                 }
-                if (request['status'] == "active") {
-                    this.activeRequests.push(request);
-                } else if (request['status'] == "ongoing") {
-                    this.ongoingRequests.push(request);
-                } else if (request['status'] == "completed") {
-                    this.completedRequests.push(request);
-                } else {
-                    console.error("request ID (" + request['ID'] + ") has invalid status.");
-                }
+
+
             })
+
+            //set for first time
+            this.filteredAllRequests = this.allRequests;
+            this.filteredMyRequests = this.myRequests;
+            this.filteredActiveRequests = this.activeRequests;
+            this.filteredOngoingRequests = this.ongoingRequests;
+            this.filteredAcceptedRequests = this.acceptedRequests;
+            this.filteredCompletedRequests = this.completedRequests;
+
+
         })
+    }
+
+    timeDifference(laterTimeStamp, earlierTimeStamp) {
+        var delta = laterTimeStamp - earlierTimeStamp;
+        var days = Math.floor(delta / (1000 * 60 * 60 * 24));
+        var hours = Math.floor(delta / (1000 * 60 * 60));
+        var min = Math.floor(delta / (1000 * 60));
+        var sec = Math.floor(delta / (1000));
+
+        if (days < 0) {
+            return `expired`;
+
+        } else if (days) {
+
+            return `${days} days left`;
+        } else if (hours) {
+
+            return `${hours} hours left`;
+        } else if (min) {
+
+            return `${min} mins left`;
+        } else if (sec) {
+
+            return ` secs left`;
+        } else {
+            return `expired`;
+        }
+    }
+
+    timeLeft(ts, dur) {
+        const timestamp = ts;
+        const duration = dur;
+        if (Number.isNaN(duration)) {
+            return "no limit";
+        } else {
+            const expireTimestamp = timestamp + duration * 60 * 60 * 1000;
+            return this.timeDifference(expireTimestamp, Date.now());
+        }
+
     }
 
 
@@ -243,9 +321,11 @@ export class ExploreComponent implements OnInit {
     }
 
     filterAllRequests(searchBox: string) {
+
         return this.allRequests.filter(request =>
-            (request['title'].toLowerCase().indexOf(searchBox.toLowerCase()) !== -1) ||
-            request['description'].toLowerCase().indexOf(searchBox.toLowerCase()) !== -1
+            ((request['title'].toLowerCase().indexOf(searchBox.toLowerCase()) !== -1) ||
+                request['description'].toLowerCase().indexOf(searchBox.toLowerCase()) !== -1)
+
         )
     }
 
@@ -284,4 +364,35 @@ export class ExploreComponent implements OnInit {
         )
     }
 
+    // activeCheckBox(activeCheck) {
+    //     return this.
+
+    // }
+
+
+    // checkFilter() {
+    //     // console.log('inside',arr);
+    //     // const newArr = [];
+    //     return this.filterAllRequests(this._searchBox).filter(request => {
+    //         request['status'] != "active"
+    //     });
+
+    // }
+
+
+    filterRequestsStatus(inputActive, inputOngoing, inputDone, inputExpired) {
+        this.reloadRequests(inputActive.checked, inputOngoing.checked, inputDone.checked, inputExpired.checked);
+    }
+
+    showOngoingRequests(element) {
+        console.log(element.checked);
+    }
+
+    showDoneRequests(element) {
+        console.log(element.checked);
+    }
+
+    showExpiredRequests(element) {
+        console.log(element.checked);
+    }
 }

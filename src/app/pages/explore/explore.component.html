@@ -5,7 +5,7 @@
     <div class="search-and-new-request" >
       <!-- Search form -->
       <div class="form-inline my-2 my-lg-0 " style="width:-webkit-fill-available;margin:0em 0.3em;">
-        <input class="form-control mr-sm-2 search-bar"  type="search" placeholder="search" aria-label="Search"
+        <input class="form-control mr-sm-2 search-bar" type="search" placeholder="search" aria-label="Search"
           [(ngModel)]="searchBox" name="searchBox">
       </div>
 
@@ -14,6 +14,35 @@
         <app-new-request style="margin:0em;"></app-new-request>
       </div>
 
+      
+    </div>
+
+    <!-- filter function -->
+    <div class="filter-section">
+      <!-- Default inline 1-->
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input #inputActive type="checkbox" class="custom-control-input" id="defaultInline1" checked (change) = "filterRequestsStatus(inputActive, inputOngoing, inputDone, inputExpired)" >
+        <label class="custom-control-label " for="defaultInline1">Active</label>
+      </div>
+
+      <!-- Default inline 2-->
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input #inputOngoing type="checkbox" class="custom-control-input" id="defaultInline2" checked (change)="filterRequestsStatus(inputActive, inputOngoing, inputDone, inputExpired)">
+        <label class="custom-control-label" for="defaultInline2">Ongoing</label>
+      </div>
+
+      <!-- Default inline 3-->
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input #inputDone type="checkbox" class="custom-control-input" id="defaultInline3"checked (change)="filterRequestsStatus(inputActive, inputOngoing, inputDone, inputExpired)">
+        <label class="custom-control-label " for="defaultInline3">Done</label>
+      </div>
+
+      <!-- Default inline 4-->
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input #inputExpired type="checkbox" class="custom-control-input" id="defaultInline4"checked (change)="filterRequestsStatus(inputActive, inputOngoing, inputDone, inputExpired)">
+        <label class="custom-control-label " for="defaultInline4">Expired</label>
+      </div>
+      
     </div>
 
     <div id="requests">
