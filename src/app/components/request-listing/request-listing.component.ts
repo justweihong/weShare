@@ -202,9 +202,7 @@ export class RequestListingComponent implements OnInit {
     if (confirm("Are you sure you want to help " + this.creatorDetails['displayName'] + "?")) {
       // this.closeDetailsModal();
       this.modalService.dismissAll();
-      this.requestService.acceptRequest(this.requestDetails["ID"], this.userID).then(() => {
-
-      });
+      this.requestService.acceptRequest(this.requestDetails["ID"], this.userID)
     }
   }
 
@@ -222,8 +220,7 @@ export class RequestListingComponent implements OnInit {
     if (confirm("Are you you have completed " + this.creatorDetails['displayName'] + "/'s request")) {
       // this.closeDetailsModal();
       this.modalService.dismissAll();
-      this.requestService.completeRequest(this.requestDetails["ID"]).then(() => {
-      });
+      this.requestService.completeRequest(this.requestDetails["ID"])
     }
   }
 
