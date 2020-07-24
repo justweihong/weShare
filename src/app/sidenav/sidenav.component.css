@@ -114,6 +114,15 @@ ul ul a {
     padding-left: 30px !important;
     background: #043245;
 }
+.sidenav-entry {
+  display:flex!important;
+}
+.sidenav-icon-holder {
+  font-size:1.2em;
+  /* padding-right:0.5em; */
+  width:2.5em;
+  text-align: center;
+}
 
 .image-holder {
   display: block;
