@@ -66,11 +66,12 @@
       </div>
 
       <div >
-        <form [formGroup]="newMessage" class="chat-form">
-          <!-- <i class="fa fa-paperclip chat-form-logo" aria-hidden="true"></i> -->
-          <!-- <input class="chat-input" type="text" placeholder="type a message "> -->
-          <textarea formControlName="text" class="form" placeholder="type a message..."  rows="2"></textarea>
-          <i class="fa fa-arrow-circle-up chat-form-logo" aria-hidden="true" (click)="sendMessage()"></i>
+        <form [formGroup]="newMessage" class="chat-form2">
+          <textarea id="textarea" formControlName="text" class="form" placeholder="Write a message..."  rows="1" ></textarea>
+          <div class="chat-form-logo-section">
+            <i class="fa fa-arrow-circle-up chat-form-logo" aria-hidden="true" (click)="sendMessage()"></i>
+          </div>
+          
         </form>
       </div>
 
