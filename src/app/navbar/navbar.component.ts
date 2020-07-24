@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
     private afs: AngularFirestore,
     private notificationService: NotificationService
   ) {
-    
+
     this.subscription.push(this.auth.getUser().subscribe(user => {
       if (user) {
         this.userID = user.uid;
@@ -59,6 +59,34 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+  timeAgo(timestamp) {
+    var delta = Date.now() - timestamp;
+    var days = Math.floor(delta / (1000 * 60 * 60 * 24));
+    var hours = Math.floor(delta / (1000 * 60 * 60));
+    var min = Math.floor(delta / (1000 * 60));
+    var sec = Math.floor(delta / (1000));
+
+    if (days < 0) {
+      return `now`;
+    } else if (days > 14) {
+
+      return `${new Date(timestamp).toLocaleDateString()}`;
+    } else if (days) {
+
+      return `${days} days ago`;
+    } else if (hours) {
+
+      return `${hours} hours ago`;
+    } else if (min) {
+
+      return `${min} mins ago`;
+    } else if (sec) {
+
+      return ` seconds ago`;
+    } else {
+      return `now`;
+    }
   }
 
   toggleSidenav() {
