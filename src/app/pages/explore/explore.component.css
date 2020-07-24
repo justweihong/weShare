@@ -40,6 +40,16 @@
   margin-left: 950px;
   margin-top: -65px !important;
 }
+.filter-section {
+  display:flex;
+  padding:0.5em 1em;
+  height:3em;
+  align-items:center;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+  background-color: #328eb3;
+}
 
 .request-list {
     /* display: flex; */
