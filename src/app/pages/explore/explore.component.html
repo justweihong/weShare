@@ -2,7 +2,7 @@
   <img id="loading-header" src="../../../assets/loading.gif" style="display: none;" />
   <div id="content" class="fade-right" style="display:none; padding-left: 0px;position:relative">
 
-    <div id="search-and-new-request" style="padding:1em 0.5em; display:flex;align-items: center;">
+    <div class="search-and-new-request" >
       <!-- Search form -->
       <div class="form-inline my-2 my-lg-0 " style="width:-webkit-fill-available;margin:0em 0.3em;">
         <input class="form-control mr-sm-2 search-bar"  type="search" placeholder="search" aria-label="Search"
@@ -18,19 +18,19 @@
 
     <div id="requests">
 
-      <div class="grid request-list page-height" *ngIf="this.requestState == 'all-requests' && this.allRequests">
+      <div class="grid request-list" *ngIf="this.requestState == 'all-requests' && this.allRequests">
         <ng-container *ngFor="let request of this.filteredAllRequests">
           <app-request-listing [requestID]="request['ID']"></app-request-listing>
         </ng-container>
       </div>
 
-      <div class="grid request-list page-height" *ngIf="this.requestState == 'my-requests' && this.myRequests">
+      <div class="grid request-list" *ngIf="this.requestState == 'my-requests' && this.myRequests">
         <ng-container *ngFor="let request of this.filteredMyRequests" class="request-area">
           <app-request-listing [requestID]="request['ID']"></app-request-listing>
         </ng-container>
       </div>
 
-      <div class="grid request-list page-height"
+      <div class="grid request-list"
         *ngIf="this.requestState == 'accepted-requests' && this.acceptedRequests">
         <ng-container *ngFor="let request of this.filteredAcceptedRequests" class="request-area">
           <app-request-listing [requestID]="request['ID']"></app-request-listing>

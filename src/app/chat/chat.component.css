@@ -8,8 +8,8 @@
   width:fit-content;
   background: #e3e6e9;
   border-right: solid;
-  border-color: #043245;
-  border-width: 2px;
+  border-color: #318199;
+  border-width: 1px;
   min-width: 13em;
 }
 .user-entry {
@@ -80,9 +80,22 @@
   height:5em;
   display:flex;
 }
+.main-image-section {
+  display:flex;
+  align-items: center;
+
+}
+.main-image {
+  border-radius:50%;
+  width:2.5em;
+  height:2.5em;
+}
 .main-username {
+  display:flex;
+  align-items: center;
   font-size:1.4em;
   color:#043245;
+  padding-left:0.5em;
 }
 .main-status {
   color:grey;
@@ -103,7 +116,8 @@
   display:flex;
   flex-direction: column-reverse;
   padding:0 20px;
-  /* height:calc(100vh - 60px - 5em - 5em); */
+  padding:0.6em 1em;
+  height: calc(((100vh - 60px) - 5em) - 49px);
   /* height:1px; */
   overflow:scroll;
 }
