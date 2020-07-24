@@ -38,13 +38,23 @@
           <div class="main-username" *ngIf="this.currentChat && this.currentChat['otherUserData']['displayName']">
             {{this.currentChat["otherUserData"]["displayName"]}}
           </div>
-          <div class="main-status">online</div>
+          <!-- <div class="main-status">online</div> -->
         </span>
-        <div class="delete-chat-section">
+        <!-- <div class="delete-chat-section">
           <div>
-            <i class="fa fa-trash chat-form-logo" style="font-size:1.5em;" (click)="deleteChat(currentChat)"></i>
+            <i class="fa fa-trash " style="font-size:1.5em;" (click)="deleteChat(currentChat)"></i>
           </div>
 
+        </div> -->
+        <div class="delete-chat-section dropdown" style="position:relative;">
+          <div  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-ellipsis-v chat-form-logo" style="font-size:2em;"></i>
+          </div>
+
+          <!-- dropdown menu -->
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" (click)="deleteChat(currentChat)" >Delete chat</a>
+          </div>
         </div>
       </div>
 
@@ -66,11 +76,12 @@
       </div>
 
       <div >
-        <form [formGroup]="newMessage" class="chat-form">
-          <!-- <i class="fa fa-paperclip chat-form-logo" aria-hidden="true"></i> -->
-          <!-- <input class="chat-input" type="text" placeholder="type a message "> -->
-          <textarea formControlName="text" class="form" placeholder="type a message..."  rows="2"></textarea>
-          <i class="fa fa-arrow-circle-up chat-form-logo" aria-hidden="true" (click)="sendMessage()"></i>
+        <form [formGroup]="newMessage" class="chat-form2">
+          <textarea id="textarea" formControlName="text" class="form" placeholder="Write a message..."  rows="1" ></textarea>
+          <div class="chat-form-logo-section">
+            <i class="fa fa-arrow-circle-up chat-form-logo" aria-hidden="true" (click)="sendMessage()"></i>
+          </div>
+          
         </form>
       </div>
 

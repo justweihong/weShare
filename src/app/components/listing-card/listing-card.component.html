@@ -80,11 +80,17 @@
     <!-- creator additional details -->
     <div id="creator-add-details" style="display:flex;">
       <div id="room-details" class="listing-modal-item item-top-border" style="width:50%;">
-        <i class="fa fa-home" aria-hidden="true" style="padding-right:0.5em;"></i> {{ this.creatorDetails["roomDetails"] }}
+        <i class="fa fa-home" aria-hidden="true" style="padding-right:0.5em;"></i>
+        {{ this.creatorDetails["roomDetails"] }}
+
       </div>
 
-      <div id="contact-details" class="listing-modal-item item-top-border" style="width:50%;">
-        <i class="fa fa-phone" aria-hidden="true" style="padding-right:0.5em;"></i> {{this.creatorDetails["userContact"] }}
+      <div id="contact-details" class="listing-modal-item item-top-border" style="width:50%;display:flex;">
+        <i class="fa fa-phone" aria-hidden="true" style="padding-right:0.5em;"></i>
+        <div style="padding-right:0.5em;">{{this.creatorDetails["userContact"] }}</div>
+        <div *ngIf="this.creatorDetails['uid'] != this.userID" class="main-button chat-button" (click)="listingStartChat()">
+          <i class="fa fa-comment"></i>
+        </div>
       </div>
 
     </div>

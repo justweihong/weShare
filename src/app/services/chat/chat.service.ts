@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ export class ChatService {
 
   constructor(
     private afs: AngularFirestore,
+    private router: Router,
   ) { }
 
 
@@ -20,6 +22,21 @@ export class ChatService {
           collection.doc(`${key.id}`).set({ ID: key.id }, { merge: true });
         }
       )
+    }
+  }
+
+  //From request or marketplace.
+  startChat(user1, user2) {
+    if (confirm("start chatting?")) {
+      this.checkIfChatExist(user1, user2).then(details => {
+        if (details['answer'] == true) {
+          this.router.navigate(["/chat/", details['chatID']])
+        } else {
+          this.createNewChat(user1, user2).then(chatID => {
+            this.router.navigate(["/chat/", chatID])
+          })
+        }
+      })
     }
   }
 

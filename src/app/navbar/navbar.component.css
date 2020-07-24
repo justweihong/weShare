@@ -25,6 +25,11 @@
 .toggle-sidebar:hover {
   color: #226580;
 }
+.dropdown-item.active, .dropdown-item:active {
+    /* color: #fff; */
+    text-decoration: none;
+    background-color: #cddbe1;
+  }
 
 .image-holder {
     border-radius: 50%;
