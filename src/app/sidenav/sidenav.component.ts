@@ -52,6 +52,15 @@ export class SidenavComponent implements OnInit {
 
     this.subscriptions.push(this.navbarService.getSidenavToggle().pipe().subscribe(() => {
       $('#sidebar').toggleClass('active');
+      if($(window).width() < 768){
+        if($("#sidebar").hasClass('active')) {
+          $('.page-width').css('width', 'calc(100% - 250px)');
+          // $('.page-width').css('display', 'none');
+        } else {
+          $('.page-width').css('width', '100%');
+          // $('.page-width').css('display', 'block');
+        }
+      }
     }));
 
   }
