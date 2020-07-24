@@ -81,15 +81,15 @@ export class MarketplaceComponent implements OnInit {
 
     this.listingService.getListings().subscribe(listing => {
       this.myListings = [];
-      this.allListings = [];
+      this.allListings = listing
       this.ongoingListings = [];
       this.completedListings = [];
 
       listing.forEach(post => {
-        if (post['status'] === "active") {
-          this.allListings.push(post);
-        }
-
+        // if (post['status'] === "active") {
+        //   this.allListings.push(post);
+        // }
+        
         if (post['createdBy'] === this.userID && post['status'] == "active") {
           this.myListings.push(post);
         }
