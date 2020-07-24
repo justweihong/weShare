@@ -4,20 +4,27 @@
         <table class="table">
 
             <!-- Header for leaderboard -->
-            <thead class="thead-dark">
+            <thead class="header-section">
                 <tr>
                     <th scope="col"><i class="fa fa-trophy fa-4x"></i></th>
-                    <th scope="col"><span class='title'>Lobang King </span><i class="fa fa-shopping-cart fa-2x"></i>
-                        <br><span class="subtitle">- Highest number of listings in marketplace</span></th>
+                    <th scope="col">
+                      <div>
+                        <i class="fa fa-shopping-cart fa-2x"></i>
+                      </div>
+
+                      <span class='title'>Lobang King </span>
+                      <br><span class="subtitle">Highest number of listings in marketplace</span>
+                    </th>
+
                     <th scope="col"><span class='title'> Legendary Dealer </span><i class="fa fa-id-card-o fa-2x"></i>
-                        <br><span class="subtitle">- Highest number of completed listings</span></th>
+                        <br><span class="subtitle">Highest number of completed listings</span></th>
                     <th scope="col"><span class='title'>Good Samaritan </span><i class="fa fa-users fa-2x"></i><br><span
-                            class="subtitle">- Highest number of completed requests</span></th>
+                            class="subtitle">Highest number of completed requests</span></th>
                 </tr>
             </thead>
 
 
-            <tbody>
+            <tbody class="body-color">
                 <tr>
                     <th scope="row">1</th>
                     <td *ngIf="this.listingCountTop3[0]; else notShow"><img src="{{this.listingCountTop3[0][3]}}"
@@ -66,13 +73,13 @@
         </table>
 
         <div class="jumbotron jumbotron-fluid" >
-            
+
             <h3 *ngIf="this.userListingCount; else noListing"><i class="fa fa-shopping-cart fa-2x"></i> Your number of listings is {{this.userListingCount}}</h3>
             <h3 *ngIf="this.userCompletedListingCount; else noCompletedListing"><i class="fa fa-id-card-o fa-2x"></i> Your number of completed listings is
                 {{this.userCompletedListingCount}}</h3>
             <h3 *ngIf="this.userCompletedRequestCount; else noCompletedRequest"><i class="fa fa-users fa-2x"></i> Your number of completed requests is
                 {{this.userCompletedRequestCount}}</h3>
-            
+
         </div>
 
         <ng-template #notShow>
