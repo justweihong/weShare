@@ -45,7 +45,34 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.createEmptyForm();
-    autosize(document.querySelector('textarea'));
+
+    // Chat textarea.
+    var self = this;
+    $(".chat-message-list").css("height", 'calc( 100vh - 60px - 5em - ' + $(".chat-form2").height() + 'px' );
+    $( document ).ready(function() {
+      console.log( "document loaded" );
+
+      // Autosize textarea.
+      var textarea = document.querySelector('textarea')
+      autosize(textarea);
+
+      // Adjust chat message list height accordingly.
+      $(".chat-message-list").css("height", 'calc( 100vh - 60px - 5em - ' + $(".chat-form2").height() + 'px' );
+      textarea.addEventListener('autosize:resized', function(){
+        $(".chat-message-list").css("height", 'calc( 100vh - 60px - 5em - ' + $(".chat-form2").height() + 'px');
+      });
+
+      // 'Enter' to send mesasge.
+      $('#textarea').keypress(function(e){
+        if(e.keyCode == 13 && !e.shiftKey) {
+        e.preventDefault();
+        self.sendMessage();
+        }
+      });
+
+
+  });
+
 
 
 
@@ -189,7 +216,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
 
     return day + " " + month + " " + year + ", " + hour12 + "." + min + " " +  ampm ;
-}
+ }
+
 
   checkIfChatExist(user1, user2) {
     return new Promise((resolve) => {
@@ -234,7 +262,7 @@ export class ChatComponent implements OnInit, OnDestroy {
           this.newMessage.reset();
 
           // console.log('targetID: ',this.currentChat['otherUserData']);
-          
+
           //send notification to user
           var data = {
             'title': 'New Message!',
@@ -245,7 +273,10 @@ export class ChatComponent implements OnInit, OnDestroy {
             'timeStamp': Date.now(),
           }
           this.notificationService.notifyUser(this.currentChat['otherUserData']['uid'], this.userID + this.currentChat['otherUserData']['uid'], data)
-          
+
+          //reset autosize
+          autosize.destroy(document.querySelectorAll('textarea'));
+          autosize(document.querySelectorAll('textarea'));
         }
 
       } else {

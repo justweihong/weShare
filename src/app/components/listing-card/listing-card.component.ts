@@ -8,6 +8,7 @@ import { ListingService } from '../../services/listing/listing.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { ChatService } from 'src/app/services/chat/chat.service';
 
 declare var $: any;
 
@@ -40,6 +41,7 @@ export class ListingCardComponent implements OnInit {
     private storage: AngularFireStorage,
     public auth: AuthService,
     private userService: UserService,
+    public chatService: ChatService,
     private listingService: ListingService,
     private fb: FormBuilder,
     private db: AngularFirestore,
@@ -174,6 +176,10 @@ export class ListingCardComponent implements OnInit {
     // location.reload();
   }
 
+  listingStartChat() {
+    this.chatService.startChat(this.userID, this.creatorDetails['uid']);
+    this.modalService.dismissAll();
+  }
 
   acceptOffer(offer) {
     if (confirm("are you sure you want to accept offer? This listing will be marked as sold.")) {
