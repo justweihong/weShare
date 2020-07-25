@@ -67,7 +67,7 @@ export class RequestService {
             if (status === "completed") {
                 //Notification of completion (if any) will be deleted (to declutter database)
                 this.notificationService.removeNotificationForUser(requestID + helperID, requestCreator);
-            } else if (status ==="ongoing") {
+            } else if (status === "ongoing") {
                 //New notification will be pushed to person (if any) who accepted the request
                 var data = {
                     'title': 'Your accepted request have been deleted!',
@@ -166,30 +166,31 @@ export class RequestService {
             helperID = req['helper'];
 
             this.afs.doc(`user/${helperID}`).valueChanges().pipe(take(1)).subscribe(user => {
-                helperName = user['displayName'];  
-            })
-                .add(() => {
-                    var dataToChange = {
-                        completeTimeStamp: Date.now(),
-                        status: "completed",
-                    }
+                helperName = user['displayName'];
 
-                    this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
-                        console.log('done');
-                    })
-                        .then(() => {
-                            var data = {
-                                'title': helperName + ' has completed your request!',
-                                'description': requestTitle + ' has been completed!',
-                                'createdBy': helperID,
-                                'status': 'new notification',
-                                'type': 'accepted request',
-                                'ID': requestID + helperID,
-                                'timeStamp': Date.now(),
-                            }
-                            this.notificationService.notifyUser(notifyUser, requestID + helperID, data);
-                        });
-                }).unsubscribe();
+
+                var dataToChange = {
+                    completeTimeStamp: Date.now(),
+                    status: "completed",
+                }
+
+                this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
+                    console.log('done');
+                })
+                    .then(() => {
+                        var data = {
+                            'title': helperName + ' has completed your request!',
+                            'description': requestTitle + ' has been completed!',
+                            'createdBy': helperID,
+                            'status': 'new notification',
+                            'type': 'accepted request',
+                            'ID': requestID + helperID,
+                            'timeStamp': Date.now(),
+                        }
+                        this.notificationService.notifyUser(notifyUser, requestID + helperID, data);
+                    });
+
+            })
         })
 
     }
