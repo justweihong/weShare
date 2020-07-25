@@ -25,7 +25,16 @@
           Get you neighbours to do the work for you!</p>
         </div>
 
-        <div style="display:flex; justify-content:center; padding-top:2em;" (click)="scrollDown('feature-section', 60)">
+        <div id="get-started" class="section-item" style="font-size:1.5em;">
+          <div class="get-started-button"  (click)="router.navigate(['/profile']);">Get Started!</div>
+        </div>
+
+        <div id="sub-header" class="sub-text" style="font-size: 0.9em;padding: 2em 0 1em 0;color: #abd6e7;">
+          <div>First time here?</div>
+          <div>Click below to find out more!</div>
+        </div>
+
+        <div style="display:flex; justify-content:center; padding-top:0em;" (click)="scrollDown('feature-section', 60)">
           <div class="main-indicator indicator ">
             <span></span>
             <span></span>
@@ -37,104 +46,104 @@
 
 
     <div id="feature-section" class="section-height light-background dark-text" >
-        <!-- <div class="sub-bg-overlay"></div>
-        <div class="top-wave-container">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-            <path fill="aliceblue" fill-opacity="1" d="M0,160L30,149.3C60,139,120,117,180,122.7C240,128,300,160,360,149.3C420,139,480,85,540,74.7C600,64,660,96,720,117.3C780,139,840,149,900,149.3C960,149,1020,139,1080,117.3C1140,96,1200,64,1260,58.7C1320,53,1380,75,1410,85.3L1440,96L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"></path>
-            </svg>
-        </div> -->
+      <!-- <div class="sub-bg-overlay"></div>
+      <div class="top-wave-container">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <path fill="aliceblue" fill-opacity="1" d="M0,160L30,149.3C60,139,120,117,180,122.7C240,128,300,160,360,149.3C420,139,480,85,540,74.7C600,64,660,96,720,117.3C780,139,840,149,900,149.3C960,149,1020,139,1080,117.3C1140,96,1200,64,1260,58.7C1320,53,1380,75,1410,85.3L1440,96L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"></path>
+          </svg>
+      </div> -->
 
-        <div id="feature-section-details" class="dark-text" style="z-index: 1">
+      <div id="feature-section-details" class="dark-text" style="z-index: 1">
 
-            <div id="feature-header" class="head-text" style="height:8%;">
-                <b>- OUR FEATURES -</b>
-            </div>
+          <div id="feature-header" class="head-text" style="height:8%;">
+              <b>- OUR FEATURES -</b>
+          </div>
 
-            <div id="feature-desc-section" class="grid" style="height:80%;max-height:600px">
-
-
-                <div id="request-feature" class="feature-section" (click)="scrollDown('request-section', 60)">
-                <span id="feature-details">
-                    <img class="feature-logo" src="../../../assets/request-logo.svg">
-
-                    <div class="feature-main-desc">
-                    Seek Help
-                    </div>
-                    <div class="feature-sub-desc">
-                    Request help from your friends when you are busy
-                    </div>
-                </span>
-                </div>
-
-                <!-- <a href="#request-section"> go to req section</a> -->
-                <div id="marketplace-feature" class="feature-section" (click)="scrollDown('marketplace-section', 60)">
-                <span id="feature-details">
-                    <img class="feature-logo" src="../../../assets/marketplace-logo.svg">
-
-                    <div class="feature-main-desc">
-                    Buy and Sell
-                    </div>
-                    <div class="feature-sub-desc">
-                    Get your daily hostel needs at ease
-                    </div>
-                </span>
-                </div>
-
-                <div id="chat-feature" class="feature-section" (click)="scrollDown('chat-section', 60)">
-                <span id="feature-details">
-                    <img class="feature-logo" src="../../../assets/chat-logo.svg">
-
-                    <div class="feature-main-desc">
-                    Quick Connect
-                    </div>
-                    <div class="feature-sub-desc">
-                    Stike a conversation with neighbours in real time.
-                    </div>
-                </span>
-                </div>
-
-                <div id="notification-feature" class="feature-section" (click)="scrollDown('notification-section', 60)">
-                <span id="feature-details">
-                    <img class="feature-logo" src="../../../assets/notification-logo.svg">
-
-                    <div class="feature-main-desc">
-                    Timely Updates
-                    </div>
-                    <div class="feature-sub-desc">
-                    Instant notifications will be reflected on your device
-                    </div>
-                </span>
-                </div>
-
-                <div id="leaderboard-feature" class="feature-section" (click)="scrollDown('leaderboard-section', 60)">
-                <span id="feature-details">
-                    <img class="feature-logo" src="../../../assets/leaderboard-logo.svg">
-
-                    <div class="feature-main-desc">
-                    Get Recognised
-                    </div>
-                    <div class="feature-sub-desc">
-                    Be the top contributor of your community!
-                    </div>
-                </span>
-                </div>
-
-                <div id="mobile-feature" class="feature-section" (click)="scrollDown('mobile-section', 60)">
-                <span id="feature-details">
-                    <img class="feature-logo" src="../../../assets/mobile-logo.svg">
-
-                    <div class="feature-main-desc">
-                    On the go?
-                    </div>
-                    <div class="feature-sub-desc">
-                    Our user-friendly interface supports mobile, tablet and laptop devices!
-                    </div>
-                </span>
-                </div>
+          <div id="feature-desc-section" class="grid" style="height:80%;max-height:600px">
 
 
-            </div>
-        </div>
+              <div id="request-feature" class="feature-section" (click)="scrollDown('request-section', 60)">
+              <span id="feature-details">
+                  <img class="feature-logo" src="../../../assets/request-logo.svg">
+
+                  <div class="feature-main-desc">
+                  Seek Help
+                  </div>
+                  <div class="feature-sub-desc">
+                  Request help from your friends when you are busy
+                  </div>
+              </span>
+              </div>
+
+              <!-- <a href="#request-section"> go to req section</a> -->
+              <div id="marketplace-feature" class="feature-section" (click)="scrollDown('marketplace-section', 60)">
+              <span id="feature-details">
+                  <img class="feature-logo" src="../../../assets/marketplace-logo.svg">
+
+                  <div class="feature-main-desc">
+                  Buy and Sell
+                  </div>
+                  <div class="feature-sub-desc">
+                  Get your daily hostel needs at ease
+                  </div>
+              </span>
+              </div>
+
+              <div id="chat-feature" class="feature-section" (click)="scrollDown('chat-section', 60)">
+              <span id="feature-details">
+                  <img class="feature-logo" src="../../../assets/chat-logo.svg">
+
+                  <div class="feature-main-desc">
+                  Quick Connect
+                  </div>
+                  <div class="feature-sub-desc">
+                  Stike a conversation with neighbours in real time.
+                  </div>
+              </span>
+              </div>
+
+              <div id="notification-feature" class="feature-section" (click)="scrollDown('notification-section', 60)">
+              <span id="feature-details">
+                  <img class="feature-logo" src="../../../assets/notification-logo.svg">
+
+                  <div class="feature-main-desc">
+                  Timely Updates
+                  </div>
+                  <div class="feature-sub-desc">
+                  Instant notifications will be reflected on your device
+                  </div>
+              </span>
+              </div>
+
+              <div id="leaderboard-feature" class="feature-section" (click)="scrollDown('leaderboard-section', 60)">
+              <span id="feature-details">
+                  <img class="feature-logo" src="../../../assets/leaderboard-logo.svg">
+
+                  <div class="feature-main-desc">
+                  Get Recognised
+                  </div>
+                  <div class="feature-sub-desc">
+                  Be the top contributor of your community!
+                  </div>
+              </span>
+              </div>
+
+              <div id="mobile-feature" class="feature-section" (click)="scrollDown('mobile-section', 60)">
+              <span id="feature-details">
+                  <img class="feature-logo" src="../../../assets/mobile-logo.svg">
+
+                  <div class="feature-main-desc">
+                  On the go?
+                  </div>
+                  <div class="feature-sub-desc">
+                  Our user-friendly interface supports mobile, tablet and laptop devices!
+                  </div>
+              </span>
+              </div>
+
+
+          </div>
+      </div>
 
     </div>
 
@@ -151,8 +160,8 @@
 
         <div id="request-section-details" class="feature-grid">
           <div class="indiv-video-section">
-            <video id="walkthrough-video" class="indiv-feature-video" style="max-width:400px;" autoplay loop muted>
-              <source src="../../../assets/indiv-feature.mp4" type="video/mp4">
+            <video id="walkthrough-video" class="indiv-feature-video" style="max-width:400px; width:unset; max-height: 370px;" autoplay loop muted>
+              <source src="../../../assets/request-feature-final.mp4" type="video/mp4">
             </video>
           </div>
 
@@ -225,8 +234,8 @@
           </div>
 
           <div class="indiv-video-section">
-            <video id="walkthrough-video" class="indiv-feature-video" style="max-width:400px;" autoplay loop muted>
-              <source src="../../../assets/indiv-feature.mp4" type="video/mp4">
+            <video id="walkthrough-video" class="indiv-feature-video" style="max-width:400px; width:unset; max-height: 370px;" autoplay loop muted>
+              <source src="../../../assets/marketplace-feature-final.mp4" type="video/mp4">
             </video>
           </div>
         </div>
@@ -258,8 +267,8 @@
 
         <div id="chat-section-details" class="feature-grid">
           <div class="indiv-video-section">
-            <video id="walkthrough-video" class="indiv-feature-video" style="max-width:400px;" autoplay loop muted>
-              <source src="../../../assets/indiv-feature.mp4" type="video/mp4">
+            <video id="walkthrough-video" class="indiv-feature-video" style="max-width:400px; width:unset; max-height: 370px;" autoplay loop muted>
+              <source src="../../../assets/chat-feature.mp4" type="video/mp4">
             </video>
           </div>
 
@@ -360,9 +369,9 @@
 
         <div id="request-section-details" class="feature-grid">
           <div class="indiv-video-section">
-            <video id="walkthrough-video" class="indiv-feature-video" style="max-width:400px;" autoplay loop muted>
-              <source src="../../../assets/indiv-feature.mp4" type="video/mp4">
-            </video>
+            <img id="walkthrough-video"class="indiv-feature-video" src="../../../assets/leaderboard-feature.png" style="max-width:400px;">
+              <!-- <source  type="video/mp4"> -->
+
           </div>
 
           <div class="indiv-desc-section">
@@ -413,7 +422,7 @@
           <div class="indiv-desc-section">
             <div class="sub-head-text" style="padding:0.5em 0em;">
               <b>
-                What makes us so different from other apps or projects that you have used/seen?
+                From laptops to tablets and even mobile, use weShare in your favourite device!
               </b>
             </div>
             <div class="sub-text">
@@ -426,14 +435,14 @@
               <p>
                   We have listened, and we understand it is not fair to simply port over from a web-app
                   to a native mobile app and forget about our desktop users.
-                  Instead, we have created a <b>friendly interface</b> that supports <b>mobile, tablet and even laptop devices</b>!
+                  Instead, we have created a <b>friendly interface</b> that supports <b>laptop, tablet and mobile devices</b>!
               </p>
             </div>
           </div>
 
           <div class="indiv-video-section">
             <video id="walkthrough-video" class="indiv-feature-video" style="max-width:400px;" autoplay loop muted>
-              <source src="../../../assets/indiv-feature.mp4" type="video/mp4">
+              <source src="../../../assets/responsive-feature.mp4" type="video/mp4">
             </video>
           </div>
         </div>
