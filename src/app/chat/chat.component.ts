@@ -53,14 +53,14 @@ export class ChatComponent implements OnInit, OnDestroy {
       console.log( "document loaded" );
 
       // Autosize textarea.
-      var textarea = document.querySelector('textarea')
-      autosize(textarea);
+      // var textarea = document.querySelector('textarea')
+      // autosize(textarea);
 
       // Adjust chat message list height accordingly.
-      $(".chat-message-list").css("height", 'calc( 100vh - 60px - 5em - ' + $(".chat-form2").height() + 'px' );
-      textarea.addEventListener('autosize:resized', function(){
-        $(".chat-message-list").css("height", 'calc( 100vh - 60px - 5em - ' + $(".chat-form2").height() + 'px');
-      });
+      // $(".chat-message-list").css("height", 'calc( 100vh - 60px - 5em - ' + $(".chat-form2").height() + 'px' );
+      // textarea.addEventListener('autosize:resized', function(){
+      //   $(".chat-message-list").css("height", 'calc( 100vh - 60px - 5em - ' + $(".chat-form2").height() + 'px');
+      // });
 
       // 'Enter' to send mesasge.
       $('#textarea').keypress(function(e){
@@ -104,6 +104,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
       //get my chats
       this.subscriptions.push(this.chatService.getChats().pipe().subscribe(chats => {
+
         console.log("chat");
         var myChats = [];
 
@@ -148,11 +149,16 @@ export class ChatComponent implements OnInit, OnDestroy {
 
       // Within same component route to different chats/find-users.
       this.subscriptions.push(this.router.events.subscribe(val => {
+        console.log("routeddd")
         if (val instanceof NavigationEnd) {
           this.chatState = val.url.slice(6); //chatID
 
           this.createEmptyForm();
           this.getCurrentChatData();
+
+          // Autosize textarea.
+          // autosize.destroy(document.querySelectorAll('textarea'));
+          // autosize(document.querySelectorAll('textarea'));
         }
       }))
 
@@ -275,8 +281,8 @@ export class ChatComponent implements OnInit, OnDestroy {
           this.notificationService.notifyUser(this.currentChat['otherUserData']['uid'], this.userID + this.currentChat['otherUserData']['uid'], data)
 
           //reset autosize
-          autosize.destroy(document.querySelectorAll('textarea'));
-          autosize(document.querySelectorAll('textarea'));
+          // autosize.destroy(document.querySelectorAll('textarea'));
+          // autosize(document.querySelectorAll('textarea'));
         }
 
       } else {
