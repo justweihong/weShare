@@ -44,6 +44,7 @@ b {
   border-radius: 2em;
   background-color: white;
   border: solid;
+  border-width: 5px;
   border-color: #1a5369;
 
 }
