@@ -24,12 +24,22 @@
 
     <!-- profile -->
     <li>
-      <a id="profile"  routerLinkActive="active-select" routerLink="/profile">Profile</a>
+      <a id="profile" class="sidenav-entry" routerLinkActive="active-select" routerLink="/profile">
+        <div class="sidenav-icon-holder">
+          <i class="fa fa-user-circle"></i>
+        </div>Profile</a>
+
+
     </li>
 
     <!-- requests -->
     <li>
-      <a href="#requestSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Requests</a>
+      <a href="#requestSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidenav-entry">
+        <div class="sidenav-icon-holder">
+          <i class="fa fa-handshake-o"></i>
+        </div>Requests</a>
+        <!-- <i class="fa fa-angle-down" aria-hidden="true"></i> -->
+
       <ul class="collapse list-unstyled" id="requestSubmenu">
         <li>
           <a routerLink="/explore/all-requests" routerLinkActive="active-select">
@@ -51,7 +61,12 @@
 
     <!-- marketplace -->
     <li>
-      <a href="#marketplaceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Marketplace</a>
+      <a href="#marketplaceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidenav-entry">
+        <div class="sidenav-icon-holder">
+          <i class="fa fa-usd"></i>
+        </div>Marketplace</a>
+        <!-- <i class="fa fa-angle-down" aria-hidden="true"></i> -->
+
       <ul class="collapse list-unstyled" id="marketplaceSubmenu">
         <li>
           <a routerLink="/marketplace/all-listings" routerLinkActive="active-select">
@@ -75,12 +90,18 @@
 
     <!-- chat -->
     <li>
-      <a routerLink="/chat" routerLinkActive="active-select">Chat</a>
+      <a routerLink="/chat" class="sidenav-entry" routerLinkActive="active-select">
+        <div class="sidenav-icon-holder">
+          <i class="fa fa-comment"></i>
+        </div>Chat</a>
     </li>
 
     <!-- leaderboard -->
     <li>
-      <a routerLink="/leaderboard" routerLinkActive="active-select">Leaderboard</a>
+      <a routerLink="/leaderboard" class="sidenav-entry" routerLinkActive="active-select">
+        <div class="sidenav-icon-holder">
+          <i class="fa fa-trophy"></i>
+        </div>Leaderboard</a>
     </li>
   </ul>
 
