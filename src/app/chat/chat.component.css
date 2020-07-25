@@ -117,7 +117,7 @@
   flex-direction: column-reverse;
   padding:0 20px;
   padding:0.6em 1em;
-  height: calc(((100vh - 60px) - 5em) - 49px);
+  height: calc(((100vh - 60px) - 5em) - 50px);
   /* height:1px; */
   overflow:scroll;
 }
@@ -175,6 +175,7 @@
   /* padding-right:22px; */
 }
 .chat-form2 {
+  height:50px;
   background:#cddbe1;
   display:flex;
   margin:0;
