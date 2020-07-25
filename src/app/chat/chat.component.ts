@@ -44,6 +44,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+    alert("READ THIS: if you are currently on mobile version, the chat input area and scrolling will have some display issues when keyboard is up. We are still currently working on it, and we apologise for the inconvenience caused! For better experience, please use our app on desktop!");
     this.createEmptyForm();
 
     // Chat textarea.

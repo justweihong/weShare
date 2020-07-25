@@ -265,11 +265,7 @@ textarea:focus {
 }
 
 @media screen and (max-width:769px) {
-  .chat-message-list {
-    height: calc(((100vh - 60px) - 5em) - 50px - 100px);
-    /* height:1px; */
-    /* overflow:scroll; */
-  }
+
 }
 
 @media screen and (max-width:480px) {
@@ -282,14 +278,7 @@ textarea:focus {
   .user-sidenav {
     min-width: unset;
   }
-  .chat-message-list {
-    height: calc(((100vh - 60px) - 5em) - 50px - 150px);
-    /* height:1px; */
-    /* overflow:scroll; */
-  }
-  .chat-form2 {
-    height:50px;
-  }
+
   #chat-page {
     overflow: hidden;
   }
