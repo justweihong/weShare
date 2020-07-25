@@ -265,7 +265,7 @@ textarea:focus {
 }
 
 @media screen and (max-width:769px) {
-  chat-message-list {
+  .chat-message-list {
     height: calc(((100vh - 60px) - 5em) - 50px - 100px);
     /* height:1px; */
     /* overflow:scroll; */
