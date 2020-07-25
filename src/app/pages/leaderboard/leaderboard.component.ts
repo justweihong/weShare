@@ -14,6 +14,7 @@ export class LeaderboardComponent implements OnInit {
 
   displayName: any;
   userID: any;
+  imgProfile:any;
   userListingCount: any;
   userCompletedListingCount: any;
   userCompletedRequestCount: any;
@@ -43,6 +44,7 @@ export class LeaderboardComponent implements OnInit {
     this.auth.user.subscribe(usr => {
       this.displayName = usr.displayName;
       this.userID = usr.uid;
+      this.imgProfile = usr.photoURL
     })
 
 
