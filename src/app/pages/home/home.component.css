@@ -381,7 +381,13 @@ b {
 @media screen and (max-width:480px) {
   .section-height {
     min-height: 800px;
-    height:fit-content;
+    height:1100px;
+  }
+  #disclaimer-header {
+    font-size:2em;
+  }
+  #walkthrough-title {
+    line-height:1.2em;
   }
   .grid {
     grid-template-columns: repeat(1, minmax(0, 1fr));
