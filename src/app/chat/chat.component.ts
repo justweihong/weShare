@@ -48,7 +48,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     // Chat textarea.
     var self = this;
-    $(".chat-message-list").css("height", 'calc( 100vh - 60px - 5em - ' + $(".chat-form2").height() + 'px' );
+    // $(".chat-message-list").css("height", 'calc( 100vh - 60px - 5em - ' + $(".chat-form2").height() + 'px' );
     $( document ).ready(function() {
       console.log( "document loaded" );
 
@@ -149,12 +149,17 @@ export class ChatComponent implements OnInit, OnDestroy {
 
       // Within same component route to different chats/find-users.
       this.subscriptions.push(this.router.events.subscribe(val => {
-        console.log("routeddd")
         if (val instanceof NavigationEnd) {
           this.chatState = val.url.slice(6); //chatID
 
+          if (this.chatState == '') {
+            this.chatState = 'find-users';
+
+          }
           this.createEmptyForm();
           this.getCurrentChatData();
+
+
 
           // Autosize textarea.
           // autosize.destroy(document.querySelectorAll('textarea'));
@@ -175,7 +180,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
   }
   getCurrentChatData() {
-    if (this.chatState != 'find-users') {
+    if (this.chatState != 'find-users' || this.chatState != '' && this.chatState) {
 
       // Get current chat.
       for (let chat of this.myChats) {
