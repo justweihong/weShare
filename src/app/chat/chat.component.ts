@@ -79,15 +79,8 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     //Get all users.
     this.userService.getUsers().pipe(take(1)).subscribe(users => {
+      users.sort((a,b) => a['timeStamp'] - b['timeStamp'])
       this.allUsers = users;
-      // users.forEach(user => {
-      //   if (user != this.userID) {
-      //     this.allUsers.push(user);
-      //   } else {
-      //     this.allUsers.push(user);
-      //   }
-      // })
-      // console.log(this.allUsers);
     })
 
     // Get the initial chat state.

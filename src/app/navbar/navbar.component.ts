@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit {
   userImg: any;
   faBars = faBars;
   notifications: any;
-  notificationCount:any;
+  notificationCount: any;
 
   constructor(
     public auth: AuthService,
@@ -99,5 +99,11 @@ export class NavbarComponent implements OnInit {
 
   removeNotification(notificationID) {
     return this.notificationService.removeNotificationForUser(notificationID, this.userID);
+
+
   }
+
+  
+  
 }
+

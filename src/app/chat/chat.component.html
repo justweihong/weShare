@@ -31,56 +31,75 @@
 
     </div>
 
-    <div class="main-chat" *ngIf="this.chatState && this.chatState != 'find-users' ">
+    <!-- <div class="main-chat" *ngIf="this.chatState && this.chatState != 'find-users' "> -->
+      <div class="main-chat">
+        <div *ngIf="this.chatState && this.chatState != 'find-users'">
 
-      <div class="main-header">
-        <span style="width:80%;display:flex;" *ngIf="this.currentChat">
-          <div class="main-image-section">
-            <img class="main-image" src="{{this.currentChat['otherUserData']['profileImg']}}">
-          </div>
-          <div class="main-username" *ngIf="this.currentChat && this.currentChat['otherUserData']['displayName']">
-            {{this.currentChat["otherUserData"]["displayName"]}}
-          </div>
-          <!-- <div class="main-status">online</div> -->
-        </span>
-        <!-- <div class="delete-chat-section">
-          <div>
-            <i class="fa fa-trash " style="font-size:1.5em;" (click)="deleteChat(currentChat)"></i>
+
+          <div class="main-header">
+            <span style="width:80%;display:flex;" *ngIf="this.currentChat">
+              <div class="main-image-section">
+                <img class="main-image" src="{{this.currentChat['otherUserData']['profileImg']}}">
+              </div>
+              <div class="main-username" *ngIf="this.currentChat && this.currentChat['otherUserData']['displayName']">
+                {{this.currentChat["otherUserData"]["displayName"]}}
+              </div>
+              <!-- <div class="main-status">online</div> -->
+            </span>
+            <!-- <div class="delete-chat-section">
+              <div>
+                <i class="fa fa-trash " style="font-size:1.5em;" (click)="deleteChat(currentChat)"></i>
+              </div>
+
+            </div> -->
+            <div class="delete-chat-section dropdown" style="position:relative;">
+              <div  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-ellipsis-v chat-form-logo" style="font-size:2em;"></i>
+              </div>
+
+              <!-- dropdown menu -->
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" (click)="deleteChat(currentChat)" >Delete chat</a>
+              </div>
+            </div>
           </div>
 
-        </div> -->
-        <div class="delete-chat-section dropdown" style="position:relative;">
-          <div  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-ellipsis-v chat-form-logo" style="font-size:2em;"></i>
-          </div>
+          <div id="chat-message-list" class="chat-message-list">
+            <div *ngFor="let message of currentChatMessages">
 
-          <!-- dropdown menu -->
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" (click)="deleteChat(currentChat)" >Delete chat</a>
+              <div *ngIf="message['senderID'] == this.userID" class="message-row own-message">
+                <div class="message-text">{{message['text']}}</div>
+                <div class="message-time">{{this.datetime12H(message['timeStamp'])}}</div>
+              </div>
+
+              <div *ngIf="message['senderID'] != this.userID" class="message-row other-message">
+                <div class="message-text">{{message['text']}}</div>
+                <div class="message-time">{{this.datetime12H(message['timeStamp'])}}</div>
+              </div>
+
+            </div>
+
           </div>
         </div>
-      </div>
 
-      <div id="chat-message-list" class="chat-message-list">
-        <div *ngFor="let message of currentChatMessages">
+        <div class="find-user-list" *ngIf="this.chatState && this.chatState == 'find-users'">
+          <div *ngFor="let user of allUsers">
+            <div class="find-user-entry" (click)="startChat(user)">
+              <div class="find-user-image-section">
+                <img class="find-user-image-holder" src="{{user['profileImg']}}">
+              </div>
+              <div class="find-user-username">
+                {{user['displayName']}}
+              </div>
 
-          <div *ngIf="message['senderID'] == this.userID" class="message-row own-message">
-            <div class="message-text">{{message['text']}}</div>
-            <div class="message-time">{{this.datetime12H(message['timeStamp'])}}</div>
+            </div>
           </div>
-
-          <div *ngIf="message['senderID'] != this.userID" class="message-row other-message">
-            <div class="message-text">{{message['text']}}</div>
-            <div class="message-time">{{this.datetime12H(message['timeStamp'])}}</div>
-          </div>
-
         </div>
-
-      </div>
 
       <div >
-        <form [formGroup]="newMessage" class="chat-form2">
-          <textarea id="textarea" formControlName="text" class="form" placeholder="Write a message..."  rows="1" ></textarea>
+        <form [formGroup]="newMessage" class="chat-form2" [ngStyle]="{'display': this.chatState == 'find-users' ? 'none' : 'flex' }">
+          <!-- {{this.chatState}} -->
+          <textarea id="textarea" formControlName="text" class="form" placeholder="Write a message..."  rows="1"></textarea>
           <div class="chat-form-logo-section">
             <i class="fa fa-arrow-circle-up chat-form-logo" aria-hidden="true" (click)="sendMessage()"></i>
           </div>
@@ -90,8 +109,7 @@
 
     </div>
 
-    <div class="main-chat find-user-list" *ngIf="this.chatState && this.chatState == 'find-users'">
-
+    <!-- <div class="main-chat find-user-list" >
       <div *ngFor="let user of allUsers">
         <div class="find-user-entry" (click)="startChat(user)">
           <div class="find-user-image-section">
@@ -102,10 +120,8 @@
           </div>
 
         </div>
-
-
       </div>
-    </div>
+    </div> -->
   </div>
 
 
