@@ -16,9 +16,31 @@
 
       <div id="main-section-details" class="light-text" style="z-index: 1">
 
+        <div id="play-video-section" style="z-index:2;">
+          <i class="fa fa-play-circle play-icon" data-toggle="modal" data-target="#PromoVideoModal"></i>
+
+          <div class="modal fade video-modal" id="PromoVideoModal" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="PromoVideoModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <button type="button" class="close promo-close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <video id="walkthrough-video" class="walk-through-video" style="border-radius:0;" controls>
+                  <source src="../../../assets/walkthrough-2.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+
+
         <div id="main-header" class="section-item head-text"  >
           <p> Let your community <b style="color: #04151e;">EMPOWER</b> you.</p>
         </div>
+
 
         <div id="sub-header" class="section-item sub-head-text">
           <span>
@@ -34,11 +56,11 @@
 
         </div>
 
-        <div id="get-started" class="section-item" style="font-size:1.5em;">
+        <div id="get-started" class="section-item" style="font-size:1.3em;">
           <div class="get-started-button"  (click)="router.navigate(['/profile']);">Get Started!</div>
         </div>
 
-        <div id="sub-header" class="sub-text" style="font-size: 0.9em;padding: 2em 0 1em 0;color: #abd6e7;">
+        <div id="sub-header" class="sub-text" style="font-size: 0.9em;padding: 0em 0 1em 0;color: #abd6e7;">
           <div>First time here?</div>
           <div>Click below to find out more!</div>
         </div>
