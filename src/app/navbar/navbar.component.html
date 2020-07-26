@@ -8,29 +8,29 @@
     </button> -->
   </div>
 
- <!-- middle logo -->
- <div id="main-logo" class="mx-auto order-0">
-  <a class="navbar-brand brand-title"  href="home">
-    <img src="../../assets/splash-symbol.png" width="25" height="25" class="d-inline-block" alt="">
-    weShare
-  </a>
-</div>
+  <!-- middle logo -->
+  <div id="main-logo" class="mx-auto order-0">
+    <a class="navbar-brand brand-title" href="home">
+      <img src="../../assets/splash-symbol.png" width="25" height="25" class="d-inline-block" alt="">
+      weShare
+    </a>
+  </div>
 
   <!-- right items (logged in) -->
   <div id="right-nav-items" *ngIf="isLogin">
     <ul class="nav list-inline ml-auto">
 
       <!-- notification -->
-      <li class="list-inline-item dropdown">
-        <a data-toggle="dropdown" class="nav-link nav-text nav-item" id="dropdownMenuButton"
-          routerLinkActive="active" href="javascript:void(0);">
+      <li class="list-inline-item dropdown" >
+        <a data-toggle="dropdown" class="nav-link nav-text nav-item" id="dropdownMenuButton" routerLinkActive="active"
+          href="javascript:void(0);">
           <i class="fa fa-bell"></i>
           <span class="badge badge-warning noti-bell">{{this.notificationCount}}</span>
         </a>
 
         <!-- Notifications -->
-        <div class="dropdown-menu dropdown-menu-right nav-dropdown " aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item nav-entry" *ngFor="let notification of this.notifications">
+        <div  class="dropdown-menu dropdown-menu-right nav-dropdown " aria-labelledby="dropdownMenuButton" >
+          <a class="dropdown-item nav-entry" *ngFor="let notification of this.notifications" (click)="$event.stopPropagation()">
             <div class="nav-entry-desc">
               <div class="nav-entry-text">{{notification['description']}}</div>
               <div class="nav-entry-icon-section">
@@ -44,19 +44,19 @@
 
           </a>
         </div>
-
       </li>
 
       <!-- image dropdown -->
       <li class="list-inline-item dropdown" style="position:relative;">
-        <a class="nav-link nav-text nav-item dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link nav-text nav-item dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img src="{{this.userImg}}" class="image-holder">
         </a>
 
         <!-- dropdown menu -->
         <div class="dropdown-menu dropdown-menu-right nav-dropdown" style="margin:0;">
-          <a class="dropdown-item nav-entry" style="width: 100%;text-align: center;" href="javascript:void(0);" (click)="auth.signOut()">
+          <a class="dropdown-item nav-entry" style="width: 100%;text-align: center;" href="javascript:void(0);"
+            (click)="auth.signOut()">
             <i class="fa fa-sign-out"></i>
             Logout
           </a>

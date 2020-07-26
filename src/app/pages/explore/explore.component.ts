@@ -384,15 +384,4 @@ export class ExploreComponent implements OnInit {
         this.reloadRequests(inputActive.checked, inputOngoing.checked, inputDone.checked, inputExpired.checked);
     }
 
-    showOngoingRequests(element) {
-        console.log(element.checked);
-    }
-
-    showDoneRequests(element) {
-        console.log(element.checked);
-    }
-
-    showExpiredRequests(element) {
-        console.log(element.checked);
-    }
 }
