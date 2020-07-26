@@ -32,9 +32,9 @@ export class UserService {
     return this.afs.doc(`user/${userID}`).set(data, { merge: true });
   }
 
-  
 
-  
+
+
 
   // increaseListingCount(userID) {
   //   const increment = firebase.firestore.FieldValue.increment(1);
