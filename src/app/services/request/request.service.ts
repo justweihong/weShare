@@ -106,7 +106,7 @@ export class RequestService {
                 }
                 this.afs.doc(`requests/${requestID}`).set(dataToChange, { merge: true }).then(() => {
                     // this.subject2.next();
-                    console.log("done")
+                    // console.log("done")
                 })
                     .then(() => {
                         var data = {

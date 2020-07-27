@@ -60,6 +60,28 @@ b {
 .section {
   position:relative;
 }
+
+.play-icon {
+  cursor: pointer;
+  font-size:5em;
+}
+.play-icon:hover {
+  color:#328eb3;
+  /* border:solid;
+  border-color:#fff; */
+  -webkit-text-stroke: 2px #fff;
+  /* background:#328eb3; */
+}
+.video-modal {
+  margin-top:10em;
+}
+.promo-close {
+  position: absolute;
+  z-index: 1!important;
+  font-size: 3em;
+  top: 0.5em;
+  right: 0.5em;
+}
 .main-bg {
   background-image: url("/../../assets/landing-page-main.gif");
   /* background-image: url("/../../assets/main-bg.gif"); */
@@ -383,6 +405,9 @@ b {
   .section-height {
     min-height: 800px;
     height:1100px;
+  }
+  .head-text {
+    font-size:2.2em;
   }
   #disclaimer-header {
     font-size:2em;

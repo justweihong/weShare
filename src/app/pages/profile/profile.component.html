@@ -73,6 +73,18 @@
 
             </div>
 
+            <!-- hostel details -->
+            <div id="hostel-details" class="section-item bottom-border">
+              <div style="margin-right:0.5em"> Hostel : </div>
+
+              <div id="room-display">
+                <div *ngIf="this.roomDetails"> ABC Hall (*P.S. No option because we still do not support multiple communities )</div>
+                <div *ngIf="!this.roomDetails" style="color:red;">nil</div>
+              </div>
+
+
+            </div>
+
         </form>
 
       </div>

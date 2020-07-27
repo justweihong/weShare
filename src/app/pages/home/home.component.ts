@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
-// declare var $ : any;
-import * as $ from 'jquery';
+declare var $ : any;
+// import * as $ from 'jquery';
 
 @Component({
   selector: 'app-home',
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     //             return false;
     //         }
     //     });
-    // });
+    // })
 
 
   })

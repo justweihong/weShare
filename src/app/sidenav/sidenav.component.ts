@@ -81,7 +81,7 @@ export class SidenavComponent implements OnInit {
             this.displayName = firebaseUser['displayName'];
             this.userEmail = firebaseUser['email'];
             this.userImg = firebaseUser['profileImg'];
-            console.log(this.userImg);
+            // console.log(this.userImg);
           })
         }
       })
