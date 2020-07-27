@@ -51,7 +51,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     var self = this;
     // $(".chat-message-list").css("height", 'calc( 100vh - 60px - 5em - ' + $(".chat-form2").height() + 'px' );
     $( document ).ready(function() {
-      console.log( "document loaded" );
+      // console.log( "document loaded" );
 
       // Autosize textarea.
       // var textarea = document.querySelector('textarea')
@@ -88,7 +88,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (!this.chatState) {
         this.chatState = "nil";
     }
-    console.log("initial", this.chatState);
+    // console.log("initial", this.chatState);
 
     // Get user details.
     this.auth.getUser().pipe(take(1)).subscribe(user => {
@@ -99,12 +99,12 @@ export class ChatComponent implements OnInit, OnDestroy {
       //get my chats
       this.subscriptions.push(this.chatService.getChats().pipe().subscribe(chats => {
 
-        console.log("chat");
+        // console.log("chat");
         var myChats = [];
 
         var getAllUserData = [];
         chats.forEach(chat => {
-          console.log(chat);
+          // console.log(chat);
 
           var getUserData = new Promise((resolve) => {
             if (chat['user1'] == this.userID || chat['user2'] == this.userID) {
@@ -131,7 +131,7 @@ export class ChatComponent implements OnInit, OnDestroy {
           getAllUserData.push(getUserData);
 
         })
-        console.log(getAllUserData)
+        // console.log(getAllUserData)
 
         Promise.all(getAllUserData).then(() => {
           this.myChats = myChats;
@@ -252,7 +252,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   sendMessage() {
-    console.log(this.currentChat['otherUserData']);
+    // console.log(this.currentChat['otherUserData']);
     this.checkIfChatExist(this.userID, this.currentChat['otherUserData']['uid']).then(answer => {
       if (answer == true) {
         if (this.text.value != "") { // don't send empty message
