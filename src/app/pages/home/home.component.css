@@ -73,7 +73,12 @@ b {
   /* background:#328eb3; */
 }
 .video-modal {
-  margin-top:10em;
+  /* margin-top:10em; */
+}
+.video-sub-modal {
+  margin: 0!important;
+  border: none;
+  background: #1a5369;
 }
 .promo-close {
   position: absolute;
@@ -361,7 +366,7 @@ b {
 @keyframes animate {
   0% {
     border-color: aliceblue;
-    transform:translate(0,0);
+    transform:tranmodal-lslate(0,0);
   }
   100% {
     border-color: aliceblue;
@@ -390,6 +395,13 @@ b {
   .feature-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .modal-dialog {
+    max-width:100vh;
+  }
+  .video-sub-modal {
+    width:150%!important;
+    margin-left:-25%!important;
+  }
 }
 
 @media screen and (max-width:1024px) {
@@ -399,6 +411,13 @@ b {
   .feature-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  /* .video-sub-modal {
+    width:120%!important;
+    margin-left:-0%!important;
+  } */
+}
+@media (min-width: 576px) {
+
 }
 
 @media screen and (max-width:480px) {
@@ -421,6 +440,10 @@ b {
   .feature-grid {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
+  /* .video-sub-modal {
+    width:100%!important;
+    margin-left:0%!important;
+  } */
 }
 
 
