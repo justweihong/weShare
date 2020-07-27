@@ -17,12 +17,12 @@
       <div id="main-section-details" class="light-text" style="z-index: 1">
 
         <div id="play-video-section" style="z-index:2;">
-          <i class="fa fa-play-circle play-icon" data-toggle="modal" data-target="#PromoVideoModal"></i>
+          <i class="fa fa-play-circle play-icon" (click)="open(PromoVideoModal)"></i>
 
-          <div class="modal fade video-modal" id="PromoVideoModal" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="PromoVideoModal" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                <button type="button" class="close promo-close" data-dismiss="modal" aria-label="Close">
+          <ng-template  #PromoVideoModal class="modal fade video-modal" style="width:1000px;" id="PromoVideoModal" let-modal>
+            <div class="modal-dialog modal-dialog-centered video-sub-modal" role="document">
+              <div class="modal-content play-content">
+                <button type="button" class="close promo-close"  aria-label="Close" (click)="modal.dismiss('Cross click')">
                   <span aria-hidden="true">&times;</span>
                 </button>
                 <video id="walkthrough-video" class="walk-through-video" style="border-radius:0;" controls>
@@ -30,7 +30,7 @@
                 </video>
               </div>
             </div>
-          </div>
+          </ng-template>
 
 
         </div>

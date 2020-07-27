@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
 // declare var $ : any;
 import * as $ from 'jquery';
+import { NgbModal, NgbModalOptions, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -10,8 +11,11 @@ import * as $ from 'jquery';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  closeResult: string;
+  modalOptions: NgbModalOptions;
 
   constructor(
+    private modalService: NgbModal,
       public auth: AuthService,
       public router: Router,
   ) { }
@@ -58,4 +62,24 @@ export class HomeComponent implements OnInit {
     }, 1000);
 
   }
+
+  open(content) {
+    // this.modalService.open(content, this.modalOptions).result.then((result) => {
+    this.modalService.open(content, {windowClass: 'modal-holder', centered: true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
 }
